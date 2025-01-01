@@ -1,26 +1,25 @@
-// Copyright (c) 2004, 2012 Robert Nordier.  All rights reserved.
+// Copyright (c) 2004, 2012 Robert Nordier. All rights reserved.
+// RISC-V adaptation (c) 2024
 
-// BCPL compiler backend: generates x86 assembler from INTCODE
+// BCPL compiler backend: generates RISC-V assembler from INTCODE
 
 GET "LIBHDR"
 
 MANIFEST $( WORDSZ=4; GSZ=500; LSZ=500 $)
 
 // Type values (N=number, P=local, G=global, L=static, R=register)
-// at up to two levels of indirection
 MANIFEST $(
 T.N=0;  T.LP=1; T.LG=2;  T.LL=3
 T.R=4;  T.P=5;  T.G=6;   T.L=7
 T.IR=8; T.IP=9; T.IG=10; T.IL=11
 $)
 
-// Assembler statement patterns for code generation: with the
-// jump instructions first, as they need to be distinguished
+// RISC-V instruction patterns
 MANIFEST $(
-A.JE=0;   A.JNE=1;  A.JL=2;   A.JGE=3;  A.JG=4;   A.JLE=5;  A.JMP=6
-A.MUL=7;  A.DIV=8;  A.MOV=9;  A.ADD=10; A.SUB=11; A.CMP=12; A.SHL=13
-A.SHR=14; A.AND=15; A.OR=16;  A.XOR=17; A.MV2=18; A.LEA=19; A.SL2=20
-A.SR2=21; A.SNE=22; A.SE=23;  A.SGE=24; A.SL=25;  A.SLE=26; A.SG=27
+A.BEQ=0;  A.BNE=1;  A.BLT=2;   A.BGE=3;  A.BGT=4;   A.BLE=5;  A.J=6
+A.MUL=7;  A.DIV=8;  A.MV=9;    A.ADD=10; A.SUB=11;  A.SLT=12; A.SLL=13
+A.SRL=14; A.AND=15; A.OR=16;   A.XOR=17; A.SW=18;   A.LW=19;  A.ADDI=20
+A.SLLI=21; A.SRLI=22; A.JALR=23; A.JAL=24
 $)
 
 GLOBAL $(
@@ -127,8 +126,8 @@ $(  STATIC $(
         AND M = E | (NOT J & T=T.LL)
         AND I = T>=T.IR
         IF FORCE | M | I $(
-            CODE1(E -> A.LEA, A.MOV, A, T, R)
-            IF M & NOT J CODE1(A.SHR, 2, T.N, R)
+            CODE1(E -> A.LW, A.MV, A, T, R)
+            IF M & NOT J CODE1(A.SRLI, 2, T.N, R)
             A, T := R, I -> T.IR, T.R
         $)
     $)
@@ -144,13 +143,13 @@ $(  STATIC $(
         ENDCASE
     CASE 'D':
         SECT := 1
-        DATA(".long @A", A, T)
+        DATA(".word @A", A, T)
         SECT := 0
         ENDCASE
     CASE 'C':
         SECT := 1
         DATA(".byte @A", A, 0)
-        UNLESS F1='C' EMIT(".align 4,0")
+        UNLESS F1='C' EMIT(".align 2")
         SECT := 0
         ENDCASE
     CASE 'L':
@@ -159,55 +158,55 @@ $(  STATIC $(
         ENDCASE
     CASE 'A': CASE 'S':
         LOAD(1, FALSE, FALSE)
-        CODE((F='A' -> A.ADD, A.MV2), A, T)
+        CODE((F='A' -> A.ADD, A.SW), A, T)
         ENDCASE
     CASE 'J':
         LOAD(1, TRUE, FALSE)
-        CODE(A.JMP, A, T)
+        CODE(A.JALR, A, T)
         ENDCASE
     CASE 'T': CASE 'F':
         UNLESS T=T.LL ERROR(6)
         X := A0
         UNLESS F0='X' & 10<=X<=15 $(
-            EMIT("testl %eax,%eax")
+            EMIT("bnez a0,1f")
             X := 11
         $)
         CODE((X - 10) NEQV (F='F' -> 1, 0), A, T)
         ENDCASE
     CASE 'K':
         UNLESS T=T.N ERROR(7)
-        EMIT("movl %ebp,%ecx")
-        EMIT("addl @A,%ebp", A << 2, T.N, 0, FALSE);
-        EMIT("movl %ecx,(%ebp)")
-        EMIT("movl $1f,4(%ebp)")
-        EMIT("jmp **%eax")
+        EMIT("mv s1,sp")
+        EMIT("addi sp,sp,@A", A << 2, T.N, 0, FALSE)
+        EMIT("sw s1,0(sp)")
+        EMIT("la s1,1f")
+        EMIT("sw s1,4(sp)")
+        EMIT("jalr zero,a0,0")
         EMIT("1:")
         ENDCASE
     CASE 'X':
         SWITCHON A INTO $(
         DEFAULT: ERROR(8)
         CASE 1:
-            EMIT("movl (,%eax,4),%eax")
+            EMIT("lw a0,0(a0)")
             ENDCASE
         CASE 2:
-            EMIT("negl %eax")
+            EMIT("neg a0,a0")
             ENDCASE
         CASE 3:
-            EMIT("xorl $-1,%eax")
+            EMIT("not a0,a0")
             ENDCASE
         CASE 4:
-            EMIT("movl 4(%ebp),%ecx")
-            EMIT("movl (%ebp),%ebp")
-            EMIT("jmp **%ecx")
+            EMIT("lw t0,4(sp)")
+            EMIT("lw sp,0(sp)")
+            EMIT("jalr zero,t0,0")
             ENDCASE
         CASE 5:
             CODE(A.MUL, A0, T0)
             ENDCASE
         CASE 6: CASE 7:
-            EMIT("cltd")
             CODE(A.DIV, A0, T0)
             IF A=7
-                EMIT("movl %edx,%eax")
+                EMIT("mv a0,a1")
             ENDCASE
         CASE 8:
             CODE(A.ADD, A0, T0)
@@ -216,18 +215,18 @@ $(  STATIC $(
             CODE(A.SUB, A0, T0)
             ENDCASE
         CASE 10: CASE 11: CASE 12: CASE 13: CASE 14: CASE 15:
-            CODE(A.CMP, A0, T0)
+            CODE(A.SLT, A0, T0)
             IF F1='F' | F1='T'
                 ENDCASE
-            EMIT(ASTR(A - 10 + A.SNE))
-            EMIT("movzbl %al,%eax")
-            EMIT("decl %eax")
+            EMIT(ASTR(A - 10 + A.BNE))
+            EMIT("andi a0,a0,1")
+            EMIT("addi a0,a0,-1")
             ENDCASE
         CASE 16:
-            CODE(T0=T.N -> A.SHL, A.SL2, A0, T0)
+            CODE(T0=T.N -> A.SLL, A.SLLI, A0, T0)
             ENDCASE
         CASE 17:
-            CODE(T0=T.N -> A.SHR, A.SR2, A0, T0)
+            CODE(T0=T.N -> A.SRL, A.SRLI, A0, T0)
             ENDCASE
         CASE 18:
             CODE(A.AND, A0, T0)
@@ -239,26 +238,28 @@ $(  STATIC $(
             CODE(A.XOR, A0, T0)
             ENDCASE
         CASE 21:
-            EMIT("xorl $-1,%eax")
+            EMIT("not a0,a0")
             CODE(A.XOR, A0, T0)
             ENDCASE
         CASE 22:
-            EMIT("jmp finish")
+            EMIT("j finish")
             ENDCASE
         CASE 23:
-            EMIT("movl @A,%esi", XL, T.LL, 0, FALSE)
-            EMIT("movl (%esi),%ecx")
-            EMIT("movl 4(%esi),%edx")
-            EMIT("jecxz 2f")
+            EMIT("la s1,@A", XL, T.LL, 0, FALSE)
+            EMIT("lw t1,0(s1)")
+            EMIT("lw t2,4(s1)")
+            EMIT("beqz t1,2f")
             EMIT("1:")
-            EMIT("addl $8,%esi")
-            EMIT("cmpl (%esi),%eax")
-            EMIT("je 3f")
-            EMIT("loop 1b")
+            EMIT("addi s1,s1,8")
+            EMIT("lw t0,0(s1)")
+            EMIT("beq a0,t0,3f")
+            EMIT("addi t1,t1,-1")
+            EMIT("bnez t1,1b")
             EMIT("2:")
-            EMIT("jmp **%edx")
+            EMIT("jalr zero,t2,0")
             EMIT("3:")
-            EMIT("jmp **4(%esi)")
+            EMIT("lw t0,4(s1)")
+            EMIT("jalr zero,t0,0")
             L!LN := XL
             LN := LN + 1
             XL := XL + 1
@@ -282,14 +283,14 @@ $(  STATIC $(
             EMIT("call findoutput")
             ENDCASE
         CASE 30:
-            EMIT("jmp stop")
+            EMIT("j stop")
             ENDCASE
         CASE 31:
-            EMIT("movl (%ebp),%eax")
+            EMIT("lw a0,0(sp)")
             ENDCASE
         CASE 32:
-            EMIT("movl %ecx,%ebp")
-            EMIT("jmp **%eax")
+            EMIT("mv sp,t0")
+            EMIT("jalr zero,a0,0")
             ENDCASE
         CASE 33:
             EMIT("call endread")
@@ -298,32 +299,33 @@ $(  STATIC $(
             EMIT("call endwrite")
             ENDCASE
         CASE 35:
-            EMIT("movl %ebp,%esi")
-            EMIT("movl %eax,%ebx")
-            EMIT("incl %ebx")
-            EMIT("shll $2,%ebx")
-            EMIT("addl %ebx,%esi")
-            EMIT("movl (%ebp),%ebx")
-            EMIT("movl %ebx,(%esi)")
-            EMIT("movl 4(%ebp),%ebx")
-            EMIT("movl %ebx,4(%esi)")
-            EMIT("movl %ebp,%ebx")
-            EMIT("shrl $2,%ebx")
-            EMIT("movl %ebx,8(%esi)")
-            EMIT("movl %eax,12(%esi)")
-            EMIT("movl %esi,%ebp")
-            EMIT("jmp **%ecx")
+            EMIT("mv s1,sp")
+            EMIT("mv t0,a0")
+            EMIT("addi t0,t0,1")
+            EMIT("slli t0,t0,2")
+            EMIT("add s1,s1,t0")
+            EMIT("lw t0,0(sp)")
+            EMIT("sw t0,0(s1)")
+            EMIT("lw t0,4(sp)")
+            EMIT("sw t0,4(s1)")
+            EMIT("mv t0,sp")
+            EMIT("srli t0,t0,2")
+            EMIT("sw t0,8(s1)")
+            EMIT("sw a0,12(s1)")
+            EMIT("mv sp,s1")
+            EMIT("jalr zero,t1,0")
             ENDCASE
         CASE 36:
-            EMIT("shll $2,%ecx")
-            EMIT("addl %eax,%ecx")
-            EMIT("movzbl (%ecx),%eax")
+            EMIT("slli t1,t1,2")
+            EMIT("add t1,a0,t1")
+            EMIT("lb a0,0(t1)")
+            EMIT("andi a0,a0,0xff")
             ENDCASE
         CASE 37:
-            EMIT("shll $2,%ecx")
-            EMIT("addl %eax,%ecx")
-            EMIT("movl 16(%ebp),%eax")
-            EMIT("movb %al,(%ecx)")
+            EMIT("slli t1,t1,2")
+            EMIT("add t1,a0,t1")
+            EMIT("lw a0,16(sp)")
+            EMIT("sb a0,0(t1)")
             ENDCASE
         CASE 38:
             EMIT("call input")
@@ -345,46 +347,43 @@ $)
 AND EPILOG() BE
 $(  SECT := 1
     EMIT(".global G")
-    EMIT(".align 4")
+    EMIT(".align 2")
     EMIT("G:")
     FOR I = 0 TO GSZ-1
-        EMIT(".long @A # @N", G!I, G!I -> T.LL, T.N, I, 1)
+        EMIT(".word @A # @N", G!I, G!I -> T.LL, T.N, I, 1)
 $)
 
 AND CODE(OP, A, T) BE CODE1(OP, A, T, 0)
-AND CODE1(OP, A, T, R) BE EMIT(ASTR(OP), A, T, R, OP<=A.JMP)
+AND CODE1(OP, A, T, R) BE EMIT(ASTR(OP), A, T, R, OP<=A.J)
 AND DATA(S, A, T) BE EMIT(S, A, T, 0, TRUE)
 
 AND ASTR(X) = VALOF
     SWITCHON X INTO $(
-    CASE A.JE:  RESULTIS "je @A"
-    CASE A.JNE: RESULTIS "jne @A"
-    CASE A.JL:  RESULTIS "jl @A"
-    CASE A.JGE: RESULTIS "jge @A"
-    CASE A.JG:  RESULTIS "jg @A"
-    CASE A.JLE: RESULTIS "jle @A"
-    CASE A.JMP: RESULTIS "jmp @A"
-    CASE A.MUL: RESULTIS "imull @A"
-    CASE A.DIV: RESULTIS "idivl @A"
-    CASE A.MOV: RESULTIS "movl @A,@R"
-    CASE A.ADD: RESULTIS "addl @A,@R"
-    CASE A.SUB: RESULTIS "subl @A,@R"
-    CASE A.CMP: RESULTIS "cmpl @A,@R"
-    CASE A.SHL: RESULTIS "shll @A,@R"
-    CASE A.SHR: RESULTIS "shrl @A,@R"
-    CASE A.AND: RESULTIS "andl @A,@R"
-    CASE A.OR:  RESULTIS "orl @A,@R"
-    CASE A.XOR: RESULTIS "xorl @A,@R"
-    CASE A.MV2: RESULTIS "movl @R,@A"
-    CASE A.LEA: RESULTIS "leal @A,@R"
-    CASE A.SL2: RESULTIS "shll %cl,@R"
-    CASE A.SR2: RESULTIS "shrl %cl,@R"
-    CASE A.SNE: RESULTIS "setne %al"
-    CASE A.SE:  RESULTIS "sete %al"
-    CASE A.SGE: RESULTIS "setge %al"
-    CASE A.SL:  RESULTIS "setl %al"
-    CASE A.SLE: RESULTIS "setle %al"
-    CASE A.SG:  RESULTIS "setg %al"
+    CASE A.BEQ:  RESULTIS "beq a0,zero,@A"
+    CASE A.BNE:  RESULTIS "bne a0,zero,@A"
+    CASE A.BLT:  RESULTIS "blt a0,zero,@A"
+    CASE A.BGE:  RESULTIS "bge a0,zero,@A"
+    CASE A.BGT:  RESULTIS "bgt a0,zero,@A"
+    CASE A.BLE:  RESULTIS "ble a0,zero,@A"
+    CASE A.J:    RESULTIS "j @A"
+    CASE A.MUL:  RESULTIS "mul @A"
+    CASE A.DIV:  RESULTIS "div @A"
+    CASE A.MV:   RESULTIS "mv @A,@R"
+    CASE A.ADD:  RESULTIS "add @A,@R"
+    CASE A.SUB:  RESULTIS "sub @A,@R"
+    CASE A.SLT:  RESULTIS "slt @A,@R"
+    CASE A.SLL:  RESULTIS "sll @A,@R"
+    CASE A.SRL:  RESULTIS "srl @A,@R"
+    CASE A.AND:  RESULTIS "and @A,@R"
+    CASE A.OR:   RESULTIS "or @A,@R"
+    CASE A.XOR:  RESULTIS "xor @A,@R"
+    CASE A.SW:   RESULTIS "sw @R,@A"
+    CASE A.LW:   RESULTIS "lw @A,@R"
+    CASE A.ADDI: RESULTIS "addi @A,@R"
+    CASE A.SLLI: RESULTIS "slli @A,@R"
+    CASE A.SRLI: RESULTIS "srli @A,@R"
+    CASE A.JALR: RESULTIS "jalr @A"
+    CASE A.JAL:  RESULTIS "jal @A"
     DEFAULT: ERROR(9)
     $)
 
@@ -420,15 +419,15 @@ $)
 
 AND ARGOUT(A, T) BE
 $(  TEST T=T.R | T=T.IR $(
-        IF T=T.IR WRITES("(,")
-        WRITES(A=0 -> "%eax", "%ecx")
-        IF T=T.IR WRITES(",4)")
+        IF T=T.IR WRITES("(")
+        WRITES(A=0 -> "a0", "a1")
+        IF T=T.IR WRITES(")")
     $) OR $(
         LET K, E = T & 3, K=T.LP | K=T.LG
         IF K=T.LL WRCH('L')
         IF E DO A := A * WORDSZ
         WRN(A)
-        IF E WRITES(K=T.LP -> "(%ebp)", "(%edi)")
+        IF E WRITES(K=T.LP -> "(sp)", "(s0)")
     $)
 $)
 
@@ -471,3 +470,6 @@ $(  SELECTOUTPUT(ERR)
     WRITEF("xg error %N*N", N)
     STOP(1)
 $)
+
+
+
