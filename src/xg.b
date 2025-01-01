@@ -176,7 +176,7 @@ $(  STATIC $(
     CASE 'K':
         UNLESS T=T.N ERROR(7)
         EMIT("mv s1,sp")
-        EMIT("addi sp,sp,@A", A << 2, T.N, 0, FALSE)
+        EMIT("addi sp,sp,-@A", A << 2, T.N, 0, FALSE)
         EMIT("sw s1,0(sp)")
         EMIT("la s1,1f")
         EMIT("sw s1,4(sp)")
@@ -344,6 +344,36 @@ $(  STATIC $(
     F, A, T := F1, A1, T1
 $)
 
+AND ASTR(X) = VALOF
+    SWITCHON X INTO $(
+    CASE A.BEQ:  RESULTIS "beq a0,zero,@A"
+    CASE A.BNE:  RESULTIS "bne a0,zero,@A"
+    CASE A.BLT:  RESULTIS "blt a0,zero,@A"
+    CASE A.BGE:  RESULTIS "bge a0,zero,@A"
+    CASE A.BGT:  RESULTIS "bgt a0,zero,@A"
+    CASE A.BLE:  RESULTIS "ble a0,zero,@A"
+    CASE A.J:    RESULTIS "j @A"
+    CASE A.MUL:  RESULTIS "mul a0,a0,@A"
+    CASE A.DIV:  RESULTIS "div a0,a0,@A"
+    CASE A.MV:   RESULTIS "mv @R,@A"
+    CASE A.ADD:  RESULTIS "add a0,a0,@R"
+    CASE A.SUB:  RESULTIS "sub a0,a0,@R"
+    CASE A.SLT:  RESULTIS "slt a0,a0,@R"
+    CASE A.SLL:  RESULTIS "sll a0,a0,@R"
+    CASE A.SRL:  RESULTIS "srl a0,a0,@R"
+    CASE A.AND:  RESULTIS "and a0,a0,@R"
+    CASE A.OR:   RESULTIS "or a0,a0,@R"
+    CASE A.XOR:  RESULTIS "xor a0,a0,@R"
+    CASE A.SW:   RESULTIS "sw @R,0(a0)"
+    CASE A.LW:   RESULTIS "lw @R,0(a0)"
+    CASE A.ADDI: RESULTIS "addi a0,a0,@R"
+    CASE A.SLLI: RESULTIS "slli a0,a0,@R"
+    CASE A.SRLI: RESULTIS "srli a0,a0,@R"
+    CASE A.JALR: RESULTIS "jalr a0,@A(zero)"
+    CASE A.JAL:  RESULTIS "j @R"
+    DEFAULT: ERROR(9)
+$)
+
 AND EPILOG() BE
 $(  SECT := 1
     EMIT(".global G")
@@ -356,36 +386,6 @@ $)
 AND CODE(OP, A, T) BE CODE1(OP, A, T, 0)
 AND CODE1(OP, A, T, R) BE EMIT(ASTR(OP), A, T, R, OP<=A.J)
 AND DATA(S, A, T) BE EMIT(S, A, T, 0, TRUE)
-
-AND ASTR(X) = VALOF
-    SWITCHON X INTO $(
-    CASE A.BEQ:  RESULTIS "beq a0,zero,@A"
-    CASE A.BNE:  RESULTIS "bne a0,zero,@A"
-    CASE A.BLT:  RESULTIS "blt a0,zero,@A"
-    CASE A.BGE:  RESULTIS "bge a0,zero,@A"
-    CASE A.BGT:  RESULTIS "bgt a0,zero,@A"
-    CASE A.BLE:  RESULTIS "ble a0,zero,@A"
-    CASE A.J:    RESULTIS "j @A"
-    CASE A.MUL:  RESULTIS "mul @A"
-    CASE A.DIV:  RESULTIS "div @A"
-    CASE A.MV:   RESULTIS "lw @R,@A"
-    CASE A.ADD:  RESULTIS "add @A,@R"
-    CASE A.SUB:  RESULTIS "sub @A,@R"
-    CASE A.SLT:  RESULTIS "slt @A,@R"
-    CASE A.SLL:  RESULTIS "sll @A,@R"
-    CASE A.SRL:  RESULTIS "srl @A,@R"
-    CASE A.AND:  RESULTIS "and @A,@R"
-    CASE A.OR:   RESULTIS "or @A,@R"
-    CASE A.XOR:  RESULTIS "xor @A,@R"
-    CASE A.SW:   RESULTIS "sw @R,@A"
-    CASE A.LW:   RESULTIS "lw @A,@R"
-    CASE A.ADDI: RESULTIS "addi @A,@R"
-    CASE A.SLLI: RESULTIS "slli @A,@R"
-    CASE A.SRLI: RESULTIS "srli @A,@R"
-    CASE A.JALR: RESULTIS "jal @A"
-    CASE A.JAL:  RESULTIS "j @R"
-    DEFAULT: ERROR(9)
-    $)
 
 AND EMIT(S, A, T, X, J) BE
 $(  STATIC $( PSECT=0 $)
@@ -402,7 +402,7 @@ $(  STATIC $( PSECT=0 $)
             I := I + 1
             SWITCHON GETBYTE(S, I) INTO $(
             CASE 'A':
-                TEST NOT J & (T=T.N | T=T.LL) WRCH('$')
+                TEST NOT J & (T=T.N | T=T.LL) WRCH(')')
                 OR IF J & T>=T.R WRCH('**')
                 ARGOUT(A, T)
                 ENDCASE
@@ -470,6 +470,3 @@ $(  SELECTOUTPUT(ERR)
     WRITEF("xg error %N*N", N)
     STOP(1)
 $)
-
-
-
