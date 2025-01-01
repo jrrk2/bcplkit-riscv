@@ -371,6 +371,7 @@ AND ASTR(X) = VALOF
     CASE A.SRLI: RESULTIS "srli a0,a0,2"
     CASE A.JALR: RESULTIS "jalr zero,a0,0"
     CASE A.JAL:  RESULTIS "jal L@R"
+    DEFAULT: ERROR(9)
 $)
 
 AND EPILOG() BE
