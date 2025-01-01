@@ -368,7 +368,7 @@ AND ASTR(X) = VALOF
     CASE A.J:    RESULTIS "j @A"
     CASE A.MUL:  RESULTIS "mul @A"
     CASE A.DIV:  RESULTIS "div @A"
-    CASE A.MV:   RESULTIS "mv @A,@R"
+    CASE A.MV:   RESULTIS "lw @R,@A"
     CASE A.ADD:  RESULTIS "add @A,@R"
     CASE A.SUB:  RESULTIS "sub @A,@R"
     CASE A.SLT:  RESULTIS "slt @A,@R"
@@ -382,8 +382,8 @@ AND ASTR(X) = VALOF
     CASE A.ADDI: RESULTIS "addi @A,@R"
     CASE A.SLLI: RESULTIS "slli @A,@R"
     CASE A.SRLI: RESULTIS "srli @A,@R"
-    CASE A.JALR: RESULTIS "jalr @A"
-    CASE A.JAL:  RESULTIS "jal @A"
+    CASE A.JALR: RESULTIS "jal @A"
+    CASE A.JAL:  RESULTIS "j @R"
     DEFAULT: ERROR(9)
     $)
 
