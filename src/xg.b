@@ -364,8 +364,8 @@ AND ASTR(X) = VALOF
     CASE A.AND:  RESULTIS "and a0,a0,a1"
     CASE A.OR:   RESULTIS "or a0,a0,a1"
     CASE A.XOR:  RESULTIS "xor a0,a0,a1"
-    CASE A.SW:   RESULTIS "sw @R,@A(sp)"
-    CASE A.LW:   RESULTIS "lw @R,@A(sp)"
+    CASE A.SW:   RESULTIS "sw @R,@A"
+    CASE A.LW:   RESULTIS "lw @R,@A"
     CASE A.ADDI: RESULTIS "addi a0,a0,@A"
     CASE A.SLLI: RESULTIS "slli a0,a0,2"
     CASE A.SRLI: RESULTIS "srli a0,a0,2"
@@ -427,7 +427,8 @@ $(  TEST T=T.R | T=T.IR THEN
             WRCH('L')
             WRN(A)
         $) ELSE $(
-          TEST E THEN $(
+          IF E DO $(
+	    IF K=T.LP WRITES("+")
             WRN(A)
             WRITES(K=T.LP -> "(sp)", "(s0)")
 	  $) ELSE WRN(A)
