@@ -179,7 +179,7 @@ $(  STATIC $(
     CASE 'K':
         UNLESS T=T.N ERROR(7)
         EMIT("mv s1,sp")
-        EMIT("addi sp,sp,-@A", A << 2, T.N, 0, FALSE)
+        EMIT("addi sp,sp,-@I", A << 2, T.N, 0, FALSE)
         EMIT("sw s1,0(sp)")
         EMIT("la s1,1f")
         EMIT("sw s1,4(sp)")
