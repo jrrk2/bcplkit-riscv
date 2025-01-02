@@ -17,7 +17,7 @@ $)
 // RISC-V instruction patterns
 MANIFEST $(
 A.BEQ=0;  A.BNE=1;  A.BLT=2;   A.BGE=3;  A.BGT=4;   A.BLE=5;  A.J=6
-A.MUL=7;  A.DIV=8;  A.MV=9;    A.ADD=10; A.SUB=11;  A.SLT=12; A.SLL=13
+A.MUL=7;  A.DIV=8;  A.LA=9;    A.ADD=10; A.SUB=11;  A.SLT=12; A.SLL=13
 A.SRL=14; A.AND=15; A.OR=16;   A.XOR=17; A.SW=18;   A.LW=19;  A.ADDI=20
 A.SLLI=21; A.SRLI=22; A.JALR=23; A.JAL=24; A.LI=25
 $)
@@ -129,7 +129,7 @@ $(  STATIC $(
         TEST T=T.N & NOT J THEN    // If loading immediate number
             CODE1(A.LI, A, T, R)   // Use li instruction
         ELSE                       // Otherwise use existing logic
-            CODE1(E -> A.LW, A.MV, A, T, R)
+            CODE1(E -> A.LW, A.LA, A, T, R)
         IF M & NOT J CODE1(A.SRLI, 2, T.N, R)
         A, T := R, I -> T.IR, T.R
         $)
@@ -358,7 +358,7 @@ AND ASTR(X) = VALOF
     CASE A.J:    RESULTIS "j L@A"
     CASE A.MUL:  RESULTIS "mul a0,a0,a1"
     CASE A.DIV:  RESULTIS "div a0,a0,a1"
-    CASE A.MV:   RESULTIS "lw @R,@A"
+    CASE A.LA:   RESULTIS "la @R,@L"
     CASE A.ADD:  RESULTIS "add a0,a0,a1"
     CASE A.SUB:  RESULTIS "sub a0,a0,a1"
     CASE A.SLT:  RESULTIS "slt a0,a0,a1"
@@ -411,6 +411,10 @@ $(  STATIC $( PSECT=0 $)
                 ARGOUT(A, T)
                 ENDCASE
             CASE 'I':
+                ARGOUT(A, T.N)
+                ENDCASE
+            CASE 'L':
+		WRCH('L')
                 ARGOUT(A, T.N)
                 ENDCASE
             CASE 'N':
