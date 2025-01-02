@@ -419,22 +419,26 @@ $)
 
 AND ARGOUT(A, T) BE
 $(  TEST T=T.R | T=T.IR $(
-        IF T=T.IR WRITES("(")
         WRITES(A=0 -> "a0", "a1")
-        IF T=T.IR WRITES(")")
-    $) OR $(
+    $) ELSE $(
         LET K, E = T & 3, K=T.LP | K=T.LG
-        IF K=T.LL WRCH('L')
         IF E DO A := A * WORDSZ
-        WRN(A)
-        IF E WRITES(K=T.LP -> "(sp)", "(s0)")
+        TEST K=T.LL THEN $(
+            WRCH('L')
+            WRN(A)
+        $) ELSE $(
+            IF E THEN WRN(A) ELSE WRN(A)
+            IF E THEN WRITES(K=T.LP -> "(sp)", "(s0)")
+        $)
     $)
 $)
 
 AND WRN(N) BE
-$(  TEST N<0 WRCH('-') OR N := -N
-    IF N<-9 WRN(-N / 10)
-    WRCH('0' - N REM 10)
+$(  TEST N<0 THEN $(
+        WRCH('-'); N := -N
+    $)
+    IF N>9 THEN WRN(N / 10)
+    WRCH('0' + N REM 10)
 $)
 
 AND RDN() = VALOF
