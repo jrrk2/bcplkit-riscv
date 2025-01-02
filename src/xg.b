@@ -426,13 +426,12 @@ $(  TEST T=T.R | T=T.IR THEN
         TEST K=T.LL THEN $(
             WRCH('L')
             WRN(A)
-        $) ELSE $(
-          IF E DO $(
-	    IF K=T.LP WRITES("+")
-            WRN(A)
-            WRITES(K=T.LP -> "(sp)", "(s0)")
-	  $) ELSE WRN(A)
-        $)
+        $) ELSE
+            TEST E THEN $(
+                WRN(A)
+                WRITES(K=T.LP -> "(sp)", "(s0)")
+            $) ELSE
+                WRN(A)
     $)
 $)
 
