@@ -418,17 +418,17 @@ $(  STATIC $( PSECT=0 $)
 $)
 
 AND ARGOUT(A, T) BE
-$(  TEST T=T.R | T=T.IR $(
+$(  TEST T=T.R | T=T.IR THEN
         WRITES(A=0 -> "a0", "a1")
-    $) ELSE $(
+    ELSE $(
         LET K, E = T & 3, K=T.LP | K=T.LG
         IF E DO A := A * WORDSZ
         TEST K=T.LL THEN $(
             WRCH('L')
             WRN(A)
         $) ELSE $(
-            IF E THEN WRN(A) ELSE WRN(A)
-            IF E THEN WRITES(K=T.LP -> "(sp)", "(s0)")
+            WRN(A)
+            IF E DO WRITES(K=T.LP -> "(sp)", "(s0)")
         $)
     $)
 $)
@@ -436,9 +436,10 @@ $)
 AND WRN(N) BE
 $(  TEST N<0 THEN $(
         WRCH('-'); N := -N
+    $) OR $(
+        WRCH('0' + N REM 10)
+        IF N>9 THEN WRN(N / 10)
     $)
-    IF N>9 THEN WRN(N / 10)
-    WRCH('0' + N REM 10)
 $)
 
 AND RDN() = VALOF
