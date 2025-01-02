@@ -19,7 +19,7 @@ MANIFEST $(
 A.BEQ=0;  A.BNE=1;  A.BLT=2;   A.BGE=3;  A.BGT=4;   A.BLE=5;  A.J=6
 A.MUL=7;  A.DIV=8;  A.MV=9;    A.ADD=10; A.SUB=11;  A.SLT=12; A.SLL=13
 A.SRL=14; A.AND=15; A.OR=16;   A.XOR=17; A.SW=18;   A.LW=19;  A.ADDI=20
-A.SLLI=21; A.SRLI=22; A.JALR=23; A.JAL=24
+A.SLLI=21; A.SRLI=22; A.JALR=23; A.JAL=24; A.LI=25
 $)
 
 GLOBAL $(
@@ -126,9 +126,12 @@ $(  STATIC $(
         AND M = E | (NOT J & T=T.LL)
         AND I = T>=T.IR
         IF FORCE | M | I $(
+        TEST T=T.N & NOT J THEN    // If loading immediate number
+            CODE1(A.LI, A, T, R)   // Use li instruction
+        ELSE                       // Otherwise use existing logic
             CODE1(E -> A.LW, A.MV, A, T, R)
-            IF M & NOT J CODE1(A.SRLI, 2, T.N, R)
-            A, T := R, I -> T.IR, T.R
+        IF M & NOT J CODE1(A.SRLI, 2, T.N, R)
+        A, T := R, I -> T.IR, T.R
         $)
     $)
 
@@ -366,11 +369,12 @@ AND ASTR(X) = VALOF
     CASE A.XOR:  RESULTIS "xor a0,a0,a1"
     CASE A.SW:   RESULTIS "sw @R,@A"
     CASE A.LW:   RESULTIS "lw @R,@A"
-    CASE A.ADDI: RESULTIS "addi a0,a0,@A"
+    CASE A.ADDI: RESULTIS "addi a0,a0,@I"
     CASE A.SLLI: RESULTIS "slli a0,a0,2"
     CASE A.SRLI: RESULTIS "srli a0,a0,2"
     CASE A.JALR: RESULTIS "jalr zero,a0,0"
     CASE A.JAL:  RESULTIS "jal L@R"
+    CASE A.LI:   RESULTIS "li @R,@I"
     DEFAULT: ERROR(9)
 $)
 
@@ -405,6 +409,9 @@ $(  STATIC $( PSECT=0 $)
                 TEST NOT J & (T=T.N | T=T.LL) WRCH(')')
                 OR IF J & T>=T.R WRCH('**')
                 ARGOUT(A, T)
+                ENDCASE
+            CASE 'I':
+                ARGOUT(A, T.N)
                 ENDCASE
             CASE 'N':
                 ARGOUT(X, T.N)
