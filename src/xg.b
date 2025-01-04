@@ -17,9 +17,10 @@ $)
 // RISC-V instruction patterns
 MANIFEST $(
 A.BEQ=0;  A.BNE=1;  A.BLT=2;   A.BGE=3;  A.BGT=4;   A.BLE=5;  A.J=6
-A.MUL=7;  A.DIV=8;  A.LA=9;    A.ADD=10; A.SUB=11;  A.SLT=12; A.SLL=13
+A.MUL=7;  A.DIV=8;  A.MV=9;    A.ADD=10; A.SUB=11;  A.SLT=12; A.SLL=13
 A.SRL=14; A.AND=15; A.OR=16;   A.XOR=17; A.SW=18;   A.LW=19;  A.ADDI=20
-A.SLLI=21; A.SRLI=22; A.JALR=23; A.JAL=24; A.LI=25
+A.SLLI=21; A.SRLI=22; A.JALR=23; A.JAL=24; A.LI=25; A.LA=26; A.LG=27;
+A.LP=28; A.SA=29; A.SG=30; A.REM=31
 $)
 
 GLOBAL $(
@@ -126,10 +127,34 @@ $(  STATIC $(
         AND M = E | (NOT J & T=T.LL)
         AND I = T>=T.IR
         IF FORCE | M | I $(
-        TEST T=T.N & NOT J THEN    // If loading immediate number
+        TEST T=T.N & NOT J THEN $(    // If loading immediate number
+            WRITEF("#T=T.N & NOT J true, coding LI*N");
             CODE1(A.LI, A, T, R)   // Use li instruction
-        ELSE                       // Otherwise use existing logic
-            CODE1(E -> A.LW, A.LA, A, T, R)
+	    $)
+        ELSE $(                      // Otherwise use existing logic
+            TEST E THEN $(
+              WRITEF("#E true, coding LW*N");
+              CODE1(A.LW, A, T, R)
+	      $)
+	    ELSE $(
+              WRITEF("#E false, coding LA*N");
+	      SWITCHON T INTO $(
+		CASE T.N: ERROR(79); ENDCASE
+		CASE T.LL: WRITEF("#A.LA chosen for T.LL*N"); CODE1(A.LA, A, T, R); ENDCASE
+		CASE T.LP: ERROR(77); ENDCASE
+		CASE T.LG: ERROR(76); ENDCASE
+		CASE T.R: WRITEF("#A.LA chosen for T.R*N"); CODE1(A.LA, A, T, R); ENDCASE
+		CASE T.P: WRITEF("#A.LP chosen for T.P*N"); CODE1(A.LP, A, T, R); ENDCASE
+		CASE T.G: WRITEF("#A.LG chosen for T.G*N"); CODE1(A.LG, A, T, R); EMIT("lw a0,0(a0)"); ENDCASE
+		CASE T.L: WRITEF("#A.LA chosen for T.L*N"); CODE1(A.LA, A, T, R); ENDCASE
+		CASE T.IR: WRITEF("#A.LA chosen for T.IR*N"); CODE1(A.LA, A, T, R); ENDCASE
+		CASE T.IP: WRITEF("#A.LP chosen for T.IP*N"); CODE1(A.LP, A, T, R); ENDCASE
+		CASE T.IG: ERROR(70); ENDCASE
+		CASE T.IL: ERROR(69); ENDCASE
+		DEFAULT: ERROR(68); ENDCASE
+		$)
+	      $)
+	    $)
         IF M & NOT J CODE1(A.SRLI, 2, T.N, R)
         A, T := R, I -> T.IR, T.R
         $)
@@ -159,9 +184,28 @@ $(  STATIC $(
         X := F1='X' & XDYADIC(A1) -> 1, 0
         LOAD(X, FALSE, X=0 | XFORCE(A1, T))
         ENDCASE
-    CASE 'A': CASE 'S':
+    CASE 'A':
         LOAD(1, FALSE, FALSE)
-        CODE((F='A' -> A.ADD, A.SW), A, T)
+        WRITEF("#A.ADD chosen*N")
+        CODE(A.ADD, A, T)
+        ENDCASE
+    CASE 'S':
+        LOAD(1, FALSE, FALSE)
+	SWITCHON T INTO $(
+	CASE T.N: ERROR(99); ENDCASE
+	CASE T.LL: ERROR(98); ENDCASE
+	CASE T.LP: ERROR(97); ENDCASE
+	CASE T.LG: ERROR(96); ENDCASE
+	CASE T.R: WRITEF("#A.MV chosen for T.R*N"); CODE(A.MV, A, T); ENDCASE
+	CASE T.P: WRITEF("#A.SW chosen for T.P*N"); CODE(A.SW, A, T); ENDCASE
+	CASE T.G: WRITEF("#A.SG chosen for T.G*N"); CODE(A.SG, A, T); ENDCASE
+	CASE T.L: WRITEF("#A.SA chosen for T.L*N"); CODE(A.SA, A, T); ENDCASE
+	CASE T.IR: WRITEF("#A.MV chosen for T.IR*N"); CODE(A.MV, A, T); ENDCASE
+	CASE T.IP: ERROR(91); ENDCASE
+	CASE T.IG: ERROR(90); ENDCASE
+	CASE T.IL: ERROR(89); ENDCASE
+	DEFAULT: ERROR(88); ENDCASE
+	$)
         ENDCASE
     CASE 'J':
         LOAD(1, TRUE, FALSE)
@@ -206,10 +250,11 @@ $(  STATIC $(
         CASE 5:
             CODE(A.MUL, A0, T0)
             ENDCASE
-        CASE 6: CASE 7:
+        CASE 6:
             CODE(A.DIV, A0, T0)
-            IF A=7
-                EMIT("mv a0,a1")
+            ENDCASE
+        CASE 7:
+            CODE(A.REM, A0, T0)
             ENDCASE
         CASE 8:
             CODE(A.ADD, A0, T0)
@@ -248,7 +293,7 @@ $(  STATIC $(
             EMIT("j finish")
             ENDCASE
         CASE 23:
-            EMIT("la s1,@A", XL, T.LL, 0, FALSE)
+            EMIT("la s1,@L", XL, T.LL, 0, FALSE)
             EMIT("lw t1,0(s1)")
             EMIT("lw t2,4(s1)")
             EMIT("beqz t1,2f")
@@ -358,7 +403,7 @@ AND ASTR(X) = VALOF
     CASE A.J:    RESULTIS "j L@A"
     CASE A.MUL:  RESULTIS "mul a0,a0,a1"
     CASE A.DIV:  RESULTIS "div a0,a0,a1"
-    CASE A.LA:   RESULTIS "la @R,@L"
+    CASE A.MV:   RESULTIS "mv @R,@R"
     CASE A.ADD:  RESULTIS "add a0,a0,a1"
     CASE A.SUB:  RESULTIS "sub a0,a0,a1"
     CASE A.SLT:  RESULTIS "slt a0,a0,a1"
@@ -368,6 +413,7 @@ AND ASTR(X) = VALOF
     CASE A.OR:   RESULTIS "or a0,a0,a1"
     CASE A.XOR:  RESULTIS "xor a0,a0,a1"
     CASE A.SW:   RESULTIS "sw @R,@A"
+    CASE A.SG:   RESULTIS "sw @R,@A"
     CASE A.LW:   RESULTIS "lw @R,@A"
     CASE A.ADDI: RESULTIS "addi a0,a0,@I"
     CASE A.SLLI: RESULTIS "slli a0,a0,2"
@@ -375,6 +421,11 @@ AND ASTR(X) = VALOF
     CASE A.JALR: RESULTIS "jalr zero,a0,0"
     CASE A.JAL:  RESULTIS "jal L@R"
     CASE A.LI:   RESULTIS "li @R,@I"
+    CASE A.LA:   RESULTIS "la @R,@L"
+    CASE A.LG:   RESULTIS "la @R,@G"
+    CASE A.LP:   RESULTIS "lw @R,@P"
+    CASE A.SA:   RESULTIS "la t0,@L ; sw @R,(t0)"
+    CASE A.REM:  RESULTIS "rem a0,a0,a1"
     DEFAULT: ERROR(9)
 $)
 
@@ -410,8 +461,17 @@ $(  STATIC $( PSECT=0 $)
                 OR IF J & T>=T.R WRCH('**')
                 ARGOUT(A, T)
                 ENDCASE
+            CASE 'G':
+                WRN(A*4)
+		WRITES("+G")
+                ENDCASE
             CASE 'I':
-                ARGOUT(A, T.N)
+	        TEST A <0 THEN $(
+		WRCH('-')
+                WRN(-A)
+		$) ELSE $(
+                WRN(A)
+		$)
                 ENDCASE
             CASE 'L':
 		WRCH('L')
@@ -419,6 +479,10 @@ $(  STATIC $( PSECT=0 $)
                 ENDCASE
             CASE 'N':
                 ARGOUT(X, T.N)
+                ENDCASE
+            CASE 'P':
+                WRN(A*4)
+		WRITES("(sp)")
                 ENDCASE
             CASE 'R':
                 ARGOUT(X, T.R)
