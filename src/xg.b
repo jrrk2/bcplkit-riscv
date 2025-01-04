@@ -128,16 +128,26 @@ $(  STATIC $(
         AND I = T>=T.IR
         IF FORCE | M | I $(
         TEST T=T.N & NOT J THEN $(    // If loading immediate number
-            WRITEF("#T=T.N & NOT J true, coding LI*N");
+//            WRITEF("#T=T.N & NOT J true, coding LI*N");
             CODE1(A.LI, A, T, R)   // Use li instruction
 	    $)
         ELSE $(                      // Otherwise use existing logic
             TEST E THEN $(
-              WRITEF("#E true, coding LW*N");
-              CODE1(A.LW, A, T, R)
+	      TEST (A < 64) & (A > -64) THEN
+		$(
+                WRITEF("#E true, coding LW*N");
+                CODE1(A.LW, A, T, R)
+		$)
+	      ELSE
+		$(
+		WRITEF("#BIGOFF*N");
+                CODE1(A.LI, A, T, R)
+                CODE1(A.ADD, A, T, R)
+                CODE1(A.LW, A, T, R)
+		$)
 	      $)
 	    ELSE $(
-              WRITEF("#E false, coding LA*N");
+//              WRITEF("#E false, coding LA*N");
 	      SWITCHON T INTO $(
 		CASE T.N: ERROR(79); ENDCASE
 		CASE T.LL: WRITEF("#A.LA T.LL*N"); CODE1(A.LA, A, T, R); ENDCASE
@@ -153,9 +163,9 @@ $(  STATIC $(
 		    $)
 		  ELSE
 		    $(
-		    WRITEF("#lp extended index T.P*N");
+//		    WRITEF("#lp extended index T.P*N");
 		    EMIT("li t0, @X", A, T, 0, FALSE)
-		    EMIT("add t0, t0, sp", A, T, 0, FALSE)
+		    EMIT("add t0, t0, s2", A, T, 0, FALSE)
 		    EMIT("lw @R,(t0)", A, T, 0, FALSE)
 		    $)
 		  ENDCASE
@@ -174,6 +184,7 @@ $(  STATIC $(
     $)
 
     LET X = ?
+    STATIC $( XLBL=10000 $)
     SWITCHON F INTO $(
     CASE 0:
         ENDCASE
@@ -184,7 +195,10 @@ $(  STATIC $(
         ENDCASE
     CASE 'D':
         SECT := 1
-        DATA(".word @A", A, T)
+	TEST A < 0 THEN
+          DATA(".word -@A", -A, T)
+	ELSE
+          DATA(".word @A", A, T)
         SECT := 0
         ENDCASE
     CASE 'C':
@@ -220,7 +234,7 @@ $(  STATIC $(
 	  $(
 	  WRITEF("#sw extended index T.P*N");
 	  EMIT("li t0, @X", A, T, 0, FALSE)
-	  EMIT("add t0, t0, sp", A, T, 0, FALSE)
+	  EMIT("add t0, t0, s2", A, T, 0, FALSE)
 	  EMIT("sw @R,(t0)", A, T, 0, FALSE)
 	  $)
 	ENDCASE
@@ -248,15 +262,26 @@ $(  STATIC $(
         ENDCASE
     CASE 'K':
         UNLESS T=T.N ERROR(7)
-        EMIT("mv s1,sp")
-        EMIT("addi sp,sp,-@I", A << 2, T.N, 0, FALSE)
-        EMIT("sw s1,0(sp)")
+        EMIT("mv s1,s2")
+	TEST (A < 64) & (A > -64) THEN
+	  $(
+	  WRITEF("#ADDI*N");
+          EMIT("addi s2,s2,@I", A << 2, T.N, 0, FALSE)
+	  $)
+	ELSE
+	  $(
+	  WRITEF("#ADD*N");
+          EMIT("li t0,@I", A << 2, T.N, 0, FALSE)
+          EMIT("add s2,s2,t0", 0, T.N, 0, FALSE)
+	  $)
+        EMIT("sw s1,0(s2)")
         EMIT("la s1,1f")
-        EMIT("sw s1,4(sp)")
+        EMIT("sw s1,4(s2)")
         EMIT("jalr zero,a0,0")
         EMIT("1:")
         ENDCASE
     CASE 'X':
+        WRITEF("#X%I *N", A); 
         SWITCHON A INTO $(
         DEFAULT: ERROR(8)
         CASE 1:
@@ -269,8 +294,8 @@ $(  STATIC $(
             EMIT("not a0,a0")
             ENDCASE
         CASE 4:
-            EMIT("lw t0,4(sp)")
-            EMIT("lw sp,0(sp)")
+            EMIT("lw t0,4(s2)")
+            EMIT("lw s2,0(s2)")
             EMIT("jalr zero,t0,0")
             ENDCASE
         CASE 5:
@@ -288,18 +313,25 @@ $(  STATIC $(
         CASE 9:
             CODE(A.SUB, A0, T0)
             ENDCASE
-        CASE 10: CASE 11: CASE 12: CASE 13: CASE 14: CASE 15:
-            CODE(A.SLT, A0, T0)
+        CASE 10: /* A := B = A */
+        CASE 11: /* A := B ~= A */
+        CASE 12: /* A := B < A */
+        CASE 13: /* A := B >= A */
+        CASE 14: /* A := B > A */
+        CASE 15: /* A := B <= A */
             IF F1='F' | F1='T'
                 ENDCASE
-            EMIT(ASTR(A - 10 + A.BNE))
-            EMIT("andi a0,a0,1")
-            EMIT("addi a0,a0,-1")
+            CODE1(A-10, XLBL, T, 1)
+            EMIT("addi a0,zero,-1 *N")
+            L!LN := XLBL;
+	    LN := LN + 1;
+	    XLBL := XLBL + 1;
+            EMIT("addi a0,zero,0 *N")
             ENDCASE
-        CASE 16:
+        CASE 16: /* A := B LSHIFT A */
             CODE(T0=T.N -> A.SLL, A.SLLI, A0, T0)
             ENDCASE
-        CASE 17:
+        CASE 17: /* A := B RSHIFT A */
             CODE(T0=T.N -> A.SRL, A.SRLI, A0, T0)
             ENDCASE
         CASE 18:
@@ -360,10 +392,10 @@ $(  STATIC $(
             EMIT("j stop")
             ENDCASE
         CASE 31:
-            EMIT("lw a0,0(sp)")
+            EMIT("lw a0,0(s2)")
             ENDCASE
         CASE 32:
-            EMIT("mv sp,t0")
+            EMIT("mv s2,t0")
             EMIT("jalr zero,a0,0")
             ENDCASE
         CASE 33:
@@ -373,24 +405,24 @@ $(  STATIC $(
             EMIT("call endwrite")
             ENDCASE
         CASE 35:
-            EMIT("mv s1,sp")
+            EMIT("mv s1,s2")
             EMIT("mv t0,a0")
             EMIT("addi t0,t0,1")
             EMIT("slli t0,t0,2")
             EMIT("add s1,s1,t0")
-            EMIT("lw t0,0(sp)")
+            EMIT("lw t0,0(s2)")
             EMIT("sw t0,0(s1)")
-            EMIT("lw t0,4(sp)")
+            EMIT("lw t0,4(s2)")
             EMIT("sw t0,4(s1)")
-            EMIT("mv t0,sp")
+            EMIT("mv t0,s2")
             EMIT("srli t0,t0,2")
             EMIT("sw t0,8(s1)")
             EMIT("sw a0,12(s1)")
-            EMIT("mv sp,s1")
+            EMIT("mv s2,s1")
             EMIT("jalr zero,t1,0")
             ENDCASE
-        CASE 36:
-            EMIT("slli t1,t1,2")
+        CASE 36: /* GETBYTE */
+            EMIT("slli t1,a1,2")
             EMIT("add t1,a0,t1")
             EMIT("lb a0,0(t1)")
             EMIT("andi a0,a0,0xff")
@@ -398,7 +430,7 @@ $(  STATIC $(
         CASE 37:
             EMIT("slli t1,t1,2")
             EMIT("add t1,a0,t1")
-            EMIT("lw a0,16(sp)")
+            EMIT("lw a0,16(s2)")
             EMIT("sb a0,0(t1)")
             ENDCASE
         CASE 38:
@@ -420,12 +452,12 @@ $)
 
 AND ASTR(X) = VALOF
     SWITCHON X INTO $(
-    CASE A.BEQ:  RESULTIS "beq a0,x0,@A"
-    CASE A.BNE:  RESULTIS "bne a0,x0,@A"
-    CASE A.BLT:  RESULTIS "blt a0,x0,@A"
-    CASE A.BGE:  RESULTIS "bge a0,x0,@A"
-    CASE A.BGT:  RESULTIS "bgt a0,x0,@A"
-    CASE A.BLE:  RESULTIS "ble a0,x0,@A"
+    CASE A.BEQ:  RESULTIS "beq a0,@R,@L"
+    CASE A.BNE:  RESULTIS "bne a0,@R,@L"
+    CASE A.BLT:  RESULTIS "blt a0,@R,@L"
+    CASE A.BGE:  RESULTIS "bge a0,@R,@L"
+    CASE A.BGT:  RESULTIS "bgt a0,@R,@L"
+    CASE A.BLE:  RESULTIS "ble a0,@R,@L"
     CASE A.J:    RESULTIS "j L@A"
     CASE A.MUL:  RESULTIS "mul a0,a0,a1"
     CASE A.DIV:  RESULTIS "div a0,a0,a1"
@@ -452,7 +484,7 @@ AND ASTR(X) = VALOF
     CASE A.LP:   RESULTIS "lw @R,@P"
     CASE A.SA:   RESULTIS "la t0,@L ; sw @R,(t0)"
     CASE A.REM:  RESULTIS "rem a0,a0,a1"
-    DEFAULT: ERROR(9)
+    DEFAULT: WRITEF("NO ASTR %I *N", X); ERROR(9)
 $)
 
 AND EPILOG() BE
@@ -508,7 +540,7 @@ $(  STATIC $( PSECT=0 $)
                 ENDCASE
             CASE 'P':
                 WRN(A*4)
-		WRITES("(sp)")
+		WRITES("(s2)")
                 ENDCASE
             CASE 'R':
                 ARGOUT(X, T.R)
@@ -534,7 +566,7 @@ $(  TEST T=T.R | T=T.IR THEN
         $) ELSE
             TEST E THEN $(
                 WRN(A)
-                WRITES(K=T.LP -> "(sp)", "(s0)")
+                WRITES(K=T.LP -> "(s2)", "(s0)")
             $) ELSE
                 WRN(A)
     $)
