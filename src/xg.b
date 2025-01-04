@@ -420,12 +420,12 @@ $)
 
 AND ASTR(X) = VALOF
     SWITCHON X INTO $(
-    CASE A.BEQ:  RESULTIS "beq a0,x0,L@A"
-    CASE A.BNE:  RESULTIS "bne a0,x0,L@A"
-    CASE A.BLT:  RESULTIS "blt a0,x0,L@A"
-    CASE A.BGE:  RESULTIS "bge a0,x0,L@A"
-    CASE A.BGT:  RESULTIS "bgt a0,x0,L@A"
-    CASE A.BLE:  RESULTIS "ble a0,x0,L@A"
+    CASE A.BEQ:  RESULTIS "beq a0,x0,@A"
+    CASE A.BNE:  RESULTIS "bne a0,x0,@A"
+    CASE A.BLT:  RESULTIS "blt a0,x0,@A"
+    CASE A.BGE:  RESULTIS "bge a0,x0,@A"
+    CASE A.BGT:  RESULTIS "bgt a0,x0,@A"
+    CASE A.BLE:  RESULTIS "ble a0,x0,@A"
     CASE A.J:    RESULTIS "j L@A"
     CASE A.MUL:  RESULTIS "mul a0,a0,a1"
     CASE A.DIV:  RESULTIS "div a0,a0,a1"
