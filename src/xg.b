@@ -140,15 +140,28 @@ $(  STATIC $(
               WRITEF("#E false, coding LA*N");
 	      SWITCHON T INTO $(
 		CASE T.N: ERROR(79); ENDCASE
-		CASE T.LL: WRITEF("#A.LA chosen for T.LL*N"); CODE1(A.LA, A, T, R); ENDCASE
+		CASE T.LL: WRITEF("#A.LA T.LL*N"); CODE1(A.LA, A, T, R); ENDCASE
 		CASE T.LP: ERROR(77); ENDCASE
 		CASE T.LG: ERROR(76); ENDCASE
-		CASE T.R: WRITEF("#A.LA chosen for T.R*N"); CODE1(A.LA, A, T, R); ENDCASE
-		CASE T.P: WRITEF("#A.LP chosen for T.P*N"); CODE1(A.LP, A, T, R); ENDCASE
-		CASE T.G: WRITEF("#A.LG chosen for T.G*N"); CODE1(A.LG, A, T, R); EMIT("lw a0,0(a0)"); ENDCASE
-		CASE T.L: WRITEF("#A.LA chosen for T.L*N"); CODE1(A.LA, A, T, R); ENDCASE
-		CASE T.IR: WRITEF("#A.LA chosen for T.IR*N"); CODE1(A.LA, A, T, R); ENDCASE
-		CASE T.IP: WRITEF("#A.LP chosen for T.IP*N"); CODE1(A.LP, A, T, R); ENDCASE
+		CASE T.R: WRITEF("#A.LA T.R*N"); CODE1(A.LA, A, T, R); ENDCASE
+		CASE T.P:
+		CASE T.IP: 
+		  TEST (A < 64) & (A > -64) THEN
+		    $(
+		    WRITEF("#A.LP T.P*N");
+		    CODE1(A.LP, A, T, R)
+		    $)
+		  ELSE
+		    $(
+		    WRITEF("#lp extended index T.P*N");
+		    EMIT("li t0, @X", A, T, 0, FALSE)
+		    EMIT("add t0, t0, sp", A, T, 0, FALSE)
+		    EMIT("lw @R,(t0)", A, T, 0, FALSE)
+		    $)
+		  ENDCASE
+		CASE T.G: WRITEF("#A.LG T.G*N"); CODE1(A.LG, A, T, R); EMIT("lw a0,0(a0)"); ENDCASE
+		CASE T.L: WRITEF("#A.LA T.L*N"); CODE1(A.LA, A, T, R); ENDCASE
+		CASE T.IR: WRITEF("#A.LA T.IR*N"); CODE1(A.LA, A, T, R); ENDCASE
 		CASE T.IG: ERROR(70); ENDCASE
 		CASE T.IL: ERROR(69); ENDCASE
 		DEFAULT: ERROR(68); ENDCASE
@@ -192,15 +205,28 @@ $(  STATIC $(
     CASE 'S':
         LOAD(1, FALSE, FALSE)
 	SWITCHON T INTO $(
-	CASE T.N: ERROR(99); ENDCASE
+        CASE T.N: ERROR(98); ENDCASE
 	CASE T.LL: ERROR(98); ENDCASE
 	CASE T.LP: ERROR(97); ENDCASE
 	CASE T.LG: ERROR(96); ENDCASE
-	CASE T.R: WRITEF("#A.MV chosen for T.R*N"); CODE(A.MV, A, T); ENDCASE
-	CASE T.P: WRITEF("#A.SW chosen for T.P*N"); CODE(A.SW, A, T); ENDCASE
-	CASE T.G: WRITEF("#A.SG chosen for T.G*N"); CODE(A.SG, A, T); ENDCASE
-	CASE T.L: WRITEF("#A.SA chosen for T.L*N"); CODE(A.SA, A, T); ENDCASE
-	CASE T.IR: WRITEF("#A.MV chosen for T.IR*N"); CODE(A.MV, A, T); ENDCASE
+	CASE T.R: WRITEF("#A.MV T.R*N"); CODE(A.MV, A, T); ENDCASE
+	CASE T.P:
+	TEST (A < 64) & (A > -64) THEN
+	  $(
+	  WRITEF("#A.SW T.P*N");
+	  CODE(A.SW, A, T)
+	  $)
+	ELSE
+	  $(
+	  WRITEF("#sw extended index T.P*N");
+	  EMIT("li t0, @X", A, T, 0, FALSE)
+	  EMIT("add t0, t0, sp", A, T, 0, FALSE)
+	  EMIT("sw @R,(t0)", A, T, 0, FALSE)
+	  $)
+	ENDCASE
+	CASE T.G: WRITEF("#A.SG T.G*N"); CODE(A.SG, A, T); ENDCASE
+	CASE T.L: WRITEF("#A.SA T.L*N"); CODE(A.SA, A, T); ENDCASE
+	CASE T.IR: WRITEF("#A.MV T.IR*N"); CODE(A.MV, A, T); ENDCASE
 	CASE T.IP: ERROR(91); ENDCASE
 	CASE T.IG: ERROR(90); ENDCASE
 	CASE T.IL: ERROR(89); ENDCASE
@@ -486,6 +512,10 @@ $(  STATIC $( PSECT=0 $)
                 ENDCASE
             CASE 'R':
                 ARGOUT(X, T.R)
+                ENDCASE
+            CASE 'X':
+                WRN(A*WORDSZ)
+                ENDCASE
             $)
          $) OR WRCH(C)
     $)
