@@ -162,8 +162,11 @@ icint: icint.o blib.o
 blib.o: blib.h blib.c
 	$(CC) $(CFLAGS) -c blib.c
 
-icint.o: blib.h icint.c
-	$(CC) $(CFLAGS) -c icint.c
+icint.o: blib.h icint.s
+	$(CC) $(CFLAGS) -c icint.s
+
+icint.s: blib.h icint.c
+	$(CC) $(CFLAGS) -S -O2 icint.c
 
 install: bcpl icint st cg xg LIBHDR iclib.i blib.i rules su.o rt.o sys.o
 	mkdir -p $(PREFIX)/bin $(PREFIX)/lib/bcplkit

@@ -1,982 +1,1416 @@
+#A.LP T.P
 .align 4
 L2011:
-movl 8(%ebp),%eax
+lw a0,8(s2)
+#X24
 call selectinput
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LP T.P
 .align 4
 L2012:
-movl 8(%ebp),%eax
+lw a0,8(s2)
+#X25
 call selectoutput
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#X26
 .align 4
 L2013:
 call rdch
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LP T.P
 .align 4
 L2014:
-movl 8(%ebp),%eax
+lw a0,8(s2)
+#X27
 call wrch
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LP T.P
 .align 4
 L2042:
-movl 8(%ebp),%eax
+lw a0,8(s2)
+#X28
 call findinput
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LP T.P
 .align 4
 L2041:
-movl 8(%ebp),%eax
+lw a0,8(s2)
+#X29
 call findoutput
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LP T.P
 .align 4
 L2030:
-movl 8(%ebp),%eax
-jmp stop
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+lw a0,8(s2)
+#X30
+j stop
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#X31
 .align 4
 L2031:
-movl (%ebp),%eax
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+lw a0,0(s2)
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LP T.P
 .align 4
 L2032:
-movl 12(%ebp),%eax
-movl 8(%ebp),%ecx
-movl %ecx,%ebp
-jmp *%eax
+lw a0,12(s2)
+#A.LP T.P
+lw a1,8(s2)
+#X32
+mv s2,t0
+jalr zero,a0,0
+#X33
 .align 4
 L2046:
 call endread
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#X34
 .align 4
 L2047:
 call endwrite
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LP T.P
 .align 4
 L2040:
-movl 12(%ebp),%eax
-movl 8(%ebp),%ecx
-movl %ebp,%esi
-movl %eax,%ebx
-incl %ebx
-shll $2,%ebx
-addl %ebx,%esi
-movl (%ebp),%ebx
-movl %ebx,(%esi)
-movl 4(%ebp),%ebx
-movl %ebx,4(%esi)
-movl %ebp,%ebx
-shrl $2,%ebx
-movl %ebx,8(%esi)
-movl %eax,12(%esi)
-movl %esi,%ebp
-jmp *%ecx
+lw a0,12(s2)
+#A.LP T.P
+lw a1,8(s2)
+#X35
+mv s1,s2
+mv t0,a0
+addi t0,t0,1
+slli t0,t0,2
+add s1,s1,t0
+lw t0,0(s2)
+sw t0,0(s1)
+lw t0,4(s2)
+sw t0,4(s1)
+mv t0,s2
+srli t0,t0,2
+sw t0,8(s1)
+sw a0,12(s1)
+mv s2,s1
+jalr zero,t1,0
+#A.LP T.P
 .align 4
 L2085:
-movl 12(%ebp),%eax
-movl 8(%ebp),%ecx
-shll $2,%ecx
-addl %eax,%ecx
-movzbl (%ecx),%eax
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+lw a0,12(s2)
+#A.LP T.P
+lw a1,8(s2)
+#X36
+slli t1,a1,2
+add t1,a0,t1
+lb a0,0(t1)
+andi a0,a0,0xff
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LP T.P
 .align 4
 L2086:
-movl 12(%ebp),%eax
-movl 8(%ebp),%ecx
-shll $2,%ecx
-addl %eax,%ecx
-movl 16(%ebp),%eax
-movb %al,(%ecx)
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+lw a0,12(s2)
+#A.LP T.P
+lw a1,8(s2)
+#X37
+slli t1,t1,2
+add t1,a0,t1
+lw a0,16(s2)
+sb a0,0(t1)
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#X38
 .align 4
 L2016:
 call input
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#X39
 .align 4
 L2017:
 call output
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LP T.P
 .align 4
 L2015:
-movl 8(%ebp),%eax
+lw a0,8(s2)
+#X40
 call unrdch
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#X41
 .align 4
 L2035:
 call rewind
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
-jmp L2513
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+jalr zero,a0,0
 .align 4
 L2501:
-movl $1,%eax
-movl %eax,12(%ebp)
-movl 8(%ebp),%eax
-movl %eax,24(%ebp)
-movl $0,%eax
-movl %eax,28(%ebp)
-movl 340(%edi),%eax
-movl %ebp,%ecx
-addl $16,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,1
+#A.SW T.P
+sw a0,12(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,24(s2)
+li a0,0
+#A.SW T.P
+sw a0,28(s2)
+#A.LG T.G
+la a0,340+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,16
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,16(%ebp)
-jmp L2514
+#A.SW T.P
+sw a0,16(s2)
+jalr zero,a0,0
+#A.LP T.P
 .align 4
 L2515:
-movl 8(%ebp),%eax
-movl %eax,36(%ebp)
-movl 12(%ebp),%eax
-movl %eax,40(%ebp)
-movl 340(%edi),%eax
-movl %ebp,%ecx
-addl $28,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,8(s2)
+#A.SW T.P
+sw a0,36(s2)
+#A.LP T.P
+lw a0,12(s2)
+#A.SW T.P
+sw a0,40(s2)
+#A.LG T.G
+la a0,340+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,28
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,28(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $20,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+#A.SW T.P
+sw a0,28(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,20
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 12(%ebp),%eax
-addl $1,%eax
-movl %eax,12(%ebp)
+#A.LP T.P
+lw a0,12(s2)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,12(s2)
+#A.LP T.P
 .align 4
 L2514:
-movl 12(%ebp),%eax
-cmpl 16(%ebp),%eax
-jle L2515
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+lw a0,12(s2)
+#X15
+ble a0,a0,L2515
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
 .align 4
 L2502:
-movl $0,%eax
-movl %eax,16(%ebp)
-movl 8(%ebp),%eax
-movl %eax,28(%ebp)
-movl $0,%eax
-movl %eax,32(%ebp)
-movl 340(%edi),%eax
-movl %ebp,%ecx
-addl $20,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,0
+#A.SW T.P
+sw a0,16(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,28(s2)
+li a0,0
+#A.SW T.P
+sw a0,32(s2)
+#A.LG T.G
+la a0,340+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,20
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,20(%ebp)
-jmp L2516
+#A.SW T.P
+sw a0,20(s2)
+jalr zero,a0,0
+#A.LP T.P
 .align 4
 L2517:
-movl 8(%ebp),%eax
-movl %eax,32(%ebp)
-movl 16(%ebp),%eax
-movl %eax,36(%ebp)
-movl 340(%edi),%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,8(s2)
+#A.SW T.P
+sw a0,32(s2)
+#A.LP T.P
+lw a0,16(s2)
+#A.SW T.P
+sw a0,36(s2)
+#A.LG T.G
+la a0,340+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,24(%ebp)
-movl 16(%ebp),%eax
-addl 12(%ebp),%eax
-movl %eax,28(%ebp)
-movl 24(%ebp),%eax
-movl 28(%ebp),%ecx
-movl %eax,(,%ecx,4)
-movl 16(%ebp),%eax
-addl $1,%eax
-movl %eax,16(%ebp)
+#A.SW T.P
+sw a0,24(s2)
+#A.LP T.P
+lw a0,16(s2)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,28(s2)
+#A.LP T.P
+lw a0,24(s2)
+#A.LP T.P
+lw a1,28(s2)
+#A.MV T.IR
+mv a0,a0
+#A.LP T.P
+lw a0,16(s2)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,16(s2)
+#A.LP T.P
 .align 4
 L2516:
-movl 16(%ebp),%eax
-cmpl 20(%ebp),%eax
-jle L2517
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+lw a0,16(s2)
+#X15
+ble a0,a0,L2517
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
 .align 4
 L2503:
-movl $0,%eax
-addl 8(%ebp),%eax
-movl (,%eax,4),%eax
-andl $255,%eax
-movl %eax,16(%ebp)
-movl 16(%ebp),%eax
-movl $4,%ecx
-cltd
-idivl %ecx
-movl %eax,20(%ebp)
-movl $0,%eax
-movl %eax,24(%ebp)
-movl 16(%ebp),%eax
-movl %eax,28(%ebp)
-jmp L2519
+li a0,0
+#A.ADD chosen
+add a0,a0,a1
+#X1
+lw a0,0(a0)
+#X18
+and a0,a0,a1
+#A.SW T.P
+sw a0,16(s2)
+#A.LP T.P
+lw a0,16(s2)
+li a1,4
+#X6
+div a0,a0,a1
+#A.SW T.P
+sw a0,20(s2)
+li a0,0
+#A.SW T.P
+sw a0,24(s2)
+#A.LP T.P
+lw a0,16(s2)
+#A.SW T.P
+sw a0,28(s2)
+jalr zero,a0,0
+#A.LP T.P
 .align 4
 L2520:
-movl 12(%ebp),%eax
-movl %eax,40(%ebp)
-movl 24(%ebp),%eax
-movl %eax,44(%ebp)
-movl 24(%ebp),%eax
-addl 8(%ebp),%eax
-movl (,%eax,4),%eax
-movl %eax,48(%ebp)
-movl 344(%edi),%eax
-movl %ebp,%ecx
-addl $32,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,12(s2)
+#A.SW T.P
+sw a0,40(s2)
+#A.LP T.P
+lw a0,24(s2)
+#A.SW T.P
+sw a0,44(s2)
+#A.LP T.P
+lw a0,24(s2)
+#A.ADD chosen
+add a0,a0,a1
+#X1
+lw a0,0(a0)
+#A.SW T.P
+sw a0,48(s2)
+#A.LG T.G
+la a0,344+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 24(%ebp),%eax
-addl $1,%eax
-movl %eax,24(%ebp)
+#A.LP T.P
+lw a0,24(s2)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,24(s2)
+#A.LP T.P
 .align 4
 L2519:
-movl 24(%ebp),%eax
-cmpl 28(%ebp),%eax
-jle L2520
-jmp L2521
+lw a0,24(s2)
+#X15
+ble a0,a0,L2520
+jalr zero,a0,0
+#A.LP T.P
 .align 4
 L2523:
-movl 12(%ebp),%eax
-movl %eax,32(%ebp)
-movl $3,%eax
-addl 16(%ebp),%eax
-movl %eax,36(%ebp)
-movl $0,%eax
-movl %eax,40(%ebp)
-movl 344(%edi),%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,12(s2)
+#A.SW T.P
+sw a0,32(s2)
+li a0,3
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,36(s2)
+li a0,0
+#A.SW T.P
+sw a0,40(s2)
+#A.LG T.G
+la a0,344+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
+#A.LP T.P
 .align 4
 L2524:
-movl 12(%ebp),%eax
-movl %eax,32(%ebp)
-movl $2,%eax
-addl 16(%ebp),%eax
-movl %eax,36(%ebp)
-movl $0,%eax
-movl %eax,40(%ebp)
-movl 344(%edi),%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,12(s2)
+#A.SW T.P
+sw a0,32(s2)
+li a0,2
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,36(s2)
+li a0,0
+#A.SW T.P
+sw a0,40(s2)
+#A.LG T.G
+la a0,344+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
+#A.LP T.P
 .align 4
 L2525:
-movl 12(%ebp),%eax
-movl %eax,32(%ebp)
-movl $1,%eax
-addl 16(%ebp),%eax
-movl %eax,36(%ebp)
-movl $0,%eax
-movl %eax,40(%ebp)
-movl 344(%edi),%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,12(s2)
+#A.SW T.P
+sw a0,32(s2)
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,36(s2)
+li a0,0
+#A.SW T.P
+sw a0,40(s2)
+#A.LG T.G
+la a0,344+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
 .align 4
 L2526:
-jmp L2522
+jalr zero,a0,0
 .align 4
 L2521:
-movl $3,%eax
-andl 16(%ebp),%eax
-movl $L0,%esi
-movl (%esi),%ecx
-movl 4(%esi),%edx
-jecxz 2f
+li a0,3
+#X18
+and a0,a0,a1
+#X23
+la s1,L0
+lw t1,0(s1)
+lw t2,4(s1)
+beqz t1,2f
 1:
-addl $8,%esi
-cmpl (%esi),%eax
-je 3f
-loop 1b
+addi s1,s1,8
+lw t0,0(s1)
+beq a0,t0,3f
+addi t1,t1,-1
+bnez t1,1b
 2:
-jmp *%edx
+jalr zero,t2,0
 3:
-jmp *4(%esi)
+lw t0,4(s1)
+jalr zero,t0,0
 .data
 .align 4
 L0:
-.long 4
-.long L2522
-.long 0
-.long L2523
-.long 1
-.long L2524
-.long 2
-.long L2525
-.long 3
-.long L2526
+.word 4
+.word L2522
+.word 0
+.word L2523
+.word 1
+.word L2524
+.word 2
+.word L2525
+.word 3
+.word L2526
+#A.LP T.P
 .text
 .align 4
 L2522:
-movl 20(%ebp),%eax
-jmp L2518
+lw a0,20(s2)
+jalr zero,a0,0
+#X4
 .align 4
 L2518:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#E true, coding LW
 .align 4
 L2504:
-leal 28(%ebp),%eax
-shrl $2,%eax
-movl %eax,16(%ebp)
-movl $0,%eax
-movl %eax,20(%ebp)
-movl 8(%ebp),%eax
-movl %eax,24(%ebp)
-movl 8(%ebp),%eax
-cmpl $0,%eax
-jge L2527
-movl 12(%ebp),%eax
-subl $1,%eax
-movl %eax,12(%ebp)
-jmp L2528
+lw a0,28(s2)
+srli a0,a0,2
+#A.SW T.P
+sw a0,16(s2)
+li a0,0
+#A.SW T.P
+sw a0,20(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,24(s2)
+#A.LP T.P
+lw a0,8(s2)
+#X12
+bge a0,a0,L2527
+#A.LP T.P
+lw a0,12(s2)
+#X9
+sub a0,a0,a1
+#A.SW T.P
+sw a0,12(s2)
+jalr zero,a0,0
+#A.LP T.P
 .align 4
 L2527:
-movl 8(%ebp),%eax
-negl %eax
-movl %eax,24(%ebp)
+lw a0,8(s2)
+#X2
+neg a0,a0
+#A.SW T.P
+sw a0,24(s2)
+#A.LP T.P
 .align 4
 L2528:
 L2529:
-movl 24(%ebp),%eax
-movl $10,%ecx
-cltd
-idivl %ecx
-movl %edx,%eax
-movl %eax,112(%ebp)
-movl 20(%ebp),%eax
-addl 16(%ebp),%eax
-movl %eax,116(%ebp)
-movl 112(%ebp),%eax
-movl 116(%ebp),%ecx
-movl %eax,(,%ecx,4)
-movl 24(%ebp),%eax
-movl $10,%ecx
-cltd
-idivl %ecx
-movl %eax,24(%ebp)
-movl $1,%eax
-addl 20(%ebp),%eax
-movl %eax,20(%ebp)
-movl $0,%eax
-cmpl 24(%ebp),%eax
-jne L2529
-movl $1,%eax
-addl 20(%ebp),%eax
-movl %eax,112(%ebp)
-movl 12(%ebp),%eax
-movl %eax,116(%ebp)
-jmp L2530
+lw a0,24(s2)
+li a1,10
+#X7
+rem a0,a0,a1
+#A.SW T.P
+sw a0,112(s2)
+#A.LP T.P
+lw a0,20(s2)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,116(s2)
+#A.LP T.P
+lw a0,112(s2)
+#A.LP T.P
+lw a1,116(s2)
+#A.MV T.IR
+mv a0,a0
+#A.LP T.P
+lw a0,24(s2)
+li a1,10
+#X6
+div a0,a0,a1
+#A.SW T.P
+sw a0,24(s2)
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,20(s2)
+li a0,0
+#X10
+bne a0,a0,L2529
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,112(s2)
+#A.LP T.P
+lw a0,12(s2)
+#A.SW T.P
+sw a0,116(s2)
+jalr zero,a0,0
 .align 4
 L2531:
-movl $32,%eax
-movl %eax,128(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $120,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,32
+#A.SW T.P
+sw a0,128(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,120
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 112(%ebp),%eax
-addl $1,%eax
-movl %eax,112(%ebp)
+#A.LP T.P
+lw a0,112(s2)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,112(s2)
+#A.LP T.P
 .align 4
 L2530:
-movl 112(%ebp),%eax
-cmpl 116(%ebp),%eax
-jle L2531
-movl 8(%ebp),%eax
-cmpl $0,%eax
-jge L2532
-movl $45,%eax
-movl %eax,120(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $112,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,112(s2)
+#X15
+ble a0,a0,L2531
+#A.LP T.P
+lw a0,8(s2)
+#X12
+bge a0,a0,L2532
+li a0,45
+#A.SW T.P
+sw a0,120(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,112
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
+#A.LP T.P
 .align 4
 L2532:
-movl 20(%ebp),%eax
-subl $1,%eax
-movl %eax,112(%ebp)
-jmp L2533
+lw a0,20(s2)
+#X9
+sub a0,a0,a1
+#A.SW T.P
+sw a0,112(s2)
+jalr zero,a0,0
 .align 4
 L2534:
-movl $48,%eax
-movl %eax,124(%ebp)
-movl 112(%ebp),%eax
-addl 16(%ebp),%eax
-movl (,%eax,4),%eax
-movl %eax,128(%ebp)
-movl 124(%ebp),%eax
-subl 128(%ebp),%eax
-movl %eax,124(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $116,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,48
+#A.SW T.P
+sw a0,124(s2)
+#A.LP T.P
+lw a0,112(s2)
+#A.ADD chosen
+add a0,a0,a1
+#X1
+lw a0,0(a0)
+#A.SW T.P
+sw a0,128(s2)
+#A.LP T.P
+lw a0,124(s2)
+#X9
+sub a0,a0,a1
+#A.SW T.P
+sw a0,124(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,116
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 112(%ebp),%eax
-addl $-1,%eax
-movl %eax,112(%ebp)
+#A.LP T.P
+lw a0,112(s2)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,112(s2)
+#A.LP T.P
 .align 4
 L2533:
-movl 112(%ebp),%eax
-cmpl $0,%eax
-jge L2534
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+lw a0,112(s2)
+#X13
+bge a0,a0,L2534
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LP T.P
 .align 4
 L2505:
-movl 8(%ebp),%eax
-movl %eax,20(%ebp)
-movl $0,%eax
-movl %eax,24(%ebp)
-movl 272(%edi),%eax
-movl %ebp,%ecx
-addl $12,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,8(s2)
+#A.SW T.P
+sw a0,20(s2)
+li a0,0
+#A.SW T.P
+sw a0,24(s2)
+#A.LG T.G
+la a0,272+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,12
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
 .align 4
 L2506:
-movl $10,%eax
-movl %eax,16(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $8,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,10
+#A.SW T.P
+sw a0,16(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,8
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
 .align 4
 L2507:
-movl $12,%eax
-movl %eax,16(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $8,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,12
+#A.SW T.P
+sw a0,16(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,8
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
 .align 4
 L2508:
-movl $0,%eax
-movl %eax,8(%ebp)
-movl $0,%eax
-movl %eax,12(%ebp)
+li a0,0
+#A.SW T.P
+sw a0,8(s2)
+li a0,0
+#A.SW T.P
+sw a0,12(s2)
+#A.LG T.G
 .align 4
 L2536:
-movl 52(%edi),%eax
-movl %ebp,%ecx
-addl $16,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+la a0,52+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,16
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,284(%edi)
-jmp L2538
+#A.SG T.G
+sw a0,284(s0)
+jalr zero,a0,0
 .align 4
 L2540:
 L2541:
 L2542:
-jmp *L2537
+jalr zero,a0,0
 .align 4
 L2543:
-movl $-1,%eax
-movl %eax,12(%ebp)
+li a0,-1
+#A.SW T.P
+sw a0,12(s2)
+#A.LG T.G
 .align 4
 L2544:
-movl 52(%edi),%eax
-movl %ebp,%ecx
-addl $16,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+la a0,52+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,16
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,284(%edi)
-jmp L2539
+#A.SG T.G
+sw a0,284(s0)
+jalr zero,a0,0
+#A.LG T.G
 .align 4
 L2538:
-movl 284(%edi),%eax
-movl $L1,%esi
-movl (%esi),%ecx
-movl 4(%esi),%edx
-jecxz 2f
+la a0,284+G
+lw a0,0(a0)
+#X23
+la s1,L1
+lw t1,0(s1)
+lw t2,4(s1)
+beqz t1,2f
 1:
-addl $8,%esi
-cmpl (%esi),%eax
-je 3f
-loop 1b
+addi s1,s1,8
+lw t0,0(s1)
+beq a0,t0,3f
+addi t1,t1,-1
+bnez t1,1b
 2:
-jmp *%edx
+jalr zero,t2,0
 3:
-jmp *4(%esi)
+lw t0,4(s1)
+jalr zero,t0,0
 .data
 .align 4
 L1:
-.long 5
-.long L2539
-.long 32
-.long L2540
-.long 9
-.long L2541
-.long 10
-.long L2542
-.long 45
-.long L2543
-.long 43
-.long L2544
+.word 5
+.word L2539
+.word 32
+.word L2540
+.word 9
+.word L2541
+.word 10
+.word L2542
+.word 45
+.word L2543
+.word 43
+.word L2544
 .text
 .align 4
 L2539:
-jmp L2546
+jalr zero,a0,0
+#A.LP T.P
 .align 4
 L2545:
-movl 8(%ebp),%eax
-movl $10,%ecx
-imull %ecx
-addl 284(%edi),%eax
-subl $48,%eax
-movl %eax,8(%ebp)
-movl 52(%edi),%eax
-movl %ebp,%ecx
-addl $16,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,8(s2)
+li a1,10
+#X5
+mul a0,a0,a1
+#A.ADD chosen
+add a0,a0,a1
+#X9
+sub a0,a0,a1
+#A.SW T.P
+sw a0,8(s2)
+#A.LG T.G
+la a0,52+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,16
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,284(%edi)
+#A.SG T.G
+sw a0,284(s0)
 .align 4
 L2546:
-movl $48,%eax
-cmpl 284(%edi),%eax
-jg L2547
-movl 284(%edi),%eax
-cmpl $57,%eax
-jle L2545
+li a0,48
+#X15
+bgt a0,a0,L2547
+#A.LG T.G
+la a0,284+G
+lw a0,0(a0)
+#X15
+ble a0,a0,L2545
+#A.LP T.P
 .align 4
 L2547:
-movl 12(%ebp),%eax
-testl %eax,%eax
-je L2548
-movl 8(%ebp),%eax
-negl %eax
-movl %eax,8(%ebp)
+lw a0,12(s2)
+bnez a0,1f
+beq a0,a0,L2548
+#A.LP T.P
+lw a0,8(s2)
+#X2
+neg a0,a0
+#A.SW T.P
+sw a0,8(s2)
+#A.LP T.P
 .align 4
 L2548:
-movl 8(%ebp),%eax
-jmp L2535
+lw a0,8(s2)
+jalr zero,a0,0
+#X4
 .align 4
 L2535:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LP T.P
 .align 4
 L2509:
-movl 12(%ebp),%eax
-cmpl $1,%eax
-jle L2549
-movl 8(%ebp),%eax
-shrl $3,%eax
-movl %eax,24(%ebp)
-movl 12(%ebp),%eax
-subl $1,%eax
-movl %eax,28(%ebp)
-movl 308(%edi),%eax
-movl %ebp,%ecx
-addl $16,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,12(s2)
+#X14
+ble a0,a0,L2549
+#A.LP T.P
+lw a0,8(s2)
+#X17
+srl a0,a0,a1
+#A.SW T.P
+sw a0,24(s2)
+#A.LP T.P
+lw a0,12(s2)
+#X9
+sub a0,a0,a1
+#A.SW T.P
+sw a0,28(s2)
+#A.LG T.G
+la a0,308+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,16
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
 .align 4
 L2549:
-movl $7,%eax
-andl 8(%ebp),%eax
-addl $48,%eax
-movl %eax,24(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $16,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,7
+#X18
+and a0,a0,a1
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,24(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,16
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LP T.P
 .align 4
 L2510:
-movl 12(%ebp),%eax
-cmpl $1,%eax
-jle L2550
-movl 8(%ebp),%eax
-shrl $4,%eax
-movl %eax,24(%ebp)
-movl 12(%ebp),%eax
-subl $1,%eax
-movl %eax,28(%ebp)
-movl 300(%edi),%eax
-movl %ebp,%ecx
-addl $16,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,12(s2)
+#X14
+ble a0,a0,L2550
+#A.LP T.P
+lw a0,8(s2)
+#X17
+srl a0,a0,a1
+#A.SW T.P
+sw a0,24(s2)
+#A.LP T.P
+lw a0,12(s2)
+#X9
+sub a0,a0,a1
+#A.SW T.P
+sw a0,28(s2)
+#A.LG T.G
+la a0,300+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,16
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
 .align 4
 L2550:
-movl $15,%eax
-andl 8(%ebp),%eax
-movl $L2551,%ecx
-shrl $2,%ecx
-addl %ecx,%eax
-movl (,%eax,4),%eax
-movl %eax,24(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $16,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,15
+#X18
+and a0,a0,a1
+#A.LA T.LL
+la a1,L2551
+srli a0,a0,2
+#A.ADD chosen
+add a0,a0,a1
+#X1
+lw a0,0(a0)
+#A.SW T.P
+sw a0,24(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,16
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#E true, coding LW
 .align 4
 L2511:
-leal 12(%ebp),%eax
-shrl $2,%eax
-movl %eax,56(%ebp)
-movl $1,%eax
-movl %eax,60(%ebp)
-movl 8(%ebp),%eax
-movl %eax,72(%ebp)
-movl $0,%eax
-movl %eax,76(%ebp)
-movl 340(%edi),%eax
-movl %ebp,%ecx
-addl $64,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,12(s2)
+srli a0,a0,2
+#A.SW T.P
+sw a0,56(s2)
+li a0,1
+#A.SW T.P
+sw a0,60(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,72(s2)
+li a0,0
+#A.SW T.P
+sw a0,76(s2)
+#A.LG T.G
+la a0,340+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,64
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,64(%ebp)
-jmp L2552
+#A.SW T.P
+sw a0,64(s2)
+jalr zero,a0,0
+#A.LP T.P
 .align 4
 L2553:
-movl 8(%ebp),%eax
-movl %eax,76(%ebp)
-movl 60(%ebp),%eax
-movl %eax,80(%ebp)
-movl 340(%edi),%eax
-movl %ebp,%ecx
-addl $68,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,8(s2)
+#A.SW T.P
+sw a0,76(s2)
+#A.LP T.P
+lw a0,60(s2)
+#A.SW T.P
+sw a0,80(s2)
+#A.LG T.G
+la a0,340+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,68
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,68(%ebp)
-movl $37,%eax
-cmpl 68(%ebp),%eax
-jne L2554
-movl $0,%eax
-movl %eax,72(%ebp)
-movl $0,%eax
-addl 56(%ebp),%eax
-movl (,%eax,4),%eax
-movl %eax,76(%ebp)
-movl $0,%eax
-movl %eax,80(%ebp)
-movl 8(%ebp),%eax
-movl %eax,92(%ebp)
-movl $1,%eax
-addl 60(%ebp),%eax
-movl %eax,96(%ebp)
-movl 340(%edi),%eax
-movl %ebp,%ecx
-addl $84,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+#A.SW T.P
+sw a0,68(s2)
+li a0,37
+#X10
+bne a0,a0,L2554
+li a0,0
+#A.SW T.P
+sw a0,72(s2)
+li a0,0
+#A.ADD chosen
+add a0,a0,a1
+#X1
+lw a0,0(a0)
+#A.SW T.P
+sw a0,76(s2)
+li a0,0
+#A.SW T.P
+sw a0,80(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,92(s2)
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,96(s2)
+#A.LG T.G
+la a0,340+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,84
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,84(%ebp)
-movl $1,%eax
-addl 60(%ebp),%eax
-movl %eax,60(%ebp)
-jmp L2560
+#A.SW T.P
+sw a0,84(s2)
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,60(s2)
+jalr zero,a0,0
+#A.LP T.P
 .align 4
 L2562:
-movl 84(%ebp),%eax
-movl %eax,96(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $88,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,84(s2)
+#A.SW T.P
+sw a0,96(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,88
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-jmp L2561
+jalr zero,a0,0
+#A.LG T.G
 .align 4
 L2563:
-movl 240(%edi),%eax
-movl %eax,72(%ebp)
-jmp *L2557
+la a0,240+G
+lw a0,0(a0)
+#A.SW T.P
+sw a0,72(s2)
+jalr zero,a0,0
+#A.LG T.G
 .align 4
 L2564:
-movl 56(%edi),%eax
-movl %eax,72(%ebp)
-jmp *L2557
+la a0,56+G
+lw a0,0(a0)
+#A.SW T.P
+sw a0,72(s2)
+jalr zero,a0,0
+#A.LG T.G
 .align 4
 L2565:
-movl 308(%edi),%eax
-movl %eax,72(%ebp)
-jmp *L2559
+la a0,308+G
+lw a0,0(a0)
+#A.SW T.P
+sw a0,72(s2)
+jalr zero,a0,0
+#A.LG T.G
 .align 4
 L2566:
-movl 300(%edi),%eax
-movl %eax,72(%ebp)
-jmp *L2559
+la a0,300+G
+lw a0,0(a0)
+#A.SW T.P
+sw a0,72(s2)
+jalr zero,a0,0
+#A.LG T.G
 .align 4
 L2567:
-movl 272(%edi),%eax
-movl %eax,72(%ebp)
-jmp *L2559
+la a0,272+G
+lw a0,0(a0)
+#A.SW T.P
+sw a0,72(s2)
+jalr zero,a0,0
+#A.LG T.G
 .align 4
 L2568:
-movl 272(%edi),%eax
-movl %eax,72(%ebp)
-jmp *L2557
+la a0,272+G
+lw a0,0(a0)
+#A.SW T.P
+sw a0,72(s2)
+jalr zero,a0,0
 .align 4
 L2558:
-movl $1,%eax
-addl 60(%ebp),%eax
-movl %eax,60(%ebp)
-movl 8(%ebp),%eax
-movl %eax,96(%ebp)
-movl 60(%ebp),%eax
-movl %eax,100(%ebp)
-movl 340(%edi),%eax
-movl %ebp,%ecx
-addl $88,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,60(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,96(s2)
+#A.LP T.P
+lw a0,60(s2)
+#A.SW T.P
+sw a0,100(s2)
+#A.LG T.G
+la a0,340+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,88
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,80(%ebp)
-movl $48,%eax
-cmpl 80(%ebp),%eax
-jg L2570
-movl 80(%ebp),%eax
-cmpl $57,%eax
-jg L2570
-movl 80(%ebp),%eax
-subl $48,%eax
-movl %eax,88(%ebp)
-jmp L2569
+#A.SW T.P
+sw a0,80(s2)
+li a0,48
+#X15
+bgt a0,a0,L2570
+#A.LP T.P
+lw a0,80(s2)
+#X15
+bgt a0,a0,L2570
+#A.LP T.P
+lw a0,80(s2)
+#X9
+sub a0,a0,a1
+#A.SW T.P
+sw a0,88(s2)
+jalr zero,a0,0
+#A.LP T.P
 .align 4
 L2570:
-movl 80(%ebp),%eax
-subl $65,%eax
-addl $10,%eax
-movl %eax,88(%ebp)
+lw a0,80(s2)
+#X9
+sub a0,a0,a1
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,88(s2)
+#A.LP T.P
 .align 4
 L2569:
-movl 88(%ebp),%eax
-movl %eax,80(%ebp)
+lw a0,88(s2)
+#A.SW T.P
+sw a0,80(s2)
+#A.LP T.P
 .align 4
 L2556:
-movl 76(%ebp),%eax
-movl %eax,96(%ebp)
-movl 80(%ebp),%eax
-movl %eax,100(%ebp)
-movl 72(%ebp),%eax
-movl %ebp,%ecx
-addl $88,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,76(s2)
+#A.SW T.P
+sw a0,96(s2)
+#A.LP T.P
+lw a0,80(s2)
+#A.SW T.P
+sw a0,100(s2)
+#A.LP T.P
+lw a0,72(s2)
+mv s1,s2
+#ADDI
+addi s2,s2,88
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl $1,%eax
-addl 56(%ebp),%eax
-movl %eax,56(%ebp)
-jmp L2561
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,56(s2)
+jalr zero,a0,0
+#A.LP T.P
 .align 4
 L2560:
-movl 84(%ebp),%eax
-movl $L2,%esi
-movl (%esi),%ecx
-movl 4(%esi),%edx
-jecxz 2f
+lw a0,84(s2)
+#X23
+la s1,L2
+lw t1,0(s1)
+lw t2,4(s1)
+beqz t1,2f
 1:
-addl $8,%esi
-cmpl (%esi),%eax
-je 3f
-loop 1b
+addi s1,s1,8
+lw t0,0(s1)
+beq a0,t0,3f
+addi t1,t1,-1
+bnez t1,1b
 2:
-jmp *%edx
+jalr zero,t2,0
 3:
-jmp *4(%esi)
+lw t0,4(s1)
+jalr zero,t0,0
 .data
 .align 4
 L2:
-.long 6
-.long L2562
-.long 83
-.long L2563
-.long 67
-.long L2564
-.long 79
-.long L2565
-.long 88
-.long L2566
-.long 73
-.long L2567
-.long 78
-.long L2568
+.word 6
+.word L2562
+.word 83
+.word L2563
+.word 67
+.word L2564
+.word 79
+.word L2565
+.word 88
+.word L2566
+.word 73
+.word L2567
+.word 78
+.word L2568
 .text
 .align 4
 L2561:
-jmp L2555
+jalr zero,a0,0
+#A.LP T.P
 .align 4
 L2554:
-movl 68(%ebp),%eax
-movl %eax,80(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $72,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,68(s2)
+#A.SW T.P
+sw a0,80(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,72
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
+#A.LP T.P
 .align 4
 L2555:
-movl 60(%ebp),%eax
-addl $1,%eax
-movl %eax,60(%ebp)
+lw a0,60(s2)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,60(s2)
+#A.LP T.P
 .align 4
 L2552:
-movl 60(%ebp),%eax
-cmpl 64(%ebp),%eax
-jle L2553
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+lw a0,60(s2)
+#X15
+ble a0,a0,L2553
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LA T.LL
 .align 4
 L2512:
-movl $L2999,%eax
-shrl $2,%eax
-movl %eax,16(%ebp)
-movl 240(%edi),%eax
-movl %ebp,%ecx
-addl $8,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+la a0,L2999
+srli a0,a0,2
+#A.SW T.P
+sw a0,16(s2)
+#A.LG T.G
+la a0,240+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,8
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
 .data
 .align 4
 L2513:
 L2537:
-.long L2536
+.word L2536
 .align 4
 L2551:
-.long 48
-.long 49
-.long 50
-.long 51
-.long 52
-.long 53
-.long 54
-.long 55
-.long 56
-.long 57
-.long 65
-.long 66
-.long 67
-.long 68
-.long 69
-.long 70
+.word 48
+.word 49
+.word 50
+.word 51
+.word 52
+.word 53
+.word 54
+.word 55
+.word 56
+.word 57
+.word 65
+.word 66
+.word 67
+.word 68
+.word 69
+.word 70
 .align 4
 L2557:
-.long L2556
+.word L2556
 .align 4
 L2559:
-.long L2558
+.word L2558
 .align 4
 L2999:
 .byte 26
@@ -1006,241 +1440,378 @@ L2999:
 .byte 69
 .byte 68
 .byte 10
-.align 4,0
+.align 2
 .text
-jmp L3030
+jalr zero,a0,0
+#E true, coding LW
 .align 4
 L3001:
-leal 16(%ebp),%eax
-shrl $2,%eax
-movl %eax,8(%ebp)
-leal 2020(%ebp),%eax
-shrl $2,%eax
-movl %eax,12(%ebp)
-movl 8(%ebp),%eax
-movl %eax,600(%edi)
-movl 12(%ebp),%eax
-movl %eax,604(%edi)
-movl $0,%eax
-movl %eax,4024(%ebp)
-movl $500,%eax
-movl %eax,4028(%ebp)
-jmp L3032
+lw a0,16(s2)
+srli a0,a0,2
+#A.SW T.P
+sw a0,8(s2)
+#BIGOFF
+li a0,505
+add a0,a0,a1
+lw a0,2020(s2)
+srli a0,a0,2
+#A.SW T.P
+sw a0,12(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SG T.G
+sw a0,600(s0)
+#A.LP T.P
+lw a0,12(s2)
+#A.SG T.G
+sw a0,604(s0)
+li a0,0
+#sw extended index T.P
+li t0, 4024
+add t0, t0, s2
+sw a0,(t0)
+li a0,500
+#sw extended index T.P
+li t0, 4028
+add t0, t0, s2
+sw a0,(t0)
+jalr zero,a0,0
 .align 4
 L3033:
-movl $0,%eax
-movl %eax,4032(%ebp)
-movl 4024(%ebp),%eax
-addl 600(%edi),%eax
-movl %eax,4036(%ebp)
-movl 4032(%ebp),%eax
-movl 4036(%ebp),%ecx
-movl %eax,(,%ecx,4)
-movl 4024(%ebp),%eax
-addl $1,%eax
-movl %eax,4024(%ebp)
+li a0,0
+#sw extended index T.P
+li t0, 4032
+add t0, t0, s2
+sw a0,(t0)
+li t0, 4024
+add t0, t0, s2
+lw a0,(t0)
+#A.ADD chosen
+add a0,a0,a1
+#sw extended index T.P
+li t0, 4036
+add t0, t0, s2
+sw a0,(t0)
+li t0, 4032
+add t0, t0, s2
+lw a0,(t0)
+li t0, 4036
+add t0, t0, s2
+lw a0,(t0)
+#A.MV T.IR
+mv a0,a0
+li t0, 4024
+add t0, t0, s2
+lw a0,(t0)
+#A.ADD chosen
+add a0,a0,a1
+#sw extended index T.P
+li t0, 4024
+add t0, t0, s2
+sw a0,(t0)
 .align 4
 L3032:
-movl 4024(%ebp),%eax
-cmpl 4028(%ebp),%eax
-jle L3033
-movl $0,%eax
-movl %eax,608(%edi)
-movl $0,%eax
-movl %eax,616(%edi)
-movl $0,%eax
-movl %eax,620(%edi)
-movl $0,%eax
-movl %eax,624(%edi)
-movl $2000,%eax
-movl %eax,612(%edi)
-movl $10,%eax
-movl %eax,628(%edi)
-movl 68(%edi),%eax
-movl %ebp,%ecx
-addl $4024,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li t0, 4024
+add t0, t0, s2
+lw a0,(t0)
+#X15
+ble a0,a0,L3033
+li a0,0
+#A.SG T.G
+sw a0,608(s0)
+li a0,0
+#A.SG T.G
+sw a0,616(s0)
+li a0,0
+#A.SG T.G
+sw a0,620(s0)
+li a0,0
+#A.SG T.G
+sw a0,624(s0)
+li a0,2000
+#A.SG T.G
+sw a0,612(s0)
+li a0,10
+#A.SG T.G
+sw a0,628(s0)
+#A.LG T.G
+la a0,68+G
+lw a0,0(a0)
+mv s1,s2
+#ADD
+li t0,4024
+add s2,s2,t0
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,632(%edi)
-movl $L3499,%eax
-shrl $2,%eax
-movl %eax,4032(%ebp)
-movl 164(%edi),%eax
-movl %ebp,%ecx
-addl $4024,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+#A.SG T.G
+sw a0,632(s0)
+#A.LA T.LL
+la a0,L3499
+srli a0,a0,2
+#sw extended index T.P
+li t0, 4032
+add t0, t0, s2
+sw a0,(t0)
+#A.LG T.G
+la a0,164+G
+lw a0,0(a0)
+mv s1,s2
+#ADD
+li t0,4024
+add s2,s2,t0
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,636(%edi)
-movl 636(%edi),%eax
-movl %eax,4032(%ebp)
-movl 48(%edi),%eax
-movl %ebp,%ecx
-addl $4024,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+#A.SG T.G
+sw a0,636(s0)
+#A.LG T.G
+la a0,636+G
+lw a0,0(a0)
+#sw extended index T.P
+li t0, 4032
+add t0, t0, s2
+sw a0,(t0)
+#A.LG T.G
+la a0,48+G
+lw a0,0(a0)
+mv s1,s2
+#ADD
+li t0,4024
+add s2,s2,t0
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl L3003,%eax
-movl %ebp,%ecx
-addl $4024,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+#A.LA T.L
+la a0,L3003
+mv s1,s2
+#ADD
+li t0,4024
+add s2,s2,t0
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl L3007,%eax
-movl %ebp,%ecx
-addl $4024,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+#A.LA T.L
+la a0,L3009
+mv s1,s2
+#ADD
+li t0,4024
+add s2,s2,t0
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 188(%edi),%eax
-movl %ebp,%ecx
-addl $4024,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+#A.LG T.G
+la a0,188+G
+lw a0,0(a0)
+mv s1,s2
+#ADD
+li t0,4024
+add s2,s2,t0
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl $0,%eax
-jmp L3031
+li a0,0
+jalr zero,a0,0
+#X4
 .align 4
 L3031:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
 .align 4
 L3002:
 L3034:
-movl $0,%eax
-movl %eax,8(%ebp)
-movl $0,%eax
-movl %eax,12(%ebp)
-movl $0,%eax
-movl %eax,16(%ebp)
-movl $0,%eax
-movl %eax,20(%ebp)
-movl L3025,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,0
+#A.SW T.P
+sw a0,8(s2)
+li a0,0
+#A.SW T.P
+sw a0,12(s2)
+li a0,0
+#A.SW T.P
+sw a0,16(s2)
+li a0,0
+#A.SW T.P
+sw a0,20(s2)
+#A.LA T.L
+la a0,L3025
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 628(%edi),%eax
-movl %eax,8(%ebp)
-jmp L3035
+#A.LG T.G
+la a0,628+G
+lw a0,0(a0)
+#A.SW T.P
+sw a0,8(s2)
+jalr zero,a0,0
 .align 4
 L3037:
-movl $1,%eax
-movl %eax,32(%ebp)
-movl L3029,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,1
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
 .align 4
 L3038:
-movl $0,%eax
-movl %eax,32(%ebp)
-movl $0,%eax
-movl %eax,36(%ebp)
-movl $0,%eax
-movl %eax,40(%ebp)
-movl L3005,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,0
+#A.SW T.P
+sw a0,32(s2)
+li a0,0
+#A.SW T.P
+sw a0,36(s2)
+li a0,0
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3005
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
 .align 4
 L3039:
 L3040:
 L3041:
-jmp L3034
+jalr zero,a0,0
 .align 4
 L3042:
-movl $500,%eax
-addl 612(%edi),%eax
-movl %eax,612(%edi)
-jmp L3034
+li a0,500
+#A.ADD chosen
+add a0,a0,a1
+#A.SG T.G
+sw a0,612(s0)
+jalr zero,a0,0
+#A.LA T.L
 .align 4
 L3043:
-movl L3025,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+la a0,L3025
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl L3023,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+#A.LA T.L
+la a0,L3023
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,12(%ebp)
-movl 12(%ebp),%eax
-cmpl $500,%eax
-jl L3044
-movl $2,%eax
-movl %eax,32(%ebp)
-movl L3029,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+#A.SW T.P
+sw a0,12(s2)
+#A.LP T.P
+lw a0,12(s2)
+#X12
+blt a0,a0,L3044
+li a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
 .align 4
 L3044:
-movl $76,%eax
-cmpl 628(%edi),%eax
-je L3045
-movl $3,%eax
-movl %eax,32(%ebp)
-movl L3029,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,76
+#X10
+beq a0,a0,L3045
+li a0,3
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
+#A.LA T.L
 .align 4
 L3045:
-movl L3025,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+la a0,L3025
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl L3023,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+#A.LA T.L
+la a0,L3023
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-addl 612(%edi),%eax
-movl %eax,24(%ebp)
-movl 12(%ebp),%eax
-addl 600(%edi),%eax
-movl %eax,28(%ebp)
-movl 24(%ebp),%eax
-movl 28(%ebp),%ecx
-movl %eax,(,%ecx,4)
-jmp L3034
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,24(s2)
+#A.LP T.P
+lw a0,12(s2)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,28(s2)
+#A.LP T.P
+lw a0,24(s2)
+#A.LP T.P
+lw a1,28(s2)
+#A.MV T.IR
+mv a0,a0
+jalr zero,a0,0
 .align 4
 L3046:
 L3047:
@@ -1252,18 +1823,25 @@ L3052:
 L3053:
 L3054:
 L3055:
-movl $66,%eax
-movl %eax,8(%ebp)
-movl L3023,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,66
+#A.SW T.P
+sw a0,8(s2)
+#A.LA T.L
+la a0,L3023
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-addl 612(%edi),%eax
-movl %eax,12(%ebp)
-jmp L3036
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,12(s2)
+jalr zero,a0,0
+#A.LA T.L
 .align 4
 L3056:
 L3057:
@@ -1273,3229 +1851,6349 @@ L3060:
 L3061:
 L3062:
 L3063:
-movl L3025,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+la a0,L3025
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl $73,%eax
-cmpl 628(%edi),%eax
-jne L3064
-movl $1,%eax
-movl %eax,20(%ebp)
-movl L3025,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,73
+#X10
+bne a0,a0,L3064
+li a0,1
+#A.SW T.P
+sw a0,20(s2)
+#A.LA T.L
+la a0,L3025
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
 .align 4
 L3064:
-movl $71,%eax
-cmpl 628(%edi),%eax
-jne L3066
-movl $2,%eax
-movl %eax,24(%ebp)
-jmp L3065
+li a0,71
+#X10
+bne a0,a0,L3066
+li a0,2
+#A.SW T.P
+sw a0,24(s2)
+jalr zero,a0,0
 .align 4
 L3066:
-movl $80,%eax
-cmpl 628(%edi),%eax
-jne L3068
-movl $1,%eax
-movl %eax,24(%ebp)
-jmp L3067
+li a0,80
+#X10
+bne a0,a0,L3068
+li a0,1
+#A.SW T.P
+sw a0,24(s2)
+jalr zero,a0,0
 .align 4
 L3068:
-movl $76,%eax
-cmpl 628(%edi),%eax
-jne L3070
-movl $3,%eax
-movl %eax,24(%ebp)
-jmp L3069
+li a0,76
+#X10
+bne a0,a0,L3070
+li a0,3
+#A.SW T.P
+sw a0,24(s2)
+jalr zero,a0,0
 .align 4
 L3070:
-movl $0,%eax
-movl %eax,24(%ebp)
+li a0,0
+#A.SW T.P
+sw a0,24(s2)
+#A.LP T.P
 .align 4
 L3069:
 L3067:
 L3065:
-movl 24(%ebp),%eax
-movl %eax,16(%ebp)
-movl $83,%eax
-cmpl 8(%ebp),%eax
-jne L3071
-movl $0,%eax
-cmpl 16(%ebp),%eax
-jne L3072
-movl $4,%eax
-movl %eax,32(%ebp)
-movl L3029,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,24(s2)
+#A.SW T.P
+sw a0,16(s2)
+li a0,83
+#X10
+bne a0,a0,L3071
+li a0,0
+#X10
+bne a0,a0,L3072
+li a0,4
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
 .align 4
 L3072:
-movl $1,%eax
-addl 20(%ebp),%eax
-movl %eax,20(%ebp)
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,20(s2)
+#A.LP T.P
 .align 4
 L3071:
-movl 16(%ebp),%eax
-testl %eax,%eax
-je L3073
-movl L3025,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,16(s2)
+bnez a0,1f
+beq a0,a0,L3073
+#A.LA T.L
+la a0,L3025
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
+#A.LA T.L
 .align 4
 L3073:
-movl L3023,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+la a0,L3023
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,12(%ebp)
-movl $3,%eax
-cmpl 16(%ebp),%eax
-jne L3074
-movl 612(%edi),%eax
-addl 12(%ebp),%eax
-movl %eax,12(%ebp)
+#A.SW T.P
+sw a0,12(s2)
+li a0,3
+#X10
+bne a0,a0,L3074
+#A.LG T.G
+la a0,612+G
+lw a0,0(a0)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,12(s2)
+#A.LP T.P
 .align 4
 L3074:
-movl 20(%ebp),%eax
-shll $2,%eax
-orl 16(%ebp),%eax
-movl %eax,16(%ebp)
-jmp L3036
+lw a0,20(s2)
+#X16
+sll a0,a0,a1
+#X19
+or a0,a0,a1
+#A.SW T.P
+sw a0,16(s2)
+jalr zero,a0,0
+#A.LA T.L
 .align 4
 L3075:
-movl L3025,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+la a0,L3025
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl L3023,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+#A.LA T.L
+la a0,L3023
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,12(%ebp)
-jmp L3036
+#A.SW T.P
+sw a0,12(s2)
+jalr zero,a0,0
+#A.LA T.L
 .align 4
 L3076:
-movl L3025,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+la a0,L3025
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl $76,%eax
-cmpl 628(%edi),%eax
-jne L3077
-movl $3,%eax
-movl %eax,16(%ebp)
-movl L3025,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,76
+#X10
+bne a0,a0,L3077
+li a0,3
+#A.SW T.P
+sw a0,16(s2)
+#A.LA T.L
+la a0,L3025
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
+#A.LA T.L
 .align 4
 L3077:
-movl L3023,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+la a0,L3023
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,12(%ebp)
-movl $3,%eax
-cmpl 16(%ebp),%eax
-jne L3078
-movl 612(%edi),%eax
-addl 12(%ebp),%eax
-movl %eax,12(%ebp)
+#A.SW T.P
+sw a0,12(s2)
+li a0,3
+#X10
+bne a0,a0,L3078
+#A.LG T.G
+la a0,612+G
+lw a0,0(a0)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,12(s2)
 .align 4
 L3078:
-jmp L3036
+jalr zero,a0,0
+#A.LP T.P
 .align 4
 L3035:
-movl 8(%ebp),%eax
-movl $L3,%esi
-movl (%esi),%ecx
-movl 4(%esi),%edx
-jecxz 2f
+lw a0,8(s2)
+#X23
+la s1,L3
+lw t1,0(s1)
+lw t2,4(s1)
+beqz t1,2f
 1:
-addl $8,%esi
-cmpl (%esi),%eax
-je 3f
-loop 1b
+addi s1,s1,8
+lw t0,0(s1)
+beq a0,t0,3f
+addi t1,t1,-1
+bnez t1,1b
 2:
-jmp *%edx
+jalr zero,t2,0
 3:
-jmp *4(%esi)
+lw t0,4(s1)
+jalr zero,t0,0
 .data
 .align 4
 L3:
-.long 26
-.long L3037
-.long -1
-.long L3038
-.long 32
-.long L3039
-.long 10
-.long L3040
-.long 36
-.long L3041
-.long 90
-.long L3042
-.long 71
-.long L3043
-.long 48
-.long L3046
-.long 49
-.long L3047
-.long 50
-.long L3048
-.long 51
-.long L3049
-.long 52
-.long L3050
-.long 53
-.long L3051
-.long 54
-.long L3052
-.long 55
-.long L3053
-.long 56
-.long L3054
-.long 57
-.long L3055
-.long 65
-.long L3056
-.long 70
-.long L3057
-.long 74
-.long L3058
-.long 75
-.long L3059
-.long 76
-.long L3060
-.long 83
-.long L3061
-.long 84
-.long L3062
-.long 88
-.long L3063
-.long 67
-.long L3075
-.long 68
-.long L3076
+.word 26
+.word L3037
+.word -1
+.word L3038
+.word 32
+.word L3039
+.word 10
+.word L3040
+.word 36
+.word L3041
+.word 90
+.word L3042
+.word 71
+.word L3043
+.word 48
+.word L3046
+.word 49
+.word L3047
+.word 50
+.word L3048
+.word 51
+.word L3049
+.word 52
+.word L3050
+.word 53
+.word L3051
+.word 54
+.word L3052
+.word 55
+.word L3053
+.word 56
+.word L3054
+.word 57
+.word L3055
+.word 65
+.word L3056
+.word 70
+.word L3057
+.word 74
+.word L3058
+.word 75
+.word L3059
+.word 76
+.word L3060
+.word 83
+.word L3061
+.word 84
+.word L3062
+.word 88
+.word L3063
+.word 67
+.word L3075
+.word 68
+.word L3076
+#A.LP T.P
 .text
 .align 4
 L3036:
-movl 8(%ebp),%eax
-movl %eax,32(%ebp)
-movl 12(%ebp),%eax
-movl %eax,36(%ebp)
-movl 16(%ebp),%eax
-movl %eax,40(%ebp)
-movl L3005,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,8(s2)
+#A.SW T.P
+sw a0,32(s2)
+#A.LP T.P
+lw a0,12(s2)
+#A.SW T.P
+sw a0,36(s2)
+#A.LP T.P
+lw a0,16(s2)
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3005
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-jmp L3034
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+jalr zero,a0,0
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
 .align 4
 L3004:
-jmp L3092
+jalr zero,a0,0
 .align 4
 L3086:
-movl $5,%eax
-cmpl 8(%ebp),%eax
-setg %al
-movzbl %al,%eax
-decl %eax
-movl %eax,12(%ebp)
-movl 8(%ebp),%eax
-cmpl $21,%eax
-setg %al
-movzbl %al,%eax
-decl %eax
-movl %eax,16(%ebp)
-movl 12(%ebp),%eax
-andl 16(%ebp),%eax
-movl %eax,12(%ebp)
-movl $32,%eax
-cmpl 8(%ebp),%eax
-setne %al
-movzbl %al,%eax
-decl %eax
-movl %eax,16(%ebp)
-movl 12(%ebp),%eax
-orl 16(%ebp),%eax
-movl %eax,12(%ebp)
-movl $35,%eax
-cmpl 8(%ebp),%eax
-setg %al
-movzbl %al,%eax
-decl %eax
-movl %eax,16(%ebp)
-movl 8(%ebp),%eax
-cmpl $37,%eax
-setg %al
-movzbl %al,%eax
-decl %eax
-movl %eax,20(%ebp)
-movl 16(%ebp),%eax
-andl 20(%ebp),%eax
-movl %eax,16(%ebp)
-movl 12(%ebp),%eax
-orl 16(%ebp),%eax
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+li a0,5
+#X15
+ble a0,a1,L10000
+addi a0,zero,-1 
+
+.align 4
+L10000:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,12(s2)
+#A.LP T.P
+lw a0,8(s2)
+#X15
+ble a0,a1,L10001
+addi a0,zero,-1 
+
+.align 4
+L10001:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,16(s2)
+#A.LP T.P
+lw a0,12(s2)
+#X18
+and a0,a0,a1
+#A.SW T.P
+sw a0,12(s2)
+li a0,32
+#X10
+beq a0,a1,L10002
+addi a0,zero,-1 
+
+.align 4
+L10002:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,16(s2)
+#A.LP T.P
+lw a0,12(s2)
+#X19
+or a0,a0,a1
+#A.SW T.P
+sw a0,12(s2)
+li a0,35
+#X15
+ble a0,a1,L10003
+addi a0,zero,-1 
+
+.align 4
+L10003:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,16(s2)
+#A.LP T.P
+lw a0,8(s2)
+#X15
+ble a0,a1,L10004
+addi a0,zero,-1 
+
+.align 4
+L10004:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,20(s2)
+#A.LP T.P
+lw a0,16(s2)
+#X18
+and a0,a0,a1
+#A.SW T.P
+sw a0,16(s2)
+#A.LP T.P
+lw a0,12(s2)
+#X19
+or a0,a0,a1
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
 .align 4
 L3088:
-movl $5,%eax
-cmpl 8(%ebp),%eax
-setg %al
-movzbl %al,%eax
-decl %eax
-movl %eax,16(%ebp)
-movl 8(%ebp),%eax
-cmpl $7,%eax
-setg %al
-movzbl %al,%eax
-decl %eax
-movl %eax,20(%ebp)
-movl 16(%ebp),%eax
-andl 20(%ebp),%eax
-movl %eax,16(%ebp)
-movl $0,%eax
-cmpl 12(%ebp),%eax
-setne %al
-movzbl %al,%eax
-decl %eax
-movl %eax,20(%ebp)
-movl 16(%ebp),%eax
-andl 20(%ebp),%eax
-movl %eax,16(%ebp)
-movl $16,%eax
-cmpl 8(%ebp),%eax
-setg %al
-movzbl %al,%eax
-decl %eax
-movl %eax,20(%ebp)
-movl 8(%ebp),%eax
-cmpl $17,%eax
-setg %al
-movzbl %al,%eax
-decl %eax
-movl %eax,24(%ebp)
-movl 20(%ebp),%eax
-andl 24(%ebp),%eax
-movl %eax,20(%ebp)
-movl $0,%eax
-cmpl 12(%ebp),%eax
-sete %al
-movzbl %al,%eax
-decl %eax
-movl %eax,24(%ebp)
-movl 20(%ebp),%eax
-andl 24(%ebp),%eax
-movl %eax,20(%ebp)
-movl 16(%ebp),%eax
-orl 20(%ebp),%eax
-movl %eax,16(%ebp)
-movl 8(%ebp),%eax
-cmpl $32,%eax
-setl %al
-movzbl %al,%eax
-decl %eax
-movl %eax,20(%ebp)
-movl 16(%ebp),%eax
-orl 20(%ebp),%eax
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+li a0,5
+#X15
+ble a0,a1,L10005
+addi a0,zero,-1 
+
+.align 4
+L10005:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,16(s2)
+#A.LP T.P
+lw a0,8(s2)
+#X15
+ble a0,a1,L10006
+addi a0,zero,-1 
+
+.align 4
+L10006:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,20(s2)
+#A.LP T.P
+lw a0,16(s2)
+#X18
+and a0,a0,a1
+#A.SW T.P
+sw a0,16(s2)
+li a0,0
+#X10
+beq a0,a1,L10007
+addi a0,zero,-1 
+
+.align 4
+L10007:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,20(s2)
+#A.LP T.P
+lw a0,16(s2)
+#X18
+and a0,a0,a1
+#A.SW T.P
+sw a0,16(s2)
+li a0,16
+#X15
+ble a0,a1,L10008
+addi a0,zero,-1 
+
+.align 4
+L10008:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,20(s2)
+#A.LP T.P
+lw a0,8(s2)
+#X15
+ble a0,a1,L10009
+addi a0,zero,-1 
+
+.align 4
+L10009:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,24(s2)
+#A.LP T.P
+lw a0,20(s2)
+#X18
+and a0,a0,a1
+#A.SW T.P
+sw a0,20(s2)
+li a0,0
+#X11
+bne a0,a1,L10010
+addi a0,zero,-1 
+
+.align 4
+L10010:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,24(s2)
+#A.LP T.P
+lw a0,20(s2)
+#X18
+and a0,a0,a1
+#A.SW T.P
+sw a0,20(s2)
+#A.LP T.P
+lw a0,16(s2)
+#X19
+or a0,a0,a1
+#A.SW T.P
+sw a0,16(s2)
+#A.LP T.P
+lw a0,8(s2)
+#X13
+bge a0,a1,L10011
+addi a0,zero,-1 
+
+.align 4
+L10011:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,20(s2)
+#A.LP T.P
+lw a0,16(s2)
+#X19
+or a0,a0,a1
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
 .align 4
 L3090:
-movl $1,%eax
-cmpl L3081,%eax
-setne %al
-movzbl %al,%eax
-decl %eax
-movl %eax,20(%ebp)
-movl $2,%eax
-cmpl L3081,%eax
-setne %al
-movzbl %al,%eax
-decl %eax
-movl %eax,24(%ebp)
-movl 20(%ebp),%eax
-orl 24(%ebp),%eax
-movl %eax,20(%ebp)
-movl 12(%ebp),%eax
-xorl $-1,%eax
-movl %eax,24(%ebp)
-movl $3,%eax
-cmpl L3081,%eax
-setne %al
-movzbl %al,%eax
-decl %eax
-movl %eax,28(%ebp)
-movl 24(%ebp),%eax
-andl 28(%ebp),%eax
-orl 20(%ebp),%eax
-movl %eax,24(%ebp)
-movl L3081,%eax
-cmpl $8,%eax
-setl %al
-movzbl %al,%eax
-decl %eax
-movl %eax,28(%ebp)
-movl 16(%ebp),%eax
-testl %eax,%eax
-jne L3094
-movl 24(%ebp),%eax
-testl %eax,%eax
-jne L3094
-movl 28(%ebp),%eax
-testl %eax,%eax
-je L3093
+li a0,1
+#X10
+beq a0,a1,L10012
+addi a0,zero,-1 
+
+.align 4
+L10012:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,20(s2)
+li a0,2
+#X10
+beq a0,a1,L10013
+addi a0,zero,-1 
+
+.align 4
+L10013:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,24(s2)
+#A.LP T.P
+lw a0,20(s2)
+#X19
+or a0,a0,a1
+#A.SW T.P
+sw a0,20(s2)
+#A.LP T.P
+lw a0,12(s2)
+#X3
+not a0,a0
+#A.SW T.P
+sw a0,24(s2)
+li a0,3
+#X10
+beq a0,a1,L10014
+addi a0,zero,-1 
+
+.align 4
+L10014:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,28(s2)
+#A.LP T.P
+lw a0,24(s2)
+#X18
+and a0,a0,a1
+#X19
+or a0,a0,a1
+#A.SW T.P
+sw a0,24(s2)
+#A.LA T.L
+la a0,L3081
+#X13
+bge a0,a1,L10015
+addi a0,zero,-1 
+
+.align 4
+L10015:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,28(s2)
+#A.LP T.P
+lw a0,16(s2)
+bnez a0,1f
+bne a0,a0,L3094
+#A.LP T.P
+lw a0,24(s2)
+bnez a0,1f
+bne a0,a0,L3094
+#A.LP T.P
+lw a0,28(s2)
+bnez a0,1f
+beq a0,a0,L3093
 .align 4
 L3094:
-movl 20(%ebp),%eax
-testl %eax,%eax
-je L3096
-movl $19,%eax
-movl %eax,40(%ebp)
-jmp L3095
-.align 4
-L3096:
-movl $9,%eax
-movl %eax,40(%ebp)
+li a0,0
+#X10
+bne a0,a0,L3095
+#A.LP T.P
+lw a0,12(s2)
+bnez a0,1f
+bne a0,a0,L3095
+li a0,25
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,48(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3013
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LP T.P
 .align 4
 L3095:
-movl L3080,%eax
-movl %eax,44(%ebp)
-movl L3081,%eax
-movl %eax,48(%ebp)
-movl 8(%ebp),%eax
-movl %eax,52(%ebp)
-movl L3011,%eax
-movl %ebp,%ecx
-addl $32,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+lw a0,20(s2)
+bnez a0,1f
+beq a0,a0,L3097
+#A.LA T.L
+la a0,L3080
+#X12
+bge a0,a0,L3099
+#A.LA T.L
+la a0,L3080
+#X14
+ble a0,a0,L3099
+#A.LA T.LL
+la a0,L3498
+srli a0,a0,2
+#A.SW T.P
+sw a0,40(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 24(%ebp),%eax
-testl %eax,%eax
-je L3097
-movl 12(%ebp),%eax
-testl %eax,%eax
-jne L3097
-movl $14,%eax
-movl %eax,40(%ebp)
-movl $2,%eax
-movl %eax,44(%ebp)
-movl $0,%eax
-movl %eax,48(%ebp)
-movl 8(%ebp),%eax
-movl %eax,52(%ebp)
-movl L3011,%eax
-movl %ebp,%ecx
-addl $32,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,19
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,48(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3013
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-.align 4
-L3097:
-movl 8(%ebp),%eax
-movl %eax,L3080
-movl 28(%ebp),%eax
-testl %eax,%eax
-je L3099
-movl $8,%eax
-movl %eax,32(%ebp)
-jmp L3098
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3099:
-movl $4,%eax
-movl %eax,32(%ebp)
+la a0,L3497
+srli a0,a0,2
+#A.SW T.P
+sw a0,40(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,25
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,48(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3013
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,10
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,48(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3013
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,19
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,48(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3013
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
 .align 4
-L3098:
-movl 32(%ebp),%eax
-movl %eax,L3081
+L3100:
+jalr zero,a0,0
 .align 4
-L3093:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
-.align 4
-L3092:
-jmp L3100
-.align 4
-L3102:
-jmp L3101
+L3097:
+jalr zero,a0,0
 .align 4
 L3103:
-movl 608(%edi),%eax
-cmpl $500,%eax
-jl L3104
-movl $5,%eax
-movl %eax,32(%ebp)
-movl L3029,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,79
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3104:
-movl L3080,%eax
-movl %eax,24(%ebp)
-movl 608(%edi),%eax
-addl 604(%edi),%eax
-movl %eax,28(%ebp)
-movl 24(%ebp),%eax
-movl 28(%ebp),%ecx
-movl %eax,(,%ecx,4)
-movl $1,%eax
-addl 608(%edi),%eax
-movl %eax,608(%edi)
-jmp L3101
+la a0,L3496
+srli a0,a0,2
+#A.SW T.P
+sw a0,40(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,26
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,48(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3013
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
 .align 4
 L3105:
-movl $1,%eax
-movl %eax,616(%edi)
-movl $L3498,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3080,%eax
-movl %eax,36(%ebp)
-movl L3081,%eax
-movl %eax,40(%ebp)
-movl L3013,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,77
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl $0,%eax
-movl %eax,616(%edi)
-jmp L3101
+jalr zero,a0,0
 .align 4
 L3106:
-movl $1,%eax
-movl %eax,616(%edi)
-movl $L3497,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3080,%eax
-movl %eax,36(%ebp)
-movl $0,%eax
-movl %eax,40(%ebp)
-movl L3013,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,76
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl $67,%eax
-cmpl 8(%ebp),%eax
-je L3107
-movl $L3496,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3107:
-movl $0,%eax
-movl %eax,616(%edi)
-jmp L3101
+la a0,L3495
+srli a0,a0,2
+#A.SW T.P
+sw a0,40(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,26
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,48(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3013
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.L
 .align 4
 L3108:
-movl $88,%eax
-cmpl 8(%ebp),%eax
-jne L3110
-movl 12(%ebp),%eax
-movl %eax,32(%ebp)
-movl L3087,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+L3109:
+la a0,L3080
+#X12
+bge a0,a0,L3110
+#A.LA T.L
+la a0,L3080
+#X14
+ble a0,a0,L3110
+#A.LA T.LL
+la a0,L3494
+srli a0,a0,2
+#A.SW T.P
+sw a0,40(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-testl %eax,%eax
-je L3110
-movl $1,%eax
-movl %eax,24(%ebp)
-jmp L3109
+li a0,28
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,48(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3013
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3110:
-movl $0,%eax
-movl %eax,24(%ebp)
-.align 4
-L3109:
-movl 24(%ebp),%eax
-movl %eax,20(%ebp)
-movl 20(%ebp),%eax
-movl %eax,32(%ebp)
-movl $0,%eax
-movl %eax,36(%ebp)
-movl $0,%eax
-cmpl 20(%ebp),%eax
-setne %al
-movzbl %al,%eax
-decl %eax
-movl %eax,40(%ebp)
-movl 12(%ebp),%eax
-movl %eax,52(%ebp)
-movl L3081,%eax
-movl %eax,56(%ebp)
-movl L3089,%eax
-movl %ebp,%ecx
-addl $44,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+la a0,L3493
+srli a0,a0,2
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,48(s2)
+li a0,0
+#A.SW T.P
+sw a0,52(s2)
+li a0,0
+#A.SW T.P
+sw a0,56(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,44(%ebp)
-movl 40(%ebp),%eax
-orl 44(%ebp),%eax
-movl %eax,40(%ebp)
-movl L3091,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+#A.LA T.LL
+la a0,L3492
+srli a0,a0,2
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,48(s2)
+li a0,0
+#A.SW T.P
+sw a0,52(s2)
+li a0,0
+#A.SW T.P
+sw a0,56(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-jmp L3101
+#A.LA T.LL
+la a0,L3491
+srli a0,a0,2
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,48(s2)
+li a0,0
+#A.SW T.P
+sw a0,52(s2)
+li a0,0
+#A.SW T.P
+sw a0,56(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
 .align 4
 L3111:
-L3112:
-movl $1,%eax
-movl %eax,32(%ebp)
-movl $0,%eax
-movl %eax,36(%ebp)
-movl $0,%eax
-movl %eax,40(%ebp)
-movl L3091,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $65,%eax
-cmpl L3079,%eax
-jne L3114
-movl $10,%eax
-movl %eax,32(%ebp)
-jmp L3113
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
-L3114:
-movl $18,%eax
-movl %eax,32(%ebp)
+L3112:
+la a0,L3490
+srli a0,a0,2
+#A.SW T.P
+sw a0,40(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,27
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,48(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3013
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3489
+srli a0,a0,2
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3113:
-movl L3080,%eax
-movl %eax,36(%ebp)
-movl L3081,%eax
-movl %eax,40(%ebp)
-movl L3009,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+la a0,L3488
+srli a0,a0,2
+#A.SW T.P
+sw a0,40(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-jmp L3101
+li a0,26
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,48(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3013
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3114:
+la a0,L3487
+srli a0,a0,2
+#A.SW T.P
+sw a0,40(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,26
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,48(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3013
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
 .align 4
 L3115:
-movl $1,%eax
-movl %eax,32(%ebp)
-movl $-1,%eax
-movl %eax,36(%ebp)
-movl $0,%eax
-movl %eax,40(%ebp)
-movl L3091,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,70
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl $6,%eax
-movl %eax,32(%ebp)
-movl L3080,%eax
-movl %eax,36(%ebp)
-movl L3081,%eax
-movl %eax,40(%ebp)
-movl L3009,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3101
+jalr zero,a0,0
 .align 4
 L3116:
+li a0,69
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
 L3117:
-movl $3,%eax
-cmpl L3081,%eax
-je L3118
-movl $6,%eax
-movl %eax,32(%ebp)
-movl L3029,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,68
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
+jalr zero,a0,0
+jalr zero,a0,0
+#A.LA T.L
 .align 4
-L3118:
-movl L3083,%eax
-movl %eax,20(%ebp)
-movl $88,%eax
-cmpl L3082,%eax
-jne L3120
-movl $10,%eax
-cmpl 20(%ebp),%eax
-jg L3121
-movl 20(%ebp),%eax
-cmpl $15,%eax
-jle L3119
-.align 4
-L3121:
-L3120:
-movl $L3495,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $11,%eax
-movl %eax,20(%ebp)
-.align 4
-L3119:
-movl 20(%ebp),%eax
-subl $10,%eax
-movl %eax,32(%ebp)
-movl $70,%eax
-cmpl L3079,%eax
-jne L3123
-movl $1,%eax
-movl %eax,36(%ebp)
-jmp L3122
-.align 4
-L3123:
-movl $0,%eax
-movl %eax,36(%ebp)
-.align 4
-L3122:
-movl 32(%ebp),%eax
-xorl 36(%ebp),%eax
-movl %eax,32(%ebp)
-movl L3080,%eax
-movl %eax,36(%ebp)
-movl L3081,%eax
-movl %eax,40(%ebp)
-movl L3009,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3101
-.align 4
-L3124:
-movl $0,%eax
-cmpl L3081,%eax
-je L3125
-movl $7,%eax
-movl %eax,32(%ebp)
-movl L3029,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-.align 4
-L3125:
-movl $L3494,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3493,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3080,%eax
-shll $2,%eax
-movl %eax,36(%ebp)
-movl $0,%eax
-movl %eax,40(%ebp)
-movl $0,%eax
-movl %eax,44(%ebp)
-movl $0,%eax
-movl %eax,48(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3492,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3491,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3490,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3489,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3101
-.align 4
-L3126:
-jmp L3127
-.align 4
-L3129:
-movl $8,%eax
-movl %eax,32(%ebp)
-movl L3029,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-.align 4
-L3130:
-movl $L3488,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3131:
-movl $L3487,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3132:
-movl $L3486,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3133:
-movl $L3485,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3484,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3483,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3134:
-movl $7,%eax
-movl %eax,32(%ebp)
-movl L3083,%eax
-movl %eax,36(%ebp)
-movl L3084,%eax
-movl %eax,40(%ebp)
-movl L3009,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3135:
-L3136:
-movl $L3482,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $8,%eax
-movl %eax,32(%ebp)
-movl L3083,%eax
-movl %eax,36(%ebp)
-movl L3084,%eax
-movl %eax,40(%ebp)
-movl L3009,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $7,%eax
-cmpl L3080,%eax
-jne L3137
-movl $L3481,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-.align 4
-L3137:
-jmp L3128
-.align 4
-L3138:
-movl $10,%eax
-movl %eax,32(%ebp)
-movl L3083,%eax
-movl %eax,36(%ebp)
-movl L3084,%eax
-movl %eax,40(%ebp)
-movl L3009,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3139:
-movl $11,%eax
-movl %eax,32(%ebp)
-movl L3083,%eax
-movl %eax,36(%ebp)
-movl L3084,%eax
-movl %eax,40(%ebp)
-movl L3009,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3140:
-L3141:
-L3142:
-L3143:
-L3144:
-L3145:
-movl $12,%eax
-movl %eax,32(%ebp)
-movl L3083,%eax
-movl %eax,36(%ebp)
-movl L3084,%eax
-movl %eax,40(%ebp)
-movl L3009,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $70,%eax
-cmpl 8(%ebp),%eax
-je L3147
-movl $84,%eax
-cmpl 8(%ebp),%eax
-jne L3146
-.align 4
-L3147:
-jmp L3128
-.align 4
-L3146:
-movl L3080,%eax
-subl $10,%eax
-addl $22,%eax
-movl %eax,40(%ebp)
-movl L3015,%eax
-movl %ebp,%ecx
-addl $32,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3480,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3479,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3148:
-movl $0,%eax
-cmpl L3084,%eax
-jne L3150
-movl $13,%eax
-movl %eax,32(%ebp)
-jmp L3149
-.align 4
-L3150:
-movl $20,%eax
-movl %eax,32(%ebp)
-.align 4
-L3149:
-movl L3083,%eax
-movl %eax,36(%ebp)
-movl L3084,%eax
-movl %eax,40(%ebp)
-movl L3009,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3151:
-movl $0,%eax
-cmpl L3084,%eax
-jne L3153
-movl $14,%eax
-movl %eax,32(%ebp)
-jmp L3152
-.align 4
-L3153:
-movl $21,%eax
-movl %eax,32(%ebp)
-.align 4
-L3152:
-movl L3083,%eax
-movl %eax,36(%ebp)
-movl L3084,%eax
-movl %eax,40(%ebp)
-movl L3009,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3154:
-movl $15,%eax
-movl %eax,32(%ebp)
-movl L3083,%eax
-movl %eax,36(%ebp)
-movl L3084,%eax
-movl %eax,40(%ebp)
-movl L3009,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3155:
-movl $16,%eax
-movl %eax,32(%ebp)
-movl L3083,%eax
-movl %eax,36(%ebp)
-movl L3084,%eax
-movl %eax,40(%ebp)
-movl L3009,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3156:
-movl $17,%eax
-movl %eax,32(%ebp)
-movl L3083,%eax
-movl %eax,36(%ebp)
-movl L3084,%eax
-movl %eax,40(%ebp)
-movl L3009,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3157:
-movl $L3478,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $17,%eax
-movl %eax,32(%ebp)
-movl L3083,%eax
-movl %eax,36(%ebp)
-movl L3084,%eax
-movl %eax,40(%ebp)
-movl L3009,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3158:
-movl $L3477,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3159:
-movl $L3476,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3085,%eax
-movl %eax,36(%ebp)
-movl $3,%eax
-movl %eax,40(%ebp)
-movl $0,%eax
-movl %eax,44(%ebp)
-movl $0,%eax
-movl %eax,48(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3475,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3474,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3473,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3472,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3471,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3470,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3469,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3468,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3467,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3466,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3465,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3464,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl L3085,%eax
-movl %eax,24(%ebp)
-movl 608(%edi),%eax
-addl 604(%edi),%eax
-movl %eax,28(%ebp)
-movl 24(%ebp),%eax
-movl 28(%ebp),%ecx
-movl %eax,(,%ecx,4)
-movl $1,%eax
-addl 608(%edi),%eax
-movl %eax,608(%edi)
-movl $1,%eax
-addl L3085,%eax
-movl %eax,L3085
-jmp L3128
-.align 4
-L3160:
-movl $L3463,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3161:
-movl $L3462,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3162:
-movl $L3461,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3163:
-movl $L3460,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3164:
-movl $L3459,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3165:
-movl $L3458,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3166:
-movl $L3457,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3167:
-movl $L3456,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3168:
-movl $L3455,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3454,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3169:
-movl $L3453,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3170:
-movl $L3452,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3171:
-movl $L3451,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3450,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3449,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3448,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3447,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3446,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3445,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3444,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3443,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3442,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3441,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3440,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3439,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3438,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3437,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3172:
-movl $L3436,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3435,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3434,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3173:
-movl $L3433,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3432,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3431,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3430,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3174:
-movl $L3429,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3175:
-movl $L3428,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3176:
-movl $L3427,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3177:
-movl $L3426,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3128
-.align 4
-L3127:
-movl L3080,%eax
-movl $L4,%esi
-movl (%esi),%ecx
-movl 4(%esi),%edx
-jecxz 2f
-1:
-addl $8,%esi
-cmpl (%esi),%eax
-je 3f
-loop 1b
+L3101:
+la a0,L3081
+#X23
+la s1,L4
+lw t1,0(s1)
+lw t2,4(s1)
+beqz t1,2f
+1:
+addi s1,s1,8
+lw t0,0(s1)
+beq a0,t0,3f
+addi t1,t1,-1
+bnez t1,1b
 2:
-jmp *%edx
+jalr zero,t2,0
 3:
-jmp *4(%esi)
+lw t0,4(s1)
+jalr zero,t0,0
 .data
 .align 4
 L4:
-.long 41
-.long L3129
-.long 1
-.long L3130
-.long 2
-.long L3131
-.long 3
-.long L3132
-.long 4
-.long L3133
-.long 5
-.long L3134
-.long 6
-.long L3135
-.long 7
-.long L3136
-.long 8
-.long L3138
-.long 9
-.long L3139
-.long 10
-.long L3140
-.long 11
-.long L3141
-.long 12
-.long L3142
-.long 13
-.long L3143
-.long 14
-.long L3144
-.long 15
-.long L3145
-.long 16
-.long L3148
-.long 17
-.long L3151
-.long 18
-.long L3154
-.long 19
-.long L3155
-.long 20
-.long L3156
-.long 21
-.long L3157
-.long 22
-.long L3158
-.long 23
-.long L3159
-.long 24
-.long L3160
-.long 25
-.long L3161
-.long 26
-.long L3162
-.long 27
-.long L3163
-.long 28
-.long L3164
-.long 29
-.long L3165
-.long 30
-.long L3166
-.long 31
-.long L3167
-.long 32
-.long L3168
-.long 33
-.long L3169
-.long 34
-.long L3170
-.long 35
-.long L3171
-.long 36
-.long L3172
-.long 37
-.long L3173
-.long 38
-.long L3174
-.long 39
-.long L3175
-.long 40
-.long L3176
-.long 41
-.long L3177
+.word 12
+.word L3117
+.word 0
+.word L3103
+.word 3
+.word L3104
+.word 1
+.word L3105
+.word 2
+.word L3106
+.word 4
+.word L3107
+.word 5
+.word L3108
+.word 9
+.word L3109
+.word 6
+.word L3112
+.word 7
+.word L3113
+.word 8
+.word L3114
+.word 10
+.word L3115
+.word 11
+.word L3116
+#A.LP T.P
 .text
 .align 4
-L3128:
-jmp L3101
-.align 4
-L3100:
-movl L3079,%eax
-movl $L5,%esi
-movl (%esi),%ecx
-movl 4(%esi),%edx
-jecxz 2f
+L3102:
+L3098:
+L3096:
+lw a0,24(s2)
+bnez a0,1f
+beq a0,a0,L3118
+#A.LP T.P
+lw a0,12(s2)
+bnez a0,1f
+bne a0,a0,L3118
+li a0,22
+#A.SW T.P
+sw a0,40(s2)
+li a0,2
+#A.SW T.P
+sw a0,44(s2)
+li a0,0
+#A.SW T.P
+sw a0,48(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3013
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-addl $8,%esi
-cmpl (%esi),%eax
-je 3f
-loop 1b
+#A.LP T.P
+.align 4
+L3118:
+lw a0,8(s2)
+#A.SA T.L
+la t0,L3080 ; sw a0,(t0)
+#A.LP T.P
+lw a0,28(s2)
+bnez a0,1f
+beq a0,a0,L3120
+li a0,8
+#A.SW T.P
+sw a0,32(s2)
+jalr zero,a0,0
+.align 4
+L3120:
+li a0,4
+#A.SW T.P
+sw a0,32(s2)
+#A.LP T.P
+.align 4
+L3119:
+lw a0,32(s2)
+#A.SA T.L
+la t0,L3081 ; sw a0,(t0)
+#X4
+.align 4
+L3093:
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+.align 4
+L3092:
+jalr zero,a0,0
+.align 4
+L3124:
+jalr zero,a0,0
+#A.LG T.G
+.align 4
+L3125:
+la a0,608+G
+lw a0,0(a0)
+#X12
+blt a0,a0,L3126
+li a0,5
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.L
+.align 4
+L3126:
+la a0,L3080
+#A.SW T.P
+sw a0,24(s2)
+#A.LG T.G
+la a0,608+G
+lw a0,0(a0)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,28(s2)
+#A.LP T.P
+lw a0,24(s2)
+#A.LP T.P
+lw a1,28(s2)
+#A.MV T.IR
+mv a0,a0
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SG T.G
+sw a0,608(s0)
+jalr zero,a0,0
+.align 4
+L3127:
+li a0,1
+#A.SG T.G
+sw a0,616(s0)
+#A.LA T.L
+la a0,L3080
+#X12
+bge a0,a0,L3128
+#A.LA T.LL
+la a0,L3486
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#X2
+neg a0,a0
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3015
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3128:
+la a0,L3485
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3015
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+.align 4
+L3129:
+li a0,0
+#A.SG T.G
+sw a0,616(s0)
+jalr zero,a0,0
+.align 4
+L3130:
+li a0,1
+#A.SG T.G
+sw a0,616(s0)
+#A.LA T.LL
+la a0,L3484
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,36(s2)
+li a0,0
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3015
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,67
+#X10
+beq a0,a0,L3131
+#A.LA T.LL
+la a0,L3483
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+.align 4
+L3131:
+li a0,0
+#A.SG T.G
+sw a0,616(s0)
+jalr zero,a0,0
+.align 4
+L3132:
+li a0,88
+#X10
+bne a0,a0,L3134
+#A.LP T.P
+lw a0,12(s2)
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3087
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+bnez a0,1f
+beq a0,a0,L3134
+li a0,1
+#A.SW T.P
+sw a0,24(s2)
+jalr zero,a0,0
+.align 4
+L3134:
+li a0,0
+#A.SW T.P
+sw a0,24(s2)
+#A.LP T.P
+.align 4
+L3133:
+lw a0,24(s2)
+#A.SW T.P
+sw a0,20(s2)
+#A.LP T.P
+lw a0,20(s2)
+#A.SW T.P
+sw a0,32(s2)
+li a0,0
+#A.SW T.P
+sw a0,36(s2)
+li a0,0
+#X10
+beq a0,a1,L10016
+addi a0,zero,-1 
+
+.align 4
+L10016:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,40(s2)
+#A.LP T.P
+lw a0,12(s2)
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,56(s2)
+#A.LA T.L
+la a0,L3089
+mv s1,s2
+#ADDI
+addi s2,s2,44
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.SW T.P
+sw a0,44(s2)
+#A.LP T.P
+lw a0,40(s2)
+#X19
+or a0,a0,a1
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3091
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3135:
+li a0,1
+#A.SW T.P
+sw a0,32(s2)
+li a0,0
+#A.SW T.P
+sw a0,36(s2)
+li a0,0
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3091
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3482
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,10
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3136:
+li a0,1
+#A.SW T.P
+sw a0,32(s2)
+li a0,0
+#A.SW T.P
+sw a0,36(s2)
+li a0,0
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3091
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3139:
+li a0,98
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3140:
+li a0,98
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3141:
+li a0,97
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3142:
+li a0,96
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3143:
+la a0,L3481
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,9
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.L
+.align 4
+L3144:
+la a0,L3080
+#X12
+bge a0,a0,L3145
+#A.LA T.L
+la a0,L3080
+#X14
+ble a0,a0,L3145
+#A.LA T.LL
+la a0,L3480
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,18
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3145:
+la a0,L3479
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3478
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,40(s2)
+li a0,0
+#A.SW T.P
+sw a0,44(s2)
+li a0,0
+#A.SW T.P
+sw a0,48(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3477
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,40(s2)
+li a0,0
+#A.SW T.P
+sw a0,44(s2)
+li a0,0
+#A.SW T.P
+sw a0,48(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3476
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,40(s2)
+li a0,0
+#A.SW T.P
+sw a0,44(s2)
+li a0,0
+#A.SW T.P
+sw a0,48(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+.align 4
+L3146:
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3147:
+la a0,L3475
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,30
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3148:
+la a0,L3474
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,29
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3149:
+la a0,L3473
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,9
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3150:
+li a0,91
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3151:
+li a0,90
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3152:
+li a0,89
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3153:
+li a0,88
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+jalr zero,a0,0
+#A.LA T.L
+.align 4
+L3137:
+la a0,L3081
+#X23
+la s1,L5
+lw t1,0(s1)
+lw t2,4(s1)
+beqz t1,2f
+1:
+addi s1,s1,8
+lw t0,0(s1)
+beq a0,t0,3f
+addi t1,t1,-1
+bnez t1,1b
 2:
-jmp *%edx
+jalr zero,t2,0
 3:
-jmp *4(%esi)
+lw t0,4(s1)
+jalr zero,t0,0
 .data
 .align 4
 L5:
-.long 12
-.long L3101
-.long 0
-.long L3102
-.long 66
-.long L3103
-.long 68
-.long L3105
-.long 67
-.long L3106
-.long 76
-.long L3108
-.long 65
-.long L3111
-.long 83
-.long L3112
-.long 74
-.long L3115
-.long 84
-.long L3116
-.long 70
-.long L3117
-.long 75
-.long L3124
-.long 88
-.long L3126
+.word 12
+.word L3153
+.word 0
+.word L3139
+.word 3
+.word L3140
+.word 1
+.word L3141
+.word 2
+.word L3142
+.word 4
+.word L3143
+.word 5
+.word L3144
+.word 6
+.word L3147
+.word 7
+.word L3148
+.word 8
+.word L3149
+.word 9
+.word L3150
+.word 10
+.word L3151
+.word 11
+.word L3152
 .text
 .align 4
-L3101:
-movl L3079,%eax
-movl %eax,L3082
-movl L3080,%eax
-movl %eax,L3083
-movl L3081,%eax
-movl %eax,L3084
-movl 8(%ebp),%eax
-movl %eax,L3079
-movl 12(%ebp),%eax
-movl %eax,L3080
-movl 16(%ebp),%eax
-movl %eax,L3081
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+L3138:
+jalr zero,a0,0
 .align 4
-L3006:
-movl $1,%eax
-movl %eax,616(%edi)
-movl $L3425,%eax
-shrl $2,%eax
-movl %eax,16(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $8,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+L3154:
+li a0,1
+#A.SW T.P
+sw a0,32(s2)
+li a0,-1
+#A.SW T.P
+sw a0,36(s2)
+li a0,0
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3091
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl $L3424,%eax
-shrl $2,%eax
-movl %eax,16(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $8,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,23
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl $L3423,%eax
-shrl $2,%eax
-movl %eax,16(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $8,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $0,%eax
-movl %eax,8(%ebp)
-movl $500,%eax
-subl $1,%eax
-movl %eax,12(%ebp)
-jmp L3178
+jalr zero,a0,0
 .align 4
-L3179:
-movl $L3422,%eax
-shrl $2,%eax
-movl %eax,24(%ebp)
-movl 8(%ebp),%eax
-addl 600(%edi),%eax
-movl (,%eax,4),%eax
-movl %eax,28(%ebp)
-movl 8(%ebp),%eax
-addl 600(%edi),%eax
-movl (,%eax,4),%eax
-testl %eax,%eax
-je L3181
-movl $3,%eax
-movl %eax,32(%ebp)
-jmp L3180
-.align 4
-L3181:
-movl $0,%eax
-movl %eax,32(%ebp)
-.align 4
-L3180:
-movl 8(%ebp),%eax
-movl %eax,36(%ebp)
-movl $1,%eax
-movl %eax,40(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $16,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+L3155:
+L3156:
+li a0,3
+#X10
+beq a0,a0,L3157
+li a0,6
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 8(%ebp),%eax
-addl $1,%eax
-movl %eax,8(%ebp)
+#A.LA T.L
+.align 4
+L3157:
+la a0,L3083
+#A.SW T.P
+sw a0,20(s2)
+li a0,88
+#X10
+bne a0,a0,L3159
+li a0,10
+#X15
+bgt a0,a0,L3160
+#A.LP T.P
+lw a0,20(s2)
+#X15
+ble a0,a0,L3158
+#A.LA T.LL
+.align 4
+L3160:
+L3159:
+la a0,L3472
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,11
+#A.SW T.P
+sw a0,20(s2)
+#A.LP T.P
+.align 4
+L3158:
+lw a0,20(s2)
+#X9
+sub a0,a0,a1
+#A.SW T.P
+sw a0,32(s2)
+li a0,70
+#X10
+bne a0,a0,L3162
+li a0,1
+#A.SW T.P
+sw a0,36(s2)
+jalr zero,a0,0
+.align 4
+L3162:
+li a0,0
+#A.SW T.P
+sw a0,36(s2)
+#A.LP T.P
+.align 4
+L3161:
+lw a0,32(s2)
+#X20
+xor a0,a0,a1
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3163:
+li a0,0
+#X10
+beq a0,a0,L3164
+li a0,7
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+.align 4
+L3164:
+la a0,L3471
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.L
+la a0,L3080
+#X12
+bge a0,a0,L3165
+#A.LA T.L
+la a0,L3080
+#X14
+ble a0,a0,L3165
+#A.LA T.LL
+la a0,L3470
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3469
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#X16
+sll a0,a0,a1
+#A.SW T.P
+sw a0,36(s2)
+li a0,0
+#A.SW T.P
+sw a0,40(s2)
+li a0,0
+#A.SW T.P
+sw a0,44(s2)
+li a0,0
+#A.SW T.P
+sw a0,48(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3165:
+la a0,L3468
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3467
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#X16
+sll a0,a0,a1
+#A.SW T.P
+sw a0,36(s2)
+li a0,0
+#A.SW T.P
+sw a0,40(s2)
+li a0,0
+#A.SW T.P
+sw a0,44(s2)
+li a0,0
+#A.SW T.P
+sw a0,48(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3466
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+li a0,0
+#A.SW T.P
+sw a0,36(s2)
+li a0,0
+#A.SW T.P
+sw a0,40(s2)
+li a0,0
+#A.SW T.P
+sw a0,44(s2)
+li a0,0
+#A.SW T.P
+sw a0,48(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+.align 4
+L3166:
+la a0,L3465
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3464
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3463
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3462
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3461
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3167:
+la a0,L3460
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3080
+#A.SW T.P
+sw a0,36(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3170:
+li a0,8
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+.align 4
+L3171:
+la a0,L3459
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3172:
+la a0,L3458
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3173:
+la a0,L3457
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3174:
+la a0,L3456
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3455
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3454
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3175:
+li a0,7
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3083
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3084
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3176:
+li a0,8
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3083
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3084
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3177:
+li a0,31
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3083
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3084
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
 .align 4
 L3178:
-movl 8(%ebp),%eax
-cmpl 12(%ebp),%eax
-jle L3179
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
-.align 4
-L3008:
-movl 8(%ebp),%eax
-movl %eax,28(%ebp)
-movl 12(%ebp),%eax
-movl %eax,32(%ebp)
-movl 16(%ebp),%eax
-movl %eax,36(%ebp)
-movl $0,%eax
-movl %eax,40(%ebp)
-movl L3011,%eax
-movl %ebp,%ecx
-addl $20,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,10
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3083
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3084
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+jalr zero,a0,0
 .align 4
-L3010:
-movl 8(%ebp),%eax
-movl %eax,40(%ebp)
-movl L3015,%eax
-movl %ebp,%ecx
-addl $32,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+L3179:
+li a0,11
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3083
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3084
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl %eax,32(%ebp)
-movl 12(%ebp),%eax
-movl %eax,36(%ebp)
-movl 16(%ebp),%eax
-movl %eax,40(%ebp)
-movl 20(%ebp),%eax
-movl %eax,44(%ebp)
-movl 8(%ebp),%eax
-cmpl $6,%eax
-setg %al
-movzbl %al,%eax
-decl %eax
-movl %eax,48(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+jalr zero,a0,0
 .align 4
-L3012:
-movl 8(%ebp),%eax
-movl %eax,28(%ebp)
-movl 12(%ebp),%eax
-movl %eax,32(%ebp)
-movl 16(%ebp),%eax
-movl %eax,36(%ebp)
-movl $0,%eax
-movl %eax,40(%ebp)
-movl $-1,%eax
-movl %eax,44(%ebp)
-movl L3017,%eax
-movl %ebp,%ecx
-addl $20,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
-.align 4
-L3014:
-jmp L3183
-.align 4
+L3180:
+L3181:
+L3182:
+L3183:
+L3184:
 L3185:
-movl $L3421,%eax
-shrl $2,%eax
-jmp L3182
-.align 4
-L3186:
-movl $L3420,%eax
-shrl $2,%eax
-jmp L3182
+li a0,70
+#X10
+beq a0,a0,L3187
+li a0,84
+#X10
+bne a0,a0,L3186
 .align 4
 L3187:
-movl $L3419,%eax
-shrl $2,%eax
-jmp L3182
+jalr zero,a0,0
+#A.LA T.L
+.align 4
+L3186:
+la a0,L3080
+#X9
+sub a0,a0,a1
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3121
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3081
+#A.SW T.P
+sw a0,40(s2)
+li a0,1
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3013
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3453
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.L
+la a0,L3121
+#A.SW T.P
+sw a0,24(s2)
+#A.LG T.G
+la a0,608+G
+lw a0,0(a0)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,28(s2)
+#A.LP T.P
+lw a0,24(s2)
+#A.LP T.P
+lw a1,28(s2)
+#A.MV T.IR
+mv a0,a0
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SG T.G
+sw a0,608(s0)
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SA T.L
+la t0,L3121 ; sw a0,(t0)
+#A.LA T.LL
+la a0,L3452
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
 .align 4
 L3188:
-movl $L3418,%eax
-shrl $2,%eax
-jmp L3182
-.align 4
-L3189:
-movl $L3417,%eax
-shrl $2,%eax
-jmp L3182
+li a0,0
+#X10
+bne a0,a0,L3190
+li a0,13
+#A.SW T.P
+sw a0,32(s2)
+jalr zero,a0,0
 .align 4
 L3190:
-movl $L3416,%eax
-shrl $2,%eax
-jmp L3182
+li a0,21
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+.align 4
+L3189:
+la a0,L3083
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3084
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
 .align 4
 L3191:
-movl $L3415,%eax
-shrl $2,%eax
-jmp L3182
-.align 4
-L3192:
-movl $L3414,%eax
-shrl $2,%eax
-jmp L3182
+li a0,0
+#X10
+bne a0,a0,L3193
+li a0,14
+#A.SW T.P
+sw a0,32(s2)
+jalr zero,a0,0
 .align 4
 L3193:
-movl $L3413,%eax
-shrl $2,%eax
-jmp L3182
+li a0,22
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+.align 4
+L3192:
+la a0,L3083
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3084
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
 .align 4
 L3194:
-movl $L3412,%eax
-shrl $2,%eax
-jmp L3182
+li a0,15
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3083
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3084
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
 .align 4
 L3195:
-movl $L3411,%eax
-shrl $2,%eax
-jmp L3182
+li a0,16
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3083
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3084
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
 .align 4
 L3196:
-movl $L3410,%eax
-shrl $2,%eax
-jmp L3182
+li a0,17
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3083
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3084
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3197:
-movl $L3409,%eax
-shrl $2,%eax
-jmp L3182
+la a0,L3451
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,17
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3083
+#A.SW T.P
+sw a0,36(s2)
+#A.LA T.L
+la a0,L3084
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3011
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3198:
-movl $L3408,%eax
-shrl $2,%eax
-jmp L3182
+la a0,L3450
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3199:
-movl $L3407,%eax
-shrl $2,%eax
-jmp L3182
+la a0,L3449
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3085
+#A.SW T.P
+sw a0,36(s2)
+li a0,3
+#A.SW T.P
+sw a0,40(s2)
+li a0,0
+#A.SW T.P
+sw a0,44(s2)
+li a0,0
+#A.SW T.P
+sw a0,48(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3448
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3447
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3446
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3445
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3444
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3443
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3442
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3441
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3440
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3439
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3438
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3437
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3436
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3435
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.L
+la a0,L3085
+#A.SW T.P
+sw a0,24(s2)
+#A.LG T.G
+la a0,608+G
+lw a0,0(a0)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,28(s2)
+#A.LP T.P
+lw a0,24(s2)
+#A.LP T.P
+lw a1,28(s2)
+#A.MV T.IR
+mv a0,a0
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SG T.G
+sw a0,608(s0)
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SA T.L
+la t0,L3085 ; sw a0,(t0)
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3200:
-movl $L3406,%eax
-shrl $2,%eax
-jmp L3182
+la a0,L3434
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3201:
-movl $L3405,%eax
-shrl $2,%eax
-jmp L3182
+la a0,L3433
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3202:
-movl $L3404,%eax
-shrl $2,%eax
-jmp L3182
+la a0,L3432
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3203:
-movl $L3403,%eax
-shrl $2,%eax
-jmp L3182
+la a0,L3431
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3204:
-movl $L3402,%eax
-shrl $2,%eax
-jmp L3182
+la a0,L3430
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3205:
-movl $L3401,%eax
-shrl $2,%eax
-jmp L3182
+la a0,L3429
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3206:
-movl $L3400,%eax
-shrl $2,%eax
-jmp L3182
+la a0,L3428
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3207:
-movl $L3399,%eax
-shrl $2,%eax
-jmp L3182
+la a0,L3427
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3208:
-movl $L3398,%eax
-shrl $2,%eax
-jmp L3182
+la a0,L3426
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3425
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3209:
-movl $L3397,%eax
-shrl $2,%eax
-jmp L3182
+la a0,L3424
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3210:
-movl $L3396,%eax
-shrl $2,%eax
-jmp L3182
+la a0,L3423
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3211:
-movl $L3395,%eax
-shrl $2,%eax
-jmp L3182
+la a0,L3422
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3421
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3420
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3419
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3418
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3417
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3416
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3415
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3414
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3413
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3412
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3411
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3410
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3409
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3408
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3212:
-movl $L3394,%eax
-shrl $2,%eax
-jmp L3182
+la a0,L3407
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3406
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3405
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3404
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3213:
-movl $9,%eax
-movl %eax,20(%ebp)
-movl L3029,%eax
-movl %ebp,%ecx
-addl $12,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+la a0,L3403
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-jmp L3184
+#A.LA T.LL
+la a0,L3402
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3401
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3400
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
-L3183:
-movl 8(%ebp),%eax
-movl $L6,%esi
-movl (%esi),%ecx
-movl 4(%esi),%edx
-jecxz 2f
+L3214:
+la a0,L3399
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-addl $8,%esi
-cmpl (%esi),%eax
-je 3f
-loop 1b
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3215:
+la a0,L3398
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3216:
+la a0,L3397
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3217:
+la a0,L3396
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LA T.L
+.align 4
+L3168:
+la a0,L3080
+#X23
+la s1,L6
+lw t1,0(s1)
+lw t2,4(s1)
+beqz t1,2f
+1:
+addi s1,s1,8
+lw t0,0(s1)
+beq a0,t0,3f
+addi t1,t1,-1
+bnez t1,1b
 2:
-jmp *%edx
+jalr zero,t2,0
 3:
-jmp *4(%esi)
+lw t0,4(s1)
+jalr zero,t0,0
 .data
 .align 4
 L6:
-.long 28
-.long L3213
-.long 0
-.long L3185
-.long 1
-.long L3186
-.long 2
-.long L3187
-.long 3
-.long L3188
-.long 4
-.long L3189
-.long 5
-.long L3190
-.long 6
-.long L3191
-.long 7
-.long L3192
-.long 8
-.long L3193
-.long 9
-.long L3194
-.long 10
-.long L3195
-.long 11
-.long L3196
-.long 12
-.long L3197
-.long 13
-.long L3198
-.long 14
-.long L3199
-.long 15
-.long L3200
-.long 16
-.long L3201
-.long 17
-.long L3202
-.long 18
-.long L3203
-.long 19
-.long L3204
-.long 20
-.long L3205
-.long 21
-.long L3206
-.long 22
-.long L3207
-.long 23
-.long L3208
-.long 24
-.long L3209
-.long 25
-.long L3210
-.long 26
-.long L3211
-.long 27
-.long L3212
+.word 41
+.word L3170
+.word 1
+.word L3171
+.word 2
+.word L3172
+.word 3
+.word L3173
+.word 4
+.word L3174
+.word 5
+.word L3175
+.word 6
+.word L3176
+.word 7
+.word L3177
+.word 8
+.word L3178
+.word 9
+.word L3179
+.word 10
+.word L3180
+.word 11
+.word L3181
+.word 12
+.word L3182
+.word 13
+.word L3183
+.word 14
+.word L3184
+.word 15
+.word L3185
+.word 16
+.word L3188
+.word 17
+.word L3191
+.word 18
+.word L3194
+.word 19
+.word L3195
+.word 20
+.word L3196
+.word 21
+.word L3197
+.word 22
+.word L3198
+.word 23
+.word L3199
+.word 24
+.word L3200
+.word 25
+.word L3201
+.word 26
+.word L3202
+.word 27
+.word L3203
+.word 28
+.word L3204
+.word 29
+.word L3205
+.word 30
+.word L3206
+.word 31
+.word L3207
+.word 32
+.word L3208
+.word 33
+.word L3209
+.word 34
+.word L3210
+.word 35
+.word L3211
+.word 36
+.word L3212
+.word 37
+.word L3213
+.word 38
+.word L3214
+.word 39
+.word L3215
+.word 40
+.word L3216
+.word 41
+.word L3217
 .text
 .align 4
-L3184:
-L3182:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+L3169:
+jalr zero,a0,0
+#A.LA T.L
 .align 4
-L3016:
-movl L3214,%eax
-cmpl 616(%edi),%eax
-je L3215
-movl $0,%eax
-cmpl 616(%edi),%eax
-jne L3217
-movl $L3393,%eax
-shrl $2,%eax
-movl %eax,36(%ebp)
-jmp L3216
-.align 4
-L3217:
-movl $L3392,%eax
-shrl $2,%eax
-movl %eax,36(%ebp)
-.align 4
-L3216:
-movl 240(%edi),%eax
-movl %ebp,%ecx
-addl $28,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+L3122:
+la a0,L3079
+#X23
+la s1,L7
+lw t1,0(s1)
+lw t2,4(s1)
+beqz t1,2f
 1:
-movl $10,%eax
-movl %eax,36(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $28,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl 616(%edi),%eax
-movl %eax,L3214
-.align 4
-L3215:
-movl 608(%edi),%eax
-testl %eax,%eax
-je L3218
-movl $L3391,%eax
-shrl $2,%eax
-movl %eax,36(%ebp)
-movl 240(%edi),%eax
-movl %ebp,%ecx
-addl $28,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $0,%eax
-movl %eax,28(%ebp)
-movl 608(%edi),%eax
-subl $1,%eax
-movl %eax,32(%ebp)
-jmp L3219
-.align 4
-L3220:
-movl $76,%eax
-movl %eax,44(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $36,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl 28(%ebp),%eax
-addl 604(%edi),%eax
-movl (,%eax,4),%eax
-movl %eax,44(%ebp)
-movl L3021,%eax
-movl %ebp,%ecx
-addl $36,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L3390,%eax
-shrl $2,%eax
-movl %eax,44(%ebp)
-movl 240(%edi),%eax
-movl %ebp,%ecx
-addl $36,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl 28(%ebp),%eax
-addl $1,%eax
-movl %eax,28(%ebp)
-.align 4
-L3219:
-movl 28(%ebp),%eax
-cmpl 32(%ebp),%eax
-jle L3220
-movl $0,%eax
-movl %eax,608(%edi)
-.align 4
-L3218:
-movl $1,%eax
-movl %eax,28(%ebp)
-movl 8(%ebp),%eax
-movl %eax,40(%ebp)
-movl $0,%eax
-movl %eax,44(%ebp)
-movl 340(%edi),%eax
-movl %ebp,%ecx
-addl $32,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl %eax,32(%ebp)
-jmp L3221
-.align 4
-L3222:
-movl 8(%ebp),%eax
-movl %eax,44(%ebp)
-movl 28(%ebp),%eax
-movl %eax,48(%ebp)
-movl 340(%edi),%eax
-movl %ebp,%ecx
-addl $36,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl %eax,36(%ebp)
-movl $64,%eax
-cmpl 36(%ebp),%eax
-jne L3223
-movl $1,%eax
-addl 28(%ebp),%eax
-movl %eax,28(%ebp)
-jmp L3225
-.align 4
-L3227:
-movl 24(%ebp),%eax
-testl %eax,%eax
-jne L3228
-movl $0,%eax
-cmpl 16(%ebp),%eax
-je L3230
-movl $3,%eax
-cmpl 16(%ebp),%eax
-jne L3228
-.align 4
-L3230:
-movl $36,%eax
-movl %eax,48(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $40,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3229
-.align 4
-L3228:
-movl 24(%ebp),%eax
-testl %eax,%eax
-je L3231
-movl 16(%ebp),%eax
-cmpl $4,%eax
-jl L3231
-movl $42,%eax
-movl %eax,48(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $40,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-.align 4
-L3231:
-L3229:
-movl 12(%ebp),%eax
-movl %eax,48(%ebp)
-movl 16(%ebp),%eax
-movl %eax,52(%ebp)
-movl L3019,%eax
-movl %ebp,%ecx
-addl $40,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3226
-.align 4
-L3232:
-movl 20(%ebp),%eax
-movl %eax,48(%ebp)
-movl $0,%eax
-movl %eax,52(%ebp)
-movl L3019,%eax
-movl %ebp,%ecx
-addl $40,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3226
-.align 4
-L3233:
-movl 20(%ebp),%eax
-movl %eax,48(%ebp)
-movl $4,%eax
-movl %eax,52(%ebp)
-movl L3019,%eax
-movl %ebp,%ecx
-addl $40,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3226
-.align 4
-L3225:
-movl 8(%ebp),%eax
-movl %eax,48(%ebp)
-movl 28(%ebp),%eax
-movl %eax,52(%ebp)
-movl 340(%edi),%eax
-movl %ebp,%ecx
-addl $40,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $L7,%esi
-movl (%esi),%ecx
-movl 4(%esi),%edx
-jecxz 2f
-1:
-addl $8,%esi
-cmpl (%esi),%eax
-je 3f
-loop 1b
+addi s1,s1,8
+lw t0,0(s1)
+beq a0,t0,3f
+addi t1,t1,-1
+bnez t1,1b
 2:
-jmp *%edx
+jalr zero,t2,0
 3:
-jmp *4(%esi)
+lw t0,4(s1)
+jalr zero,t0,0
 .data
 .align 4
 L7:
-.long 3
-.long L3226
-.long 65
-.long L3227
-.long 78
-.long L3232
-.long 82
-.long L3233
+.word 12
+.word L3123
+.word 0
+.word L3124
+.word 66
+.word L3125
+.word 68
+.word L3127
+.word 67
+.word L3130
+.word 76
+.word L3132
+.word 65
+.word L3135
+.word 83
+.word L3136
+.word 74
+.word L3154
+.word 84
+.word L3155
+.word 70
+.word L3156
+.word 75
+.word L3163
+.word 88
+.word L3167
+#A.LA T.L
 .text
 .align 4
-L3226:
-jmp L3224
+L3123:
+la a0,L3079
+#A.SA T.L
+la t0,L3082 ; sw a0,(t0)
+#A.LA T.L
+la a0,L3080
+#A.SA T.L
+la t0,L3083 ; sw a0,(t0)
+#A.LA T.L
+la a0,L3081
+#A.SA T.L
+la t0,L3084 ; sw a0,(t0)
+#A.LP T.P
+lw a0,8(s2)
+#A.SA T.L
+la t0,L3079 ; sw a0,(t0)
+#A.LP T.P
+lw a0,12(s2)
+#A.SA T.L
+la t0,L3080 ; sw a0,(t0)
+#A.LP T.P
+lw a0,16(s2)
+#A.SA T.L
+la t0,L3081 ; sw a0,(t0)
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
 .align 4
-L3223:
-movl 36(%ebp),%eax
-movl %eax,48(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $40,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-.align 4
-L3224:
-movl 28(%ebp),%eax
-addl $1,%eax
-movl %eax,28(%ebp)
+L3006:
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3221:
-movl 28(%ebp),%eax
-cmpl 32(%ebp),%eax
-jle L3222
-movl $10,%eax
-movl %eax,36(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $28,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+la a0,L3395
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
-L3018:
-movl $4,%eax
-cmpl 12(%ebp),%eax
-je L3236
-movl $8,%eax
-cmpl 12(%ebp),%eax
-jne L3234
+L3222:
+la a0,L3394
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
-L3236:
-movl $8,%eax
-cmpl 12(%ebp),%eax
-jne L3237
-movl $L3389,%eax
-shrl $2,%eax
-movl %eax,24(%ebp)
-movl 240(%edi),%eax
-movl %ebp,%ecx
-addl $16,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
+L3223:
+la a0,L3393
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
-L3237:
-movl $0,%eax
-cmpl 8(%ebp),%eax
-jne L3239
-movl $L3388,%eax
-shrl $2,%eax
-movl %eax,24(%ebp)
-jmp L3238
+L3224:
+la a0,L3392
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
-L3239:
-movl $L3387,%eax
-shrl $2,%eax
-movl %eax,24(%ebp)
+L3225:
+la a0,L3391
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
-L3238:
-movl 240(%edi),%eax
-movl %ebp,%ecx
-addl $16,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $8,%eax
-cmpl 12(%ebp),%eax
-jne L3240
-movl $L3386,%eax
-shrl $2,%eax
-movl %eax,24(%ebp)
-movl 240(%edi),%eax
-movl %ebp,%ecx
-addl $16,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
+L3226:
+la a0,L3390
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
-L3240:
-jmp L3235
+L3227:
+la a0,L3389
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3228:
+la a0,L3388
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3229:
+la a0,L3387
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3230:
+la a0,L3386
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3231:
+la a0,L3385
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3232:
+la a0,L3384
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3233:
+la a0,L3383
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3234:
-movl $3,%eax
-andl 12(%ebp),%eax
-movl %eax,16(%ebp)
-movl $1,%eax
-cmpl 16(%ebp),%eax
-setne %al
-movzbl %al,%eax
-decl %eax
-movl %eax,20(%ebp)
-movl $2,%eax
-cmpl 16(%ebp),%eax
-setne %al
-movzbl %al,%eax
-decl %eax
-movl %eax,24(%ebp)
-movl 20(%ebp),%eax
-orl 24(%ebp),%eax
-movl %eax,20(%ebp)
-movl $3,%eax
-cmpl 16(%ebp),%eax
-jne L3241
-movl $76,%eax
-movl %eax,32(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
+la a0,L3382
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3235:
+la a0,L3381
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3236:
+la a0,L3380
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3237:
+la a0,L3379
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3238:
+la a0,L3378
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3239:
+la a0,L3377
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3240:
+la a0,L3376
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3241:
-movl 20(%ebp),%eax
-testl %eax,%eax
-je L3242
-movl $4,%eax
-imull 8(%ebp)
-movl %eax,8(%ebp)
+la a0,L3375
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3242:
-movl 8(%ebp),%eax
-movl %eax,32(%ebp)
-movl L3021,%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl 20(%ebp),%eax
-testl %eax,%eax
-je L3243
-movl $1,%eax
-cmpl 16(%ebp),%eax
-jne L3245
-movl $L3385,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-jmp L3244
-.align 4
-L3245:
-movl $L3384,%eax
-shrl $2,%eax
-movl %eax,32(%ebp)
-.align 4
-L3244:
-movl 240(%edi),%eax
-movl %ebp,%ecx
-addl $24,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
+la a0,L3374
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3243:
-L3235:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+la a0,L3373
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
-L3020:
-movl 8(%ebp),%eax
-cmpl $0,%eax
-jge L3246
-movl $45,%eax
-movl %eax,20(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $12,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-jmp L3247
+L3244:
+la a0,L3372
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3245:
+la a0,L3371
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3246:
-movl 8(%ebp),%eax
-negl %eax
-movl %eax,8(%ebp)
+la a0,L3370
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3247:
-movl 8(%ebp),%eax
-cmpl $-9,%eax
-jge L3248
-movl 8(%ebp),%eax
-movl $10,%ecx
-cltd
-idivl %ecx
-negl %eax
-movl %eax,20(%ebp)
-movl L3021,%eax
-movl %ebp,%ecx
-addl $12,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
+la a0,L3369
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3248:
-movl $48,%eax
-movl %eax,20(%ebp)
-movl 8(%ebp),%eax
-movl $10,%ecx
-cltd
-idivl %ecx
-movl %edx,%eax
-movl %eax,24(%ebp)
-movl 20(%ebp),%eax
-subl 24(%ebp),%eax
-movl %eax,20(%ebp)
-movl 56(%edi),%eax
-movl %ebp,%ecx
-addl $12,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
-.align 4
-L3022:
-movl $0,%eax
-movl %eax,8(%ebp)
-movl $0,%eax
-movl %eax,12(%ebp)
-movl $0,%eax
-movl %eax,16(%ebp)
-movl $45,%eax
-cmpl 628(%edi),%eax
-jne L3250
-movl $-1,%eax
-movl %eax,12(%ebp)
-movl L3025,%eax
-movl %ebp,%ecx
-addl $20,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-.align 4
-L3250:
-jmp L3252
-.align 4
-L3251:
-movl $10,%eax
-imull 8(%ebp)
-movl %eax,20(%ebp)
-movl 628(%edi),%eax
-subl $48,%eax
-movl %eax,24(%ebp)
-movl 20(%ebp),%eax
-subl 24(%ebp),%eax
-movl %eax,8(%ebp)
-movl $1,%eax
-addl 16(%ebp),%eax
-movl %eax,16(%ebp)
-movl L3025,%eax
-movl %ebp,%ecx
-addl $20,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-.align 4
-L3252:
-movl $48,%eax
-cmpl 628(%edi),%eax
-jg L3253
-movl 628(%edi),%eax
-cmpl $57,%eax
-jle L3251
-.align 4
-L3253:
-movl $0,%eax
-cmpl 16(%ebp),%eax
-jne L3254
-movl $10,%eax
-movl %eax,28(%ebp)
-movl L3029,%eax
-movl %ebp,%ecx
-addl $20,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-.align 4
-L3254:
-movl 12(%ebp),%eax
-testl %eax,%eax
-je L3256
-movl 8(%ebp),%eax
-movl %eax,20(%ebp)
-jmp L3255
-.align 4
-L3256:
-movl 8(%ebp),%eax
-negl %eax
-movl %eax,20(%ebp)
-.align 4
-L3255:
-movl 20(%ebp),%eax
-jmp L3249
+la a0,L3368
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3249:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+la a0,L3367
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
-L3024:
+L3250:
+la a0,L3366
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3251:
+la a0,L3365
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3252:
+la a0,L3364
+srli a0,a0,2
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3253:
+la a0,L3363
+srli a0,a0,2
+#A.SW T.P
+sw a0,20(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,24(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,12
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,9
+#A.SW T.P
+sw a0,20(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,12
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LP T.P
+.align 4
+L3219:
+lw a0,8(s2)
+#X23
+la s1,L8
+lw t1,0(s1)
+lw t2,4(s1)
+beqz t1,2f
+1:
+addi s1,s1,8
+lw t0,0(s1)
+beq a0,t0,3f
+addi t1,t1,-1
+bnez t1,1b
+2:
+jalr zero,t2,0
+3:
+lw t0,4(s1)
+jalr zero,t0,0
+.data
+.align 4
+L8:
+.word 32
+.word L3253
+.word 0
+.word L3221
+.word 1
+.word L3222
+.word 2
+.word L3223
+.word 3
+.word L3224
+.word 4
+.word L3225
+.word 5
+.word L3226
+.word 6
+.word L3227
+.word 7
+.word L3228
+.word 8
+.word L3229
+.word 9
+.word L3230
+.word 10
+.word L3231
+.word 11
+.word L3232
+.word 12
+.word L3233
+.word 13
+.word L3234
+.word 14
+.word L3235
+.word 15
+.word L3236
+.word 16
+.word L3237
+.word 17
+.word L3238
+.word 18
+.word L3239
+.word 30
+.word L3240
+.word 19
+.word L3241
+.word 20
+.word L3242
+.word 21
+.word L3243
+.word 22
+.word L3244
+.word 23
+.word L3245
+.word 24
+.word L3246
+.word 25
+.word L3247
+.word 26
+.word L3248
+.word 27
+.word L3249
+.word 28
+.word L3250
+.word 29
+.word L3251
+.word 31
+.word L3252
+#X4
+.text
+.align 4
+L3220:
+L3218:
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+.align 4
+L3008:
+li a0,1
+#A.SG T.G
+sw a0,616(s0)
+#A.LA T.LL
+la a0,L3362
+srli a0,a0,2
+#A.SW T.P
+sw a0,16(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,8
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3361
+srli a0,a0,2
+#A.SW T.P
+sw a0,16(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,8
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3360
+srli a0,a0,2
+#A.SW T.P
+sw a0,16(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,8
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,0
+#A.SW T.P
+sw a0,8(s2)
+li a0,500
+#X9
+sub a0,a0,a1
+#A.SW T.P
+sw a0,12(s2)
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3255:
+la a0,L3359
+srli a0,a0,2
+#A.SW T.P
+sw a0,24(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.ADD chosen
+add a0,a0,a1
+#X1
+lw a0,0(a0)
+#A.SW T.P
+sw a0,28(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.ADD chosen
+add a0,a0,a1
+#X1
+lw a0,0(a0)
+bnez a0,1f
+beq a0,a0,L3257
+li a0,3
+#A.SW T.P
+sw a0,32(s2)
+jalr zero,a0,0
+.align 4
 L3257:
-movl L3027,%eax
-movl %ebp,%ecx
-addl $8,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl $47,%eax
-cmpl 628(%edi),%eax
-je L3258
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+li a0,0
+#A.SW T.P
+sw a0,32(s2)
+#A.LP T.P
 .align 4
-L3258:
-L3259:
-movl L3027,%eax
-movl %ebp,%ecx
-addl $8,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+L3256:
+lw a0,8(s2)
+#A.SW T.P
+sw a0,36(s2)
+li a0,1
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,16
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl $-1,%eax
-cmpl 628(%edi),%eax
-jne L3260
-movl $11,%eax
-movl %eax,16(%ebp)
-movl L3029,%eax
-movl %ebp,%ecx
-addl $8,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+#A.LP T.P
+lw a0,8(s2)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,8(s2)
+#A.LP T.P
+.align 4
+L3254:
+lw a0,8(s2)
+#X15
+ble a0,a0,L3255
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LP T.P
+.align 4
+L3010:
+lw a0,8(s2)
+#A.SW T.P
+sw a0,28(s2)
+#A.LP T.P
+lw a0,12(s2)
+#A.SW T.P
+sw a0,32(s2)
+#A.LP T.P
+lw a0,16(s2)
+#A.SW T.P
+sw a0,36(s2)
+li a0,0
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3013
+mv s1,s2
+#ADDI
+addi s2,s2,20
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LP T.P
 .align 4
-L3260:
-movl $10,%eax
-cmpl 628(%edi),%eax
-jne L3259
-jmp L3257
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+L3012:
+lw a0,8(s2)
+#A.SW T.P
+sw a0,40(s2)
+#A.LA T.L
+la a0,L3007
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.SW T.P
+sw a0,32(s2)
+#A.LP T.P
+lw a0,12(s2)
+#A.SW T.P
+sw a0,36(s2)
+#A.LP T.P
+lw a0,16(s2)
+#A.SW T.P
+sw a0,40(s2)
+#A.LP T.P
+lw a0,20(s2)
+#A.SW T.P
+sw a0,44(s2)
+#A.LP T.P
+lw a0,8(s2)
+#X15
+ble a0,a1,L10017
+addi a0,zero,-1 
+
 .align 4
-L3026:
-movl $10,%eax
-cmpl 628(%edi),%eax
-jne L3261
-movl $1,%eax
-addl 620(%edi),%eax
-movl %eax,620(%edi)
-movl $0,%eax
-movl %eax,624(%edi)
+L10017:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,48(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LP T.P
+.align 4
+L3014:
+lw a0,8(s2)
+#A.SW T.P
+sw a0,28(s2)
+#A.LP T.P
+lw a0,12(s2)
+#A.SW T.P
+sw a0,32(s2)
+#A.LP T.P
+lw a0,16(s2)
+#A.SW T.P
+sw a0,36(s2)
+li a0,0
+#A.SW T.P
+sw a0,40(s2)
+li a0,-1
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3017
+mv s1,s2
+#ADDI
+addi s2,s2,20
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LA T.L
+.align 4
+L3016:
+la a0,L3258
+#X10
+beq a0,a0,L3259
+li a0,0
+#X10
+bne a0,a0,L3261
+#A.LA T.LL
+la a0,L3358
+srli a0,a0,2
+#A.SW T.P
+sw a0,36(s2)
+jalr zero,a0,0
+#A.LA T.LL
 .align 4
 L3261:
-movl $1,%eax
-addl 624(%edi),%eax
-movl %eax,624(%edi)
-movl 52(%edi),%eax
-movl %ebp,%ecx
-addl $8,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
-1:
-movl %eax,628(%edi)
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+la a0,L3357
+srli a0,a0,2
+#A.SW T.P
+sw a0,36(s2)
+#A.LG T.G
 .align 4
-L3028:
-movl 632(%edi),%eax
-movl %eax,20(%ebp)
-movl 48(%edi),%eax
-movl %ebp,%ecx
-addl $12,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+L3260:
+la a0,240+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,28
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl $0,%eax
-cmpl 620(%edi),%eax
-je L3262
-movl $L3383,%eax
-shrl $2,%eax
-movl %eax,20(%ebp)
-movl 620(%edi),%eax
-movl %eax,24(%ebp)
-movl 624(%edi),%eax
-movl %eax,28(%ebp)
-movl 304(%edi),%eax
-movl %ebp,%ecx
-addl $12,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,10
+#A.SW T.P
+sw a0,36(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,28
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
+#A.LG T.G
+la a0,616+G
+lw a0,0(a0)
+#A.SA T.L
+la t0,L3258 ; sw a0,(t0)
+#A.LG T.G
+.align 4
+L3259:
+la a0,608+G
+lw a0,0(a0)
+bnez a0,1f
+beq a0,a0,L3262
+#A.LA T.LL
+la a0,L3356
+srli a0,a0,2
+#A.SW T.P
+sw a0,36(s2)
+#A.LG T.G
+la a0,240+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,28
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,0
+#A.SW T.P
+sw a0,28(s2)
+#A.LG T.G
+la a0,608+G
+lw a0,0(a0)
+#X9
+sub a0,a0,a1
+#A.SW T.P
+sw a0,32(s2)
+jalr zero,a0,0
+.align 4
+L3264:
+li a0,76
+#A.SW T.P
+sw a0,44(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,36
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LP T.P
+lw a0,28(s2)
+#A.ADD chosen
+add a0,a0,a1
+#X1
+lw a0,0(a0)
+#A.SW T.P
+sw a0,44(s2)
+#A.LA T.L
+la a0,L3021
+mv s1,s2
+#ADDI
+addi s2,s2,36
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3355
+srli a0,a0,2
+#A.SW T.P
+sw a0,44(s2)
+#A.LG T.G
+la a0,240+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,36
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LP T.P
+lw a0,28(s2)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,28(s2)
+#A.LP T.P
+.align 4
+L3263:
+lw a0,28(s2)
+#X15
+ble a0,a0,L3264
+li a0,0
+#A.SG T.G
+sw a0,608(s0)
 .align 4
 L3262:
-movl $L3382,%eax
-shrl $2,%eax
-movl %eax,20(%ebp)
-movl 8(%ebp),%eax
-movl %eax,24(%ebp)
-movl 304(%edi),%eax
-movl %ebp,%ecx
-addl $12,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+li a0,1
+#A.SW T.P
+sw a0,28(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,40(s2)
+li a0,0
+#A.SW T.P
+sw a0,44(s2)
+#A.LG T.G
+la a0,340+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,32
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl $1,%eax
-movl %eax,20(%ebp)
-movl 120(%edi),%eax
-movl %ebp,%ecx
-addl $12,%ebp
-movl %ecx,(%ebp)
-movl $1f,4(%ebp)
-jmp *%eax
+#A.SW T.P
+sw a0,32(s2)
+jalr zero,a0,0
+#A.LP T.P
+.align 4
+L3266:
+lw a0,8(s2)
+#A.SW T.P
+sw a0,44(s2)
+#A.LP T.P
+lw a0,28(s2)
+#A.SW T.P
+sw a0,48(s2)
+#A.LG T.G
+la a0,340+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,36
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
 1:
-movl 4(%ebp),%ecx
-movl (%ebp),%ebp
-jmp *%ecx
+#A.SW T.P
+sw a0,36(s2)
+li a0,64
+#X10
+bne a0,a0,L3267
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,28(s2)
+jalr zero,a0,0
+#A.LP T.P
+.align 4
+L3271:
+lw a0,24(s2)
+bnez a0,1f
+bne a0,a0,L3272
+li a0,0
+#X10
+beq a0,a0,L3274
+li a0,3
+#X10
+bne a0,a0,L3272
+.align 4
+L3274:
+li a0,41
+#A.SW T.P
+sw a0,48(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LP T.P
+.align 4
+L3272:
+lw a0,24(s2)
+bnez a0,1f
+beq a0,a0,L3275
+#A.LP T.P
+lw a0,16(s2)
+#X13
+blt a0,a0,L3275
+li a0,42
+#A.SW T.P
+sw a0,48(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LP T.P
+.align 4
+L3275:
+L3273:
+lw a0,12(s2)
+#A.SW T.P
+sw a0,48(s2)
+#A.LP T.P
+lw a0,16(s2)
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3019
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3276:
+li a0,4
+#X5
+mul a0,a0,a1
+#A.SW T.P
+sw a0,48(s2)
+#A.LA T.L
+la a0,L3021
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3354
+srli a0,a0,2
+#A.SW T.P
+sw a0,48(s2)
+#A.LG T.G
+la a0,240+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LP T.P
+.align 4
+L3277:
+lw a0,12(s2)
+#X12
+bge a0,a0,L3278
+li a0,45
+#A.SW T.P
+sw a0,48(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LP T.P
+lw a0,12(s2)
+#X2
+neg a0,a0
+#A.SW T.P
+sw a0,48(s2)
+#A.LA T.L
+la a0,L3021
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LP T.P
+.align 4
+L3278:
+lw a0,12(s2)
+#A.SW T.P
+sw a0,48(s2)
+#A.LA T.L
+la a0,L3021
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+.align 4
+L3279:
+jalr zero,a0,0
+.align 4
+L3280:
+li a0,76
+#A.SW T.P
+sw a0,48(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LP T.P
+lw a0,12(s2)
+#A.SW T.P
+sw a0,48(s2)
+li a0,0
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3019
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LP T.P
+.align 4
+L3281:
+lw a0,20(s2)
+#A.SW T.P
+sw a0,48(s2)
+li a0,0
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3019
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3282:
+li a0,4
+#X5
+mul a0,a0,a1
+#A.SW T.P
+sw a0,48(s2)
+#A.LA T.L
+la a0,L3021
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+la a0,L3353
+srli a0,a0,2
+#A.SW T.P
+sw a0,48(s2)
+#A.LG T.G
+la a0,240+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LP T.P
+.align 4
+L3283:
+lw a0,20(s2)
+#A.SW T.P
+sw a0,48(s2)
+li a0,4
+#A.SW T.P
+sw a0,52(s2)
+#A.LA T.L
+la a0,L3019
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3284:
+li a0,4
+#X5
+mul a0,a0,a1
+#A.SW T.P
+sw a0,48(s2)
+#A.LA T.L
+la a0,L3021
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+jalr zero,a0,0
+#A.LP T.P
+.align 4
+L3269:
+lw a0,8(s2)
+#A.SW T.P
+sw a0,48(s2)
+#A.LP T.P
+lw a0,28(s2)
+#A.SW T.P
+sw a0,52(s2)
+#A.LG T.G
+la a0,340+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#X23
+la s1,L9
+lw t1,0(s1)
+lw t2,4(s1)
+beqz t1,2f
+1:
+addi s1,s1,8
+lw t0,0(s1)
+beq a0,t0,3f
+addi t1,t1,-1
+bnez t1,1b
+2:
+jalr zero,t2,0
+3:
+lw t0,4(s1)
+jalr zero,t0,0
+.data
+.align 4
+L9:
+.word 8
+.word L3270
+.word 65
+.word L3271
+.word 71
+.word L3276
+.word 73
+.word L3277
+.word 76
+.word L3280
+.word 78
+.word L3281
+.word 80
+.word L3282
+.word 82
+.word L3283
+.word 88
+.word L3284
+.text
+.align 4
+L3270:
+jalr zero,a0,0
+#A.LP T.P
+.align 4
+L3267:
+lw a0,36(s2)
+#A.SW T.P
+sw a0,48(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,40
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LP T.P
+.align 4
+L3268:
+lw a0,28(s2)
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,28(s2)
+#A.LP T.P
+.align 4
+L3265:
+lw a0,28(s2)
+#X15
+ble a0,a0,L3266
+li a0,10
+#A.SW T.P
+sw a0,36(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,28
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+.align 4
+L3018:
+li a0,4
+#X10
+beq a0,a0,L3287
+li a0,8
+#X10
+bne a0,a0,L3285
+.align 4
+L3287:
+li a0,0
+#X10
+bne a0,a0,L3289
+#A.LA T.LL
+la a0,L3352
+srli a0,a0,2
+#A.SW T.P
+sw a0,24(s2)
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3289:
+la a0,L3351
+srli a0,a0,2
+#A.SW T.P
+sw a0,24(s2)
+#A.LG T.G
+.align 4
+L3288:
+la a0,240+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,16
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+.align 4
+L3285:
+li a0,3
+#X18
+and a0,a0,a1
+#A.SW T.P
+sw a0,16(s2)
+li a0,1
+#X10
+beq a0,a1,L10018
+addi a0,zero,-1 
+
+.align 4
+L10018:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,20(s2)
+li a0,2
+#X10
+beq a0,a1,L10019
+addi a0,zero,-1 
+
+.align 4
+L10019:
+addi a0,zero,0 
+
+#A.SW T.P
+sw a0,24(s2)
+#A.LP T.P
+lw a0,20(s2)
+#X19
+or a0,a0,a1
+#A.SW T.P
+sw a0,20(s2)
+#A.LP T.P
+lw a0,20(s2)
+bnez a0,1f
+beq a0,a0,L3290
+li a0,4
+#X5
+mul a0,a0,a1
+#A.SW T.P
+sw a0,8(s2)
+.align 4
+L3290:
+li a0,3
+#X10
+bne a0,a0,L3291
+li a0,76
+#A.SW T.P
+sw a0,32(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3021
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LP T.P
+.align 4
+L3291:
+lw a0,20(s2)
+bnez a0,1f
+beq a0,a0,L3293
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3021
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,1
+#X10
+bne a0,a0,L3296
+#A.LA T.LL
+la a0,L3350
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+jalr zero,a0,0
+#A.LA T.LL
+.align 4
+L3296:
+la a0,L3349
+srli a0,a0,2
+#A.SW T.P
+sw a0,32(s2)
+#A.LG T.G
+.align 4
+L3295:
+la a0,240+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+jalr zero,a0,0
+#A.LP T.P
+.align 4
+L3293:
+lw a0,8(s2)
+#A.SW T.P
+sw a0,32(s2)
+#A.LA T.L
+la a0,L3021
+mv s1,s2
+#ADDI
+addi s2,s2,24
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#X4
+.align 4
+L3294:
+L3292:
+L3286:
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LP T.P
+.align 4
+L3020:
+lw a0,8(s2)
+#X12
+bge a0,a0,L3297
+li a0,45
+#A.SW T.P
+sw a0,20(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,12
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LP T.P
+lw a0,8(s2)
+#X2
+neg a0,a0
+#A.SW T.P
+sw a0,8(s2)
+jalr zero,a0,0
+#A.LP T.P
+.align 4
+L3297:
+lw a0,8(s2)
+#X14
+ble a0,a0,L3299
+#A.LP T.P
+lw a0,8(s2)
+li a1,10
+#X6
+div a0,a0,a1
+#A.SW T.P
+sw a0,20(s2)
+#A.LA T.L
+la a0,L3021
+mv s1,s2
+#ADDI
+addi s2,s2,12
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LP T.P
+.align 4
+L3299:
+lw a0,8(s2)
+li a1,10
+#X7
+rem a0,a0,a1
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,20(s2)
+#A.LG T.G
+la a0,56+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,12
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#X4
+.align 4
+L3298:
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+.align 4
+L3022:
+li a0,0
+#A.SW T.P
+sw a0,8(s2)
+li a0,0
+#A.SW T.P
+sw a0,12(s2)
+li a0,0
+#A.SW T.P
+sw a0,16(s2)
+li a0,45
+#X10
+bne a0,a0,L3301
+li a0,-1
+#A.SW T.P
+sw a0,12(s2)
+#A.LA T.L
+la a0,L3025
+mv s1,s2
+#ADDI
+addi s2,s2,20
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+.align 4
+L3301:
+jalr zero,a0,0
+.align 4
+L3302:
+li a0,10
+#X5
+mul a0,a0,a1
+#A.SW T.P
+sw a0,20(s2)
+#A.LG T.G
+la a0,628+G
+lw a0,0(a0)
+#X9
+sub a0,a0,a1
+#A.SW T.P
+sw a0,24(s2)
+#A.LP T.P
+lw a0,20(s2)
+#X9
+sub a0,a0,a1
+#A.SW T.P
+sw a0,8(s2)
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SW T.P
+sw a0,16(s2)
+#A.LA T.L
+la a0,L3025
+mv s1,s2
+#ADDI
+addi s2,s2,20
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+.align 4
+L3303:
+li a0,48
+#X15
+bgt a0,a0,L3304
+#A.LG T.G
+la a0,628+G
+lw a0,0(a0)
+#X15
+ble a0,a0,L3302
+.align 4
+L3304:
+li a0,0
+#X10
+bne a0,a0,L3305
+li a0,10
+#A.SW T.P
+sw a0,28(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,20
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LP T.P
+.align 4
+L3305:
+lw a0,12(s2)
+bnez a0,1f
+beq a0,a0,L3307
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,20(s2)
+jalr zero,a0,0
+#A.LP T.P
+.align 4
+L3307:
+lw a0,8(s2)
+#X2
+neg a0,a0
+#A.SW T.P
+sw a0,20(s2)
+#A.LP T.P
+.align 4
+L3306:
+lw a0,20(s2)
+jalr zero,a0,0
+#X4
+.align 4
+L3300:
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LA T.L
+.align 4
+L3024:
+L3308:
+la a0,L3027
+mv s1,s2
+#ADDI
+addi s2,s2,8
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,47
+#X10
+beq a0,a0,L3309
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LA T.L
+.align 4
+L3309:
+L3310:
+la a0,L3027
+mv s1,s2
+#ADDI
+addi s2,s2,8
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,-1
+#X10
+bne a0,a0,L3311
+li a0,11
+#A.SW T.P
+sw a0,16(s2)
+#A.LA T.L
+la a0,L3029
+mv s1,s2
+#ADDI
+addi s2,s2,8
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+.align 4
+L3311:
+li a0,10
+#X10
+bne a0,a0,L3310
+jalr zero,a0,0
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+.align 4
+L3026:
+li a0,10
+#X10
+bne a0,a0,L3312
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SG T.G
+sw a0,620(s0)
+li a0,0
+#A.SG T.G
+sw a0,624(s0)
+.align 4
+L3312:
+li a0,1
+#A.ADD chosen
+add a0,a0,a1
+#A.SG T.G
+sw a0,624(s0)
+#A.LG T.G
+la a0,52+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,8
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.SG T.G
+sw a0,628(s0)
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
+#A.LG T.G
+.align 4
+L3028:
+la a0,632+G
+lw a0,0(a0)
+#A.SW T.P
+sw a0,20(s2)
+#A.LG T.G
+la a0,48+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,12
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,0
+#X10
+beq a0,a0,L3313
+#A.LA T.LL
+la a0,L3348
+srli a0,a0,2
+#A.SW T.P
+sw a0,20(s2)
+#A.LG T.G
+la a0,620+G
+lw a0,0(a0)
+#A.SW T.P
+sw a0,24(s2)
+#A.LG T.G
+la a0,624+G
+lw a0,0(a0)
+#A.SW T.P
+sw a0,28(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,12
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#A.LA T.LL
+.align 4
+L3313:
+la a0,L3347
+srli a0,a0,2
+#A.SW T.P
+sw a0,20(s2)
+#A.LP T.P
+lw a0,8(s2)
+#A.SW T.P
+sw a0,24(s2)
+#A.LG T.G
+la a0,304+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,12
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+li a0,1
+#A.SW T.P
+sw a0,20(s2)
+#A.LG T.G
+la a0,120+G
+lw a0,0(a0)
+mv s1,s2
+#ADDI
+addi s2,s2,12
+sw s1,0(s2)
+la s1,1f
+sw s1,4(s2)
+jalr zero,a0,0
+1:
+#X4
+lw t0,4(s2)
+lw s2,0(s2)
+jalr zero,t0,0
 .data
 .align 4
 L3030:
 L3003:
-.long L3002
+.word L3002
 .align 4
 L3005:
-.long L3004
+.word L3004
 .align 4
 L3007:
-.long L3006
+.word L3006
 .align 4
 L3009:
-.long L3008
+.word L3008
 .align 4
 L3011:
-.long L3010
+.word L3010
 .align 4
 L3013:
-.long L3012
+.word L3012
 .align 4
 L3015:
-.long L3014
+.word L3014
 .align 4
 L3017:
-.long L3016
+.word L3016
 .align 4
 L3019:
-.long L3018
+.word L3018
 .align 4
 L3021:
-.long L3020
+.word L3020
 .align 4
 L3023:
-.long L3022
+.word L3022
 .align 4
 L3025:
-.long L3024
+.word L3024
 .align 4
 L3027:
-.long L3026
+.word L3026
 .align 4
 L3029:
-.long L3028
+.word L3028
 .align 4
 L3499:
 .byte 3
 .byte 65
 .byte 83
 .byte 77
-.align 4,0
+.align 2
 .align 4
 L3079:
-.long 0
+.word 0
 .align 4
 L3080:
-.long 0
+.word 0
 .align 4
 L3081:
-.long 0
+.word 0
 .align 4
 L3082:
-.long 0
+.word 0
 .align 4
 L3083:
-.long 0
+.word 0
 .align 4
 L3084:
-.long 0
+.word 0
 .align 4
 L3085:
-.long 0
+.word 0
 .align 4
 L3087:
-.long L3086
+.word L3086
 .align 4
 L3089:
-.long L3088
+.word L3088
 .align 4
 L3091:
-.long L3090
+.word L3090
 .align 4
 L3498:
-.byte 8
-.byte 46
-.byte 108
+.byte 19
+.byte 35
+.byte 69
+.byte 32
+.byte 116
+.byte 114
+.byte 117
+.byte 101
+.byte 44
+.byte 32
+.byte 99
 .byte 111
+.byte 100
+.byte 105
 .byte 110
 .byte 103
 .byte 32
-.byte 64
-.byte 65
-.align 4,0
+.byte 76
+.byte 87
+.byte 10
+.align 2
 .align 4
 L3497:
+.byte 8
+.byte 35
+.byte 66
+.byte 73
+.byte 71
+.byte 79
+.byte 70
+.byte 70
+.byte 10
+.align 2
+.align 4
+L3496:
+.byte 11
+.byte 35
+.byte 65
+.byte 46
+.byte 76
+.byte 65
+.byte 32
+.byte 84
+.byte 46
+.byte 76
+.byte 76
+.byte 10
+.align 2
+.align 4
+L3495:
+.byte 10
+.byte 35
+.byte 65
+.byte 46
+.byte 76
+.byte 65
+.byte 32
+.byte 84
+.byte 46
+.byte 82
+.byte 10
+.align 2
+.align 4
+L3494:
+.byte 10
+.byte 35
+.byte 65
+.byte 46
+.byte 76
+.byte 80
+.byte 32
+.byte 84
+.byte 46
+.byte 80
+.byte 10
+.align 2
+.align 4
+L3493:
+.byte 9
+.byte 108
+.byte 105
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 32
+.byte 64
+.byte 88
+.align 2
+.align 4
+L3492:
+.byte 14
+.byte 97
+.byte 100
+.byte 100
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 32
+.byte 115
+.byte 50
+.align 2
+.align 4
+L3491:
+.byte 10
+.byte 108
+.byte 119
+.byte 32
+.byte 64
+.byte 82
+.byte 44
+.byte 40
+.byte 116
+.byte 48
+.byte 41
+.align 2
+.align 4
+L3490:
+.byte 10
+.byte 35
+.byte 65
+.byte 46
+.byte 76
+.byte 71
+.byte 32
+.byte 84
+.byte 46
+.byte 71
+.byte 10
+.align 2
+.align 4
+L3489:
+.byte 11
+.byte 108
+.byte 119
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 48
+.byte 40
+.byte 97
+.byte 48
+.byte 41
+.align 2
+.align 4
+L3488:
+.byte 10
+.byte 35
+.byte 65
+.byte 46
+.byte 76
+.byte 65
+.byte 32
+.byte 84
+.byte 46
+.byte 76
+.byte 10
+.align 2
+.align 4
+L3487:
+.byte 11
+.byte 35
+.byte 65
+.byte 46
+.byte 76
+.byte 65
+.byte 32
+.byte 84
+.byte 46
+.byte 73
+.byte 82
+.byte 10
+.align 2
+.align 4
+L3121:
+.word 10000
+.align 4
+L3486:
+.byte 9
+.byte 46
+.byte 119
+.byte 111
+.byte 114
+.byte 100
+.byte 32
+.byte 45
+.byte 64
+.byte 65
+.align 2
+.align 4
+L3485:
+.byte 8
+.byte 46
+.byte 119
+.byte 111
+.byte 114
+.byte 100
+.byte 32
+.byte 64
+.byte 65
+.align 2
+.align 4
+L3484:
 .byte 8
 .byte 46
 .byte 98
@@ -4505,10 +8203,10 @@ L3497:
 .byte 32
 .byte 64
 .byte 65
-.align 4,0
+.align 2
 .align 4
-L3496:
-.byte 10
+L3483:
+.byte 8
 .byte 46
 .byte 97
 .byte 108
@@ -4516,1096 +8214,1237 @@ L3496:
 .byte 103
 .byte 110
 .byte 32
-.byte 52
-.byte 44
-.byte 48
-.align 4,0
+.byte 50
+.align 2
 .align 4
-L3495:
-.byte 15
-.byte 116
-.byte 101
-.byte 115
-.byte 116
-.byte 108
-.byte 32
-.byte 37
-.byte 101
-.byte 97
-.byte 120
-.byte 44
-.byte 37
-.byte 101
-.byte 97
-.byte 120
-.align 4,0
-.align 4
-L3494:
+L3482:
 .byte 14
-.byte 109
-.byte 111
-.byte 118
-.byte 108
+.byte 35
+.byte 65
+.byte 46
+.byte 65
+.byte 68
+.byte 68
 .byte 32
-.byte 37
-.byte 101
-.byte 98
-.byte 112
-.byte 44
-.byte 37
-.byte 101
 .byte 99
-.byte 120
-.align 4,0
+.byte 104
+.byte 111
+.byte 115
+.byte 101
+.byte 110
+.byte 10
+.align 2
 .align 4
-L3493:
+L3481:
+.byte 10
+.byte 35
+.byte 65
+.byte 46
+.byte 77
+.byte 86
+.byte 32
+.byte 84
+.byte 46
+.byte 82
+.byte 10
+.align 2
+.align 4
+L3480:
+.byte 10
+.byte 35
+.byte 65
+.byte 46
+.byte 83
+.byte 87
+.byte 32
+.byte 84
+.byte 46
+.byte 80
+.byte 10
+.align 2
+.align 4
+L3479:
+.byte 23
+.byte 35
+.byte 115
+.byte 119
+.byte 32
+.byte 101
+.byte 120
+.byte 116
+.byte 101
+.byte 110
+.byte 100
+.byte 101
+.byte 100
+.byte 32
+.byte 105
+.byte 110
+.byte 100
+.byte 101
+.byte 120
+.byte 32
+.byte 84
+.byte 46
+.byte 80
+.byte 10
+.align 2
+.align 4
+L3478:
+.byte 9
+.byte 108
+.byte 105
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 32
+.byte 64
+.byte 88
+.align 2
+.align 4
+L3477:
+.byte 14
+.byte 97
+.byte 100
+.byte 100
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 32
+.byte 115
+.byte 50
+.align 2
+.align 4
+L3476:
+.byte 10
+.byte 115
+.byte 119
+.byte 32
+.byte 64
+.byte 82
+.byte 44
+.byte 40
+.byte 116
+.byte 48
+.byte 41
+.align 2
+.align 4
+L3475:
+.byte 10
+.byte 35
+.byte 65
+.byte 46
+.byte 83
+.byte 71
+.byte 32
+.byte 84
+.byte 46
+.byte 71
+.byte 10
+.align 2
+.align 4
+L3474:
+.byte 10
+.byte 35
+.byte 65
+.byte 46
+.byte 83
+.byte 65
+.byte 32
+.byte 84
+.byte 46
+.byte 76
+.byte 10
+.align 2
+.align 4
+L3473:
+.byte 11
+.byte 35
+.byte 65
+.byte 46
+.byte 77
+.byte 86
+.byte 32
+.byte 84
+.byte 46
+.byte 73
+.byte 82
+.byte 10
+.align 2
+.align 4
+L3472:
+.byte 10
+.byte 98
+.byte 110
+.byte 101
+.byte 122
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 49
+.byte 102
+.align 2
+.align 4
+L3471:
+.byte 8
+.byte 109
+.byte 118
+.byte 32
+.byte 115
+.byte 49
+.byte 44
+.byte 115
+.byte 50
+.align 2
+.align 4
+L3470:
+.byte 6
+.byte 35
+.byte 65
+.byte 68
+.byte 68
+.byte 73
+.byte 10
+.align 2
+.align 4
+L3469:
+.byte 13
+.byte 97
+.byte 100
+.byte 100
+.byte 105
+.byte 32
+.byte 115
+.byte 50
+.byte 44
+.byte 115
+.byte 50
+.byte 44
+.byte 64
+.byte 73
+.align 2
+.align 4
+L3468:
+.byte 5
+.byte 35
+.byte 65
+.byte 68
+.byte 68
+.byte 10
+.align 2
+.align 4
+L3467:
+.byte 8
+.byte 108
+.byte 105
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 64
+.byte 73
+.align 2
+.align 4
+L3466:
 .byte 12
 .byte 97
 .byte 100
 .byte 100
-.byte 108
 .byte 32
-.byte 64
-.byte 65
+.byte 115
+.byte 50
 .byte 44
-.byte 37
-.byte 101
-.byte 98
-.byte 112
-.align 4,0
+.byte 115
+.byte 50
+.byte 44
+.byte 116
+.byte 48
+.align 2
 .align 4
-L3492:
-.byte 16
-.byte 109
-.byte 111
-.byte 118
-.byte 108
+L3465:
+.byte 11
+.byte 115
+.byte 119
 .byte 32
-.byte 37
-.byte 101
-.byte 99
-.byte 120
+.byte 115
+.byte 49
 .byte 44
+.byte 48
 .byte 40
-.byte 37
-.byte 101
-.byte 98
-.byte 112
+.byte 115
+.byte 50
 .byte 41
-.align 4,0
+.align 2
 .align 4
-L3491:
-.byte 16
-.byte 109
-.byte 111
-.byte 118
+L3464:
+.byte 8
 .byte 108
+.byte 97
 .byte 32
-.byte 36
+.byte 115
+.byte 49
+.byte 44
 .byte 49
 .byte 102
+.align 2
+.align 4
+L3463:
+.byte 11
+.byte 115
+.byte 119
+.byte 32
+.byte 115
+.byte 49
 .byte 44
 .byte 52
 .byte 40
-.byte 37
-.byte 101
-.byte 98
-.byte 112
+.byte 115
+.byte 50
 .byte 41
-.align 4,0
+.align 2
 .align 4
-L3490:
-.byte 9
+L3462:
+.byte 14
 .byte 106
-.byte 109
-.byte 112
-.byte 32
-.byte 42
-.byte 37
-.byte 101
 .byte 97
-.byte 120
-.align 4,0
+.byte 108
+.byte 114
+.byte 32
+.byte 122
+.byte 101
+.byte 114
+.byte 111
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 48
+.align 2
 .align 4
-L3489:
+L3461:
 .byte 2
 .byte 49
 .byte 58
-.align 4,0
+.align 2
 .align 4
-L3488:
-.byte 19
-.byte 109
-.byte 111
-.byte 118
-.byte 108
+L3460:
+.byte 6
+.byte 35
+.byte 88
+.byte 37
+.byte 73
 .byte 32
-.byte 40
-.byte 44
-.byte 37
-.byte 101
-.byte 97
-.byte 120
-.byte 44
-.byte 52
-.byte 41
-.byte 44
-.byte 37
-.byte 101
-.byte 97
-.byte 120
-.align 4,0
+.byte 10
+.align 2
 .align 4
-L3487:
+L3459:
+.byte 11
+.byte 108
+.byte 119
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 48
+.byte 40
+.byte 97
+.byte 48
+.byte 41
+.align 2
+.align 4
+L3458:
 .byte 9
 .byte 110
 .byte 101
 .byte 103
-.byte 108
 .byte 32
-.byte 37
-.byte 101
 .byte 97
-.byte 120
-.align 4,0
-.align 4
-L3486:
-.byte 13
-.byte 120
-.byte 111
-.byte 114
-.byte 108
-.byte 32
-.byte 36
-.byte 45
-.byte 49
+.byte 48
 .byte 44
-.byte 37
-.byte 101
 .byte 97
-.byte 120
-.align 4,0
-.align 4
-L3485:
-.byte 17
-.byte 109
-.byte 111
-.byte 118
-.byte 108
-.byte 32
-.byte 52
-.byte 40
-.byte 37
-.byte 101
-.byte 98
-.byte 112
-.byte 41
-.byte 44
-.byte 37
-.byte 101
-.byte 99
-.byte 120
-.align 4,0
-.align 4
-L3484:
-.byte 16
-.byte 109
-.byte 111
-.byte 118
-.byte 108
-.byte 32
-.byte 40
-.byte 37
-.byte 101
-.byte 98
-.byte 112
-.byte 41
-.byte 44
-.byte 37
-.byte 101
-.byte 98
-.byte 112
-.align 4,0
-.align 4
-L3483:
-.byte 9
-.byte 106
-.byte 109
-.byte 112
-.byte 32
-.byte 42
-.byte 37
-.byte 101
-.byte 99
-.byte 120
-.align 4,0
-.align 4
-L3482:
-.byte 4
-.byte 99
-.byte 108
-.byte 116
-.byte 100
-.align 4,0
-.align 4
-L3481:
-.byte 14
-.byte 109
-.byte 111
-.byte 118
-.byte 108
-.byte 32
-.byte 37
-.byte 101
-.byte 100
-.byte 120
-.byte 44
-.byte 37
-.byte 101
-.byte 97
-.byte 120
-.align 4,0
-.align 4
-L3480:
-.byte 15
-.byte 109
-.byte 111
-.byte 118
-.byte 122
-.byte 98
-.byte 108
-.byte 32
-.byte 37
-.byte 97
-.byte 108
-.byte 44
-.byte 37
-.byte 101
-.byte 97
-.byte 120
-.align 4,0
-.align 4
-L3479:
-.byte 9
-.byte 100
-.byte 101
-.byte 99
-.byte 108
-.byte 32
-.byte 37
-.byte 101
-.byte 97
-.byte 120
-.align 4,0
-.align 4
-L3478:
-.byte 13
-.byte 120
-.byte 111
-.byte 114
-.byte 108
-.byte 32
-.byte 36
-.byte 45
-.byte 49
-.byte 44
-.byte 37
-.byte 101
-.byte 97
-.byte 120
-.align 4,0
-.align 4
-L3477:
-.byte 10
-.byte 106
-.byte 109
-.byte 112
-.byte 32
-.byte 102
-.byte 105
-.byte 110
-.byte 105
-.byte 115
-.byte 104
-.align 4,0
-.align 4
-L3476:
-.byte 12
-.byte 109
-.byte 111
-.byte 118
-.byte 108
-.byte 32
-.byte 64
-.byte 65
-.byte 44
-.byte 37
-.byte 101
-.byte 115
-.byte 105
-.align 4,0
-.align 4
-L3475:
-.byte 16
-.byte 109
-.byte 111
-.byte 118
-.byte 108
-.byte 32
-.byte 40
-.byte 37
-.byte 101
-.byte 115
-.byte 105
-.byte 41
-.byte 44
-.byte 37
-.byte 101
-.byte 99
-.byte 120
-.align 4,0
-.align 4
-L3474:
-.byte 17
-.byte 109
-.byte 111
-.byte 118
-.byte 108
-.byte 32
-.byte 52
-.byte 40
-.byte 37
-.byte 101
-.byte 115
-.byte 105
-.byte 41
-.byte 44
-.byte 37
-.byte 101
-.byte 100
-.byte 120
-.align 4,0
-.align 4
-L3473:
-.byte 8
-.byte 106
-.byte 101
-.byte 99
-.byte 120
-.byte 122
-.byte 32
-.byte 50
-.byte 102
-.align 4,0
-.align 4
-L3472:
-.byte 2
-.byte 49
-.byte 58
-.align 4,0
-.align 4
-L3471:
-.byte 12
-.byte 97
-.byte 100
-.byte 100
-.byte 108
-.byte 32
-.byte 36
-.byte 56
-.byte 44
-.byte 37
-.byte 101
-.byte 115
-.byte 105
-.align 4,0
-.align 4
-L3470:
-.byte 16
-.byte 99
-.byte 109
-.byte 112
-.byte 108
-.byte 32
-.byte 40
-.byte 37
-.byte 101
-.byte 115
-.byte 105
-.byte 41
-.byte 44
-.byte 37
-.byte 101
-.byte 97
-.byte 120
-.align 4,0
-.align 4
-L3469:
-.byte 5
-.byte 106
-.byte 101
-.byte 32
-.byte 51
-.byte 102
-.align 4,0
-.align 4
-L3468:
-.byte 7
-.byte 108
-.byte 111
-.byte 111
-.byte 112
-.byte 32
-.byte 49
-.byte 98
-.align 4,0
-.align 4
-L3467:
-.byte 2
-.byte 50
-.byte 58
-.align 4,0
-.align 4
-L3466:
-.byte 9
-.byte 106
-.byte 109
-.byte 112
-.byte 32
-.byte 42
-.byte 37
-.byte 101
-.byte 100
-.byte 120
-.align 4,0
-.align 4
-L3465:
-.byte 2
-.byte 51
-.byte 58
-.align 4,0
-.align 4
-L3464:
-.byte 12
-.byte 106
-.byte 109
-.byte 112
-.byte 32
-.byte 42
-.byte 52
-.byte 40
-.byte 37
-.byte 101
-.byte 115
-.byte 105
-.byte 41
-.align 4,0
-.align 4
-L3463:
-.byte 16
-.byte 99
-.byte 97
-.byte 108
-.byte 108
-.byte 32
-.byte 115
-.byte 101
-.byte 108
-.byte 101
-.byte 99
-.byte 116
-.byte 105
-.byte 110
-.byte 112
-.byte 117
-.byte 116
-.align 4,0
-.align 4
-L3462:
-.byte 17
-.byte 99
-.byte 97
-.byte 108
-.byte 108
-.byte 32
-.byte 115
-.byte 101
-.byte 108
-.byte 101
-.byte 99
-.byte 116
-.byte 111
-.byte 117
-.byte 116
-.byte 112
-.byte 117
-.byte 116
-.align 4,0
-.align 4
-L3461:
-.byte 9
-.byte 99
-.byte 97
-.byte 108
-.byte 108
-.byte 32
-.byte 114
-.byte 100
-.byte 99
-.byte 104
-.align 4,0
-.align 4
-L3460:
-.byte 9
-.byte 99
-.byte 97
-.byte 108
-.byte 108
-.byte 32
-.byte 119
-.byte 114
-.byte 99
-.byte 104
-.align 4,0
-.align 4
-L3459:
-.byte 14
-.byte 99
-.byte 97
-.byte 108
-.byte 108
-.byte 32
-.byte 102
-.byte 105
-.byte 110
-.byte 100
-.byte 105
-.byte 110
-.byte 112
-.byte 117
-.byte 116
-.align 4,0
-.align 4
-L3458:
-.byte 15
-.byte 99
-.byte 97
-.byte 108
-.byte 108
-.byte 32
-.byte 102
-.byte 105
-.byte 110
-.byte 100
-.byte 111
-.byte 117
-.byte 116
-.byte 112
-.byte 117
-.byte 116
-.align 4,0
+.byte 48
+.align 2
 .align 4
 L3457:
-.byte 8
-.byte 106
-.byte 109
-.byte 112
-.byte 32
-.byte 115
-.byte 116
+.byte 9
+.byte 110
 .byte 111
-.byte 112
-.align 4,0
+.byte 116
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.align 2
 .align 4
 L3456:
-.byte 16
-.byte 109
-.byte 111
-.byte 118
+.byte 11
 .byte 108
+.byte 119
 .byte 32
-.byte 40
-.byte 37
-.byte 101
-.byte 98
-.byte 112
-.byte 41
+.byte 116
+.byte 48
 .byte 44
-.byte 37
-.byte 101
-.byte 97
-.byte 120
-.align 4,0
+.byte 52
+.byte 40
+.byte 115
+.byte 50
+.byte 41
+.align 2
 .align 4
 L3455:
-.byte 14
-.byte 109
-.byte 111
-.byte 118
+.byte 11
 .byte 108
+.byte 119
 .byte 32
-.byte 37
-.byte 101
-.byte 99
-.byte 120
+.byte 115
+.byte 50
 .byte 44
-.byte 37
-.byte 101
-.byte 98
-.byte 112
-.align 4,0
+.byte 48
+.byte 40
+.byte 115
+.byte 50
+.byte 41
+.align 2
 .align 4
 L3454:
-.byte 9
+.byte 14
 .byte 106
-.byte 109
-.byte 112
-.byte 32
-.byte 42
-.byte 37
-.byte 101
 .byte 97
-.byte 120
-.align 4,0
+.byte 108
+.byte 114
+.byte 32
+.byte 122
+.byte 101
+.byte 114
+.byte 111
+.byte 44
+.byte 116
+.byte 48
+.byte 44
+.byte 48
+.align 2
 .align 4
 L3453:
-.byte 12
-.byte 99
+.byte 17
 .byte 97
-.byte 108
-.byte 108
+.byte 100
+.byte 100
+.byte 105
 .byte 32
-.byte 101
-.byte 110
-.byte 100
-.byte 114
-.byte 101
 .byte 97
-.byte 100
-.align 4,0
+.byte 48
+.byte 44
+.byte 122
+.byte 101
+.byte 114
+.byte 111
+.byte 44
+.byte 45
+.byte 49
+.byte 32
+.byte 10
+.align 2
 .align 4
 L3452:
-.byte 13
-.byte 99
+.byte 16
 .byte 97
-.byte 108
-.byte 108
-.byte 32
-.byte 101
-.byte 110
 .byte 100
-.byte 119
-.byte 114
+.byte 100
 .byte 105
-.byte 116
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 122
 .byte 101
-.align 4,0
+.byte 114
+.byte 111
+.byte 44
+.byte 48
+.byte 32
+.byte 10
+.align 2
 .align 4
 L3451:
-.byte 14
-.byte 109
+.byte 9
+.byte 110
 .byte 111
-.byte 118
-.byte 108
+.byte 116
 .byte 32
-.byte 37
-.byte 101
-.byte 98
-.byte 112
+.byte 97
+.byte 48
 .byte 44
-.byte 37
-.byte 101
-.byte 115
-.byte 105
-.align 4,0
+.byte 97
+.byte 48
+.align 2
 .align 4
 L3450:
-.byte 14
-.byte 109
-.byte 111
-.byte 118
-.byte 108
+.byte 8
+.byte 106
 .byte 32
-.byte 37
-.byte 101
-.byte 97
-.byte 120
-.byte 44
-.byte 37
-.byte 101
-.byte 98
-.byte 120
-.align 4,0
-.align 4
-L3449:
-.byte 9
+.byte 102
 .byte 105
 .byte 110
-.byte 99
+.byte 105
+.byte 115
+.byte 104
+.align 2
+.align 4
+L3449:
+.byte 8
 .byte 108
+.byte 97
 .byte 32
-.byte 37
-.byte 101
-.byte 98
-.byte 120
-.align 4,0
+.byte 115
+.byte 49
+.byte 44
+.byte 64
+.byte 76
+.align 2
 .align 4
 L3448:
-.byte 12
-.byte 115
-.byte 104
+.byte 11
 .byte 108
-.byte 108
+.byte 119
 .byte 32
-.byte 36
-.byte 50
+.byte 116
+.byte 49
 .byte 44
-.byte 37
-.byte 101
-.byte 98
-.byte 120
-.align 4,0
+.byte 48
+.byte 40
+.byte 115
+.byte 49
+.byte 41
+.align 2
 .align 4
 L3447:
-.byte 14
-.byte 97
-.byte 100
-.byte 100
+.byte 11
 .byte 108
+.byte 119
 .byte 32
-.byte 37
-.byte 101
-.byte 98
-.byte 120
+.byte 116
+.byte 50
 .byte 44
-.byte 37
-.byte 101
+.byte 52
+.byte 40
 .byte 115
-.byte 105
-.align 4,0
+.byte 49
+.byte 41
+.align 2
 .align 4
 L3446:
-.byte 16
-.byte 109
-.byte 111
-.byte 118
-.byte 108
+.byte 10
+.byte 98
+.byte 101
+.byte 113
+.byte 122
 .byte 32
-.byte 40
-.byte 37
-.byte 101
-.byte 98
-.byte 112
-.byte 41
+.byte 116
+.byte 49
 .byte 44
-.byte 37
-.byte 101
-.byte 98
-.byte 120
-.align 4,0
+.byte 50
+.byte 102
+.align 2
 .align 4
 L3445:
-.byte 16
-.byte 109
-.byte 111
-.byte 118
-.byte 108
-.byte 32
-.byte 37
-.byte 101
-.byte 98
-.byte 120
-.byte 44
-.byte 40
-.byte 37
-.byte 101
-.byte 115
-.byte 105
-.byte 41
-.align 4,0
+.byte 2
+.byte 49
+.byte 58
+.align 2
 .align 4
 L3444:
-.byte 17
-.byte 109
-.byte 111
-.byte 118
-.byte 108
-.byte 32
-.byte 52
-.byte 40
-.byte 37
-.byte 101
-.byte 98
-.byte 112
-.byte 41
-.byte 44
-.byte 37
-.byte 101
-.byte 98
-.byte 120
-.align 4,0
-.align 4
-L3443:
-.byte 17
-.byte 109
-.byte 111
-.byte 118
-.byte 108
-.byte 32
-.byte 37
-.byte 101
-.byte 98
-.byte 120
-.byte 44
-.byte 52
-.byte 40
-.byte 37
-.byte 101
-.byte 115
-.byte 105
-.byte 41
-.align 4,0
-.align 4
-L3442:
-.byte 14
-.byte 109
-.byte 111
-.byte 118
-.byte 108
-.byte 32
-.byte 37
-.byte 101
-.byte 98
-.byte 112
-.byte 44
-.byte 37
-.byte 101
-.byte 98
-.byte 120
-.align 4,0
-.align 4
-L3441:
 .byte 12
+.byte 97
+.byte 100
+.byte 100
+.byte 105
+.byte 32
 .byte 115
-.byte 104
-.byte 114
-.byte 108
-.byte 32
-.byte 36
-.byte 50
+.byte 49
 .byte 44
-.byte 37
-.byte 101
-.byte 98
-.byte 120
-.align 4,0
-.align 4
-L3440:
-.byte 17
-.byte 109
-.byte 111
-.byte 118
-.byte 108
-.byte 32
-.byte 37
-.byte 101
-.byte 98
-.byte 120
+.byte 115
+.byte 49
 .byte 44
 .byte 56
-.byte 40
-.byte 37
-.byte 101
-.byte 115
-.byte 105
-.byte 41
-.align 4,0
+.align 2
 .align 4
-L3439:
-.byte 18
-.byte 109
-.byte 111
-.byte 118
+L3443:
+.byte 11
 .byte 108
+.byte 119
 .byte 32
-.byte 37
+.byte 116
+.byte 48
+.byte 44
+.byte 48
+.byte 40
+.byte 115
+.byte 49
+.byte 41
+.align 2
+.align 4
+L3442:
+.byte 12
+.byte 98
 .byte 101
+.byte 113
+.byte 32
 .byte 97
-.byte 120
+.byte 48
+.byte 44
+.byte 116
+.byte 48
+.byte 44
+.byte 51
+.byte 102
+.align 2
+.align 4
+L3441:
+.byte 13
+.byte 97
+.byte 100
+.byte 100
+.byte 105
+.byte 32
+.byte 116
+.byte 49
+.byte 44
+.byte 116
+.byte 49
+.byte 44
+.byte 45
+.byte 49
+.align 2
+.align 4
+L3440:
+.byte 10
+.byte 98
+.byte 110
+.byte 101
+.byte 122
+.byte 32
+.byte 116
+.byte 49
 .byte 44
 .byte 49
+.byte 98
+.align 2
+.align 4
+L3439:
+.byte 2
 .byte 50
-.byte 40
-.byte 37
-.byte 101
-.byte 115
-.byte 105
-.byte 41
-.align 4,0
+.byte 58
+.align 2
 .align 4
 L3438:
 .byte 14
-.byte 109
-.byte 111
-.byte 118
-.byte 108
-.byte 32
-.byte 37
-.byte 101
-.byte 115
-.byte 105
-.byte 44
-.byte 37
-.byte 101
-.byte 98
-.byte 112
-.align 4,0
-.align 4
-L3437:
-.byte 9
 .byte 106
-.byte 109
-.byte 112
+.byte 97
+.byte 108
+.byte 114
 .byte 32
-.byte 42
-.byte 37
+.byte 122
 .byte 101
-.byte 99
-.byte 120
-.align 4,0
-.align 4
-L3436:
-.byte 12
-.byte 115
-.byte 104
-.byte 108
-.byte 108
-.byte 32
-.byte 36
+.byte 114
+.byte 111
+.byte 44
+.byte 116
 .byte 50
 .byte 44
-.byte 37
-.byte 101
-.byte 99
-.byte 120
-.align 4,0
+.byte 48
+.align 2
+.align 4
+L3437:
+.byte 2
+.byte 51
+.byte 58
+.align 2
+.align 4
+L3436:
+.byte 11
+.byte 108
+.byte 119
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 52
+.byte 40
+.byte 115
+.byte 49
+.byte 41
+.align 2
 .align 4
 L3435:
 .byte 14
+.byte 106
 .byte 97
-.byte 100
-.byte 100
 .byte 108
+.byte 114
 .byte 32
-.byte 37
+.byte 122
 .byte 101
-.byte 97
-.byte 120
+.byte 114
+.byte 111
 .byte 44
-.byte 37
-.byte 101
-.byte 99
-.byte 120
-.align 4,0
+.byte 116
+.byte 48
+.byte 44
+.byte 48
+.align 2
 .align 4
 L3434:
-.byte 18
-.byte 109
-.byte 111
-.byte 118
-.byte 122
-.byte 98
+.byte 16
+.byte 99
+.byte 97
+.byte 108
 .byte 108
 .byte 32
-.byte 40
-.byte 37
+.byte 115
+.byte 101
+.byte 108
 .byte 101
 .byte 99
-.byte 120
-.byte 41
-.byte 44
-.byte 37
-.byte 101
-.byte 97
-.byte 120
-.align 4,0
+.byte 116
+.byte 105
+.byte 110
+.byte 112
+.byte 117
+.byte 116
+.align 2
 .align 4
 L3433:
-.byte 12
-.byte 115
-.byte 104
+.byte 17
+.byte 99
+.byte 97
 .byte 108
 .byte 108
 .byte 32
-.byte 36
-.byte 50
-.byte 44
-.byte 37
+.byte 115
+.byte 101
+.byte 108
 .byte 101
 .byte 99
-.byte 120
-.align 4,0
+.byte 116
+.byte 111
+.byte 117
+.byte 116
+.byte 112
+.byte 117
+.byte 116
+.align 2
 .align 4
 L3432:
-.byte 14
+.byte 9
+.byte 99
 .byte 97
-.byte 100
-.byte 100
+.byte 108
 .byte 108
 .byte 32
-.byte 37
-.byte 101
-.byte 97
-.byte 120
-.byte 44
-.byte 37
-.byte 101
+.byte 114
+.byte 100
 .byte 99
-.byte 120
-.align 4,0
+.byte 104
+.align 2
 .align 4
 L3431:
-.byte 18
-.byte 109
-.byte 111
-.byte 118
+.byte 9
+.byte 99
+.byte 97
+.byte 108
 .byte 108
 .byte 32
+.byte 119
+.byte 114
+.byte 99
+.byte 104
+.align 2
+.align 4
+L3430:
+.byte 14
+.byte 99
+.byte 97
+.byte 108
+.byte 108
+.byte 32
+.byte 102
+.byte 105
+.byte 110
+.byte 100
+.byte 105
+.byte 110
+.byte 112
+.byte 117
+.byte 116
+.align 2
+.align 4
+L3429:
+.byte 15
+.byte 99
+.byte 97
+.byte 108
+.byte 108
+.byte 32
+.byte 102
+.byte 105
+.byte 110
+.byte 100
+.byte 111
+.byte 117
+.byte 116
+.byte 112
+.byte 117
+.byte 116
+.align 2
+.align 4
+L3428:
+.byte 6
+.byte 106
+.byte 32
+.byte 115
+.byte 116
+.byte 111
+.byte 112
+.align 2
+.align 4
+L3427:
+.byte 11
+.byte 108
+.byte 119
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 48
+.byte 40
+.byte 115
+.byte 50
+.byte 41
+.align 2
+.align 4
+L3426:
+.byte 8
+.byte 109
+.byte 118
+.byte 32
+.byte 115
+.byte 50
+.byte 44
+.byte 116
+.byte 48
+.align 2
+.align 4
+L3425:
+.byte 14
+.byte 106
+.byte 97
+.byte 108
+.byte 114
+.byte 32
+.byte 122
+.byte 101
+.byte 114
+.byte 111
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 48
+.align 2
+.align 4
+L3424:
+.byte 12
+.byte 99
+.byte 97
+.byte 108
+.byte 108
+.byte 32
+.byte 101
+.byte 110
+.byte 100
+.byte 114
+.byte 101
+.byte 97
+.byte 100
+.align 2
+.align 4
+L3423:
+.byte 13
+.byte 99
+.byte 97
+.byte 108
+.byte 108
+.byte 32
+.byte 101
+.byte 110
+.byte 100
+.byte 119
+.byte 114
+.byte 105
+.byte 116
+.byte 101
+.align 2
+.align 4
+L3422:
+.byte 8
+.byte 109
+.byte 118
+.byte 32
+.byte 115
+.byte 49
+.byte 44
+.byte 115
+.byte 50
+.align 2
+.align 4
+L3421:
+.byte 8
+.byte 109
+.byte 118
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.align 2
+.align 4
+L3420:
+.byte 12
+.byte 97
+.byte 100
+.byte 100
+.byte 105
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 116
+.byte 48
+.byte 44
+.byte 49
+.align 2
+.align 4
+L3419:
+.byte 12
+.byte 115
+.byte 108
+.byte 108
+.byte 105
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 116
+.byte 48
+.byte 44
+.byte 50
+.align 2
+.align 4
+L3418:
+.byte 12
+.byte 97
+.byte 100
+.byte 100
+.byte 32
+.byte 115
+.byte 49
+.byte 44
+.byte 115
+.byte 49
+.byte 44
+.byte 116
+.byte 48
+.align 2
+.align 4
+L3417:
+.byte 11
+.byte 108
+.byte 119
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 48
+.byte 40
+.byte 115
+.byte 50
+.byte 41
+.align 2
+.align 4
+L3416:
+.byte 11
+.byte 115
+.byte 119
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 48
+.byte 40
+.byte 115
+.byte 49
+.byte 41
+.align 2
+.align 4
+L3415:
+.byte 11
+.byte 108
+.byte 119
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 52
+.byte 40
+.byte 115
+.byte 50
+.byte 41
+.align 2
+.align 4
+L3414:
+.byte 11
+.byte 115
+.byte 119
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 52
+.byte 40
+.byte 115
+.byte 49
+.byte 41
+.align 2
+.align 4
+L3413:
+.byte 8
+.byte 109
+.byte 118
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 115
+.byte 50
+.align 2
+.align 4
+L3412:
+.byte 12
+.byte 115
+.byte 114
+.byte 108
+.byte 105
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 116
+.byte 48
+.byte 44
+.byte 50
+.align 2
+.align 4
+L3411:
+.byte 11
+.byte 115
+.byte 119
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 56
+.byte 40
+.byte 115
+.byte 49
+.byte 41
+.align 2
+.align 4
+L3410:
+.byte 12
+.byte 115
+.byte 119
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 49
+.byte 50
+.byte 40
+.byte 115
+.byte 49
+.byte 41
+.align 2
+.align 4
+L3409:
+.byte 8
+.byte 109
+.byte 118
+.byte 32
+.byte 115
+.byte 50
+.byte 44
+.byte 115
+.byte 49
+.align 2
+.align 4
+L3408:
+.byte 14
+.byte 106
+.byte 97
+.byte 108
+.byte 114
+.byte 32
+.byte 122
+.byte 101
+.byte 114
+.byte 111
+.byte 44
+.byte 116
+.byte 49
+.byte 44
+.byte 48
+.align 2
+.align 4
+L3407:
+.byte 12
+.byte 115
+.byte 108
+.byte 108
+.byte 105
+.byte 32
+.byte 116
+.byte 49
+.byte 44
+.byte 97
+.byte 49
+.byte 44
+.byte 50
+.align 2
+.align 4
+L3406:
+.byte 12
+.byte 97
+.byte 100
+.byte 100
+.byte 32
+.byte 116
+.byte 49
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 116
+.byte 49
+.align 2
+.align 4
+L3405:
+.byte 11
+.byte 108
+.byte 98
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 48
+.byte 40
+.byte 116
+.byte 49
+.byte 41
+.align 2
+.align 4
+L3404:
+.byte 15
+.byte 97
+.byte 110
+.byte 100
+.byte 105
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 48
+.byte 120
+.byte 102
+.byte 102
+.align 2
+.align 4
+L3403:
+.byte 12
+.byte 115
+.byte 108
+.byte 108
+.byte 105
+.byte 32
+.byte 116
+.byte 49
+.byte 44
+.byte 116
+.byte 49
+.byte 44
+.byte 50
+.align 2
+.align 4
+L3402:
+.byte 12
+.byte 97
+.byte 100
+.byte 100
+.byte 32
+.byte 116
+.byte 49
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 116
+.byte 49
+.align 2
+.align 4
+L3401:
+.byte 12
+.byte 108
+.byte 119
+.byte 32
+.byte 97
+.byte 48
+.byte 44
 .byte 49
 .byte 54
 .byte 40
-.byte 37
-.byte 101
-.byte 98
-.byte 112
+.byte 115
+.byte 50
 .byte 41
-.byte 44
-.byte 37
-.byte 101
-.byte 97
-.byte 120
-.align 4,0
+.align 2
 .align 4
-L3430:
-.byte 15
-.byte 109
-.byte 111
-.byte 118
+L3400:
+.byte 11
+.byte 115
 .byte 98
 .byte 32
-.byte 37
 .byte 97
-.byte 108
+.byte 48
 .byte 44
+.byte 48
 .byte 40
-.byte 37
-.byte 101
-.byte 99
-.byte 120
+.byte 116
+.byte 49
 .byte 41
-.align 4,0
+.align 2
 .align 4
-L3429:
+L3399:
 .byte 10
 .byte 99
 .byte 97
@@ -5617,9 +9456,9 @@ L3429:
 .byte 112
 .byte 117
 .byte 116
-.align 4,0
+.align 2
 .align 4
-L3428:
+L3398:
 .byte 11
 .byte 99
 .byte 97
@@ -5632,9 +9471,9 @@ L3428:
 .byte 112
 .byte 117
 .byte 116
-.align 4,0
+.align 2
 .align 4
-L3427:
+L3397:
 .byte 11
 .byte 99
 .byte 97
@@ -5647,9 +9486,9 @@ L3427:
 .byte 100
 .byte 99
 .byte 104
-.align 4,0
+.align 2
 .align 4
-L3426:
+L3396:
 .byte 11
 .byte 99
 .byte 97
@@ -5662,9 +9501,504 @@ L3426:
 .byte 105
 .byte 110
 .byte 100
-.align 4,0
+.align 2
 .align 4
-L3425:
+L3395:
+.byte 12
+.byte 98
+.byte 101
+.byte 113
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 64
+.byte 82
+.byte 44
+.byte 64
+.byte 76
+.align 2
+.align 4
+L3394:
+.byte 12
+.byte 98
+.byte 110
+.byte 101
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 64
+.byte 82
+.byte 44
+.byte 64
+.byte 76
+.align 2
+.align 4
+L3393:
+.byte 12
+.byte 98
+.byte 108
+.byte 116
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 64
+.byte 82
+.byte 44
+.byte 64
+.byte 76
+.align 2
+.align 4
+L3392:
+.byte 12
+.byte 98
+.byte 103
+.byte 101
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 64
+.byte 82
+.byte 44
+.byte 64
+.byte 76
+.align 2
+.align 4
+L3391:
+.byte 12
+.byte 98
+.byte 103
+.byte 116
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 64
+.byte 82
+.byte 44
+.byte 64
+.byte 76
+.align 2
+.align 4
+L3390:
+.byte 12
+.byte 98
+.byte 108
+.byte 101
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 64
+.byte 82
+.byte 44
+.byte 64
+.byte 76
+.align 2
+.align 4
+L3389:
+.byte 5
+.byte 106
+.byte 32
+.byte 76
+.byte 64
+.byte 65
+.align 2
+.align 4
+L3388:
+.byte 12
+.byte 109
+.byte 117
+.byte 108
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 49
+.align 2
+.align 4
+L3387:
+.byte 12
+.byte 100
+.byte 105
+.byte 118
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 49
+.align 2
+.align 4
+L3386:
+.byte 8
+.byte 109
+.byte 118
+.byte 32
+.byte 64
+.byte 82
+.byte 44
+.byte 64
+.byte 82
+.align 2
+.align 4
+L3385:
+.byte 12
+.byte 97
+.byte 100
+.byte 100
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 49
+.align 2
+.align 4
+L3384:
+.byte 12
+.byte 115
+.byte 117
+.byte 98
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 49
+.align 2
+.align 4
+L3383:
+.byte 12
+.byte 115
+.byte 108
+.byte 116
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 49
+.align 2
+.align 4
+L3382:
+.byte 12
+.byte 115
+.byte 108
+.byte 108
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 49
+.align 2
+.align 4
+L3381:
+.byte 12
+.byte 115
+.byte 114
+.byte 108
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 49
+.align 2
+.align 4
+L3380:
+.byte 12
+.byte 97
+.byte 110
+.byte 100
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 49
+.align 2
+.align 4
+L3379:
+.byte 11
+.byte 111
+.byte 114
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 49
+.align 2
+.align 4
+L3378:
+.byte 12
+.byte 120
+.byte 111
+.byte 114
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 49
+.align 2
+.align 4
+L3377:
+.byte 8
+.byte 115
+.byte 119
+.byte 32
+.byte 64
+.byte 82
+.byte 44
+.byte 64
+.byte 65
+.align 2
+.align 4
+L3376:
+.byte 8
+.byte 115
+.byte 119
+.byte 32
+.byte 64
+.byte 82
+.byte 44
+.byte 64
+.byte 65
+.align 2
+.align 4
+L3375:
+.byte 8
+.byte 108
+.byte 119
+.byte 32
+.byte 64
+.byte 82
+.byte 44
+.byte 64
+.byte 65
+.align 2
+.align 4
+L3374:
+.byte 13
+.byte 97
+.byte 100
+.byte 100
+.byte 105
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 64
+.byte 73
+.align 2
+.align 4
+L3373:
+.byte 12
+.byte 115
+.byte 108
+.byte 108
+.byte 105
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 50
+.align 2
+.align 4
+L3372:
+.byte 12
+.byte 115
+.byte 114
+.byte 108
+.byte 105
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 50
+.align 2
+.align 4
+L3371:
+.byte 14
+.byte 106
+.byte 97
+.byte 108
+.byte 114
+.byte 32
+.byte 122
+.byte 101
+.byte 114
+.byte 111
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 48
+.align 2
+.align 4
+L3370:
+.byte 7
+.byte 106
+.byte 97
+.byte 108
+.byte 32
+.byte 76
+.byte 64
+.byte 82
+.align 2
+.align 4
+L3369:
+.byte 8
+.byte 108
+.byte 105
+.byte 32
+.byte 64
+.byte 82
+.byte 44
+.byte 64
+.byte 73
+.align 2
+.align 4
+L3368:
+.byte 8
+.byte 108
+.byte 97
+.byte 32
+.byte 64
+.byte 82
+.byte 44
+.byte 64
+.byte 76
+.align 2
+.align 4
+L3367:
+.byte 8
+.byte 108
+.byte 97
+.byte 32
+.byte 64
+.byte 82
+.byte 44
+.byte 64
+.byte 71
+.align 2
+.align 4
+L3366:
+.byte 8
+.byte 108
+.byte 119
+.byte 32
+.byte 64
+.byte 82
+.byte 44
+.byte 64
+.byte 80
+.align 2
+.align 4
+L3365:
+.byte 21
+.byte 108
+.byte 97
+.byte 32
+.byte 116
+.byte 48
+.byte 44
+.byte 64
+.byte 76
+.byte 32
+.byte 59
+.byte 32
+.byte 115
+.byte 119
+.byte 32
+.byte 64
+.byte 82
+.byte 44
+.byte 40
+.byte 116
+.byte 48
+.byte 41
+.align 2
+.align 4
+L3364:
+.byte 12
+.byte 114
+.byte 101
+.byte 109
+.byte 32
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 48
+.byte 44
+.byte 97
+.byte 49
+.align 2
+.align 4
+L3363:
+.byte 12
+.byte 78
+.byte 79
+.byte 32
+.byte 65
+.byte 83
+.byte 84
+.byte 82
+.byte 32
+.byte 37
+.byte 73
+.byte 32
+.byte 10
+.align 2
+.align 4
+L3362:
 .byte 9
 .byte 46
 .byte 103
@@ -5675,9 +10009,9 @@ L3425:
 .byte 108
 .byte 32
 .byte 71
-.align 4,0
+.align 2
 .align 4
-L3424:
+L3361:
 .byte 8
 .byte 46
 .byte 97
@@ -5686,22 +10020,22 @@ L3424:
 .byte 103
 .byte 110
 .byte 32
-.byte 52
-.align 4,0
+.byte 50
+.align 2
 .align 4
-L3423:
+L3360:
 .byte 2
 .byte 71
 .byte 58
-.align 4,0
+.align 2
 .align 4
-L3422:
+L3359:
 .byte 13
 .byte 46
-.byte 108
+.byte 119
 .byte 111
-.byte 110
-.byte 103
+.byte 114
+.byte 100
 .byte 32
 .byte 64
 .byte 65
@@ -5710,379 +10044,30 @@ L3422:
 .byte 32
 .byte 64
 .byte 78
-.align 4,0
+.align 2
 .align 4
-L3421:
-.byte 5
-.byte 106
-.byte 101
-.byte 32
-.byte 64
-.byte 65
-.align 4,0
+L3258:
+.word 0
 .align 4
-L3420:
-.byte 6
-.byte 106
-.byte 110
-.byte 101
-.byte 32
-.byte 64
-.byte 65
-.align 4,0
-.align 4
-L3419:
-.byte 5
-.byte 106
-.byte 108
-.byte 32
-.byte 64
-.byte 65
-.align 4,0
-.align 4
-L3418:
-.byte 6
-.byte 106
-.byte 103
-.byte 101
-.byte 32
-.byte 64
-.byte 65
-.align 4,0
-.align 4
-L3417:
-.byte 5
-.byte 106
-.byte 103
-.byte 32
-.byte 64
-.byte 65
-.align 4,0
-.align 4
-L3416:
-.byte 6
-.byte 106
-.byte 108
-.byte 101
-.byte 32
-.byte 64
-.byte 65
-.align 4,0
-.align 4
-L3415:
-.byte 6
-.byte 106
-.byte 109
-.byte 112
-.byte 32
-.byte 64
-.byte 65
-.align 4,0
-.align 4
-L3414:
-.byte 8
-.byte 105
-.byte 109
-.byte 117
-.byte 108
-.byte 108
-.byte 32
-.byte 64
-.byte 65
-.align 4,0
-.align 4
-L3413:
-.byte 8
-.byte 105
-.byte 100
-.byte 105
-.byte 118
-.byte 108
-.byte 32
-.byte 64
-.byte 65
-.align 4,0
-.align 4
-L3412:
-.byte 10
-.byte 109
-.byte 111
-.byte 118
-.byte 108
-.byte 32
-.byte 64
-.byte 65
-.byte 44
-.byte 64
-.byte 82
-.align 4,0
-.align 4
-L3411:
-.byte 10
-.byte 97
-.byte 100
-.byte 100
-.byte 108
-.byte 32
-.byte 64
-.byte 65
-.byte 44
-.byte 64
-.byte 82
-.align 4,0
-.align 4
-L3410:
-.byte 10
-.byte 115
-.byte 117
-.byte 98
-.byte 108
-.byte 32
-.byte 64
-.byte 65
-.byte 44
-.byte 64
-.byte 82
-.align 4,0
-.align 4
-L3409:
-.byte 10
-.byte 99
-.byte 109
-.byte 112
-.byte 108
-.byte 32
-.byte 64
-.byte 65
-.byte 44
-.byte 64
-.byte 82
-.align 4,0
-.align 4
-L3408:
-.byte 10
-.byte 115
-.byte 104
-.byte 108
-.byte 108
-.byte 32
-.byte 64
-.byte 65
-.byte 44
-.byte 64
-.byte 82
-.align 4,0
-.align 4
-L3407:
-.byte 10
-.byte 115
-.byte 104
-.byte 114
-.byte 108
-.byte 32
-.byte 64
-.byte 65
-.byte 44
-.byte 64
-.byte 82
-.align 4,0
-.align 4
-L3406:
-.byte 10
-.byte 97
-.byte 110
-.byte 100
-.byte 108
-.byte 32
-.byte 64
-.byte 65
-.byte 44
-.byte 64
-.byte 82
-.align 4,0
-.align 4
-L3405:
-.byte 9
-.byte 111
-.byte 114
-.byte 108
-.byte 32
-.byte 64
-.byte 65
-.byte 44
-.byte 64
-.byte 82
-.align 4,0
-.align 4
-L3404:
-.byte 10
-.byte 120
-.byte 111
-.byte 114
-.byte 108
-.byte 32
-.byte 64
-.byte 65
-.byte 44
-.byte 64
-.byte 82
-.align 4,0
-.align 4
-L3403:
-.byte 10
-.byte 109
-.byte 111
-.byte 118
-.byte 108
-.byte 32
-.byte 64
-.byte 82
-.byte 44
-.byte 64
-.byte 65
-.align 4,0
-.align 4
-L3402:
-.byte 10
-.byte 108
-.byte 101
-.byte 97
-.byte 108
-.byte 32
-.byte 64
-.byte 65
-.byte 44
-.byte 64
-.byte 82
-.align 4,0
-.align 4
-L3401:
-.byte 11
-.byte 115
-.byte 104
-.byte 108
-.byte 108
-.byte 32
-.byte 37
-.byte 99
-.byte 108
-.byte 44
-.byte 64
-.byte 82
-.align 4,0
-.align 4
-L3400:
-.byte 11
-.byte 115
-.byte 104
-.byte 114
-.byte 108
-.byte 32
-.byte 37
-.byte 99
-.byte 108
-.byte 44
-.byte 64
-.byte 82
-.align 4,0
-.align 4
-L3399:
-.byte 9
-.byte 115
-.byte 101
-.byte 116
-.byte 110
-.byte 101
-.byte 32
-.byte 37
-.byte 97
-.byte 108
-.align 4,0
-.align 4
-L3398:
-.byte 8
-.byte 115
-.byte 101
-.byte 116
-.byte 101
-.byte 32
-.byte 37
-.byte 97
-.byte 108
-.align 4,0
-.align 4
-L3397:
-.byte 9
-.byte 115
-.byte 101
-.byte 116
-.byte 103
-.byte 101
-.byte 32
-.byte 37
-.byte 97
-.byte 108
-.align 4,0
-.align 4
-L3396:
-.byte 8
-.byte 115
-.byte 101
-.byte 116
-.byte 108
-.byte 32
-.byte 37
-.byte 97
-.byte 108
-.align 4,0
-.align 4
-L3395:
-.byte 9
-.byte 115
-.byte 101
-.byte 116
-.byte 108
-.byte 101
-.byte 32
-.byte 37
-.byte 97
-.byte 108
-.align 4,0
-.align 4
-L3394:
-.byte 8
-.byte 115
-.byte 101
-.byte 116
-.byte 103
-.byte 32
-.byte 37
-.byte 97
-.byte 108
-.align 4,0
-.align 4
-L3214:
-.long 0
-.align 4
-L3393:
+L3358:
 .byte 5
 .byte 46
 .byte 116
 .byte 101
 .byte 120
 .byte 116
-.align 4,0
+.align 2
 .align 4
-L3392:
+L3357:
 .byte 5
 .byte 46
 .byte 100
 .byte 97
 .byte 116
 .byte 97
-.align 4,0
+.align 2
 .align 4
-L3391:
+L3356:
 .byte 9
 .byte 46
 .byte 97
@@ -6093,64 +10078,57 @@ L3391:
 .byte 32
 .byte 52
 .byte 10
-.align 4,0
+.align 2
 .align 4
-L3390:
+L3355:
 .byte 2
 .byte 58
 .byte 10
-.align 4,0
+.align 2
 .align 4
-L3389:
+L3354:
 .byte 2
-.byte 40
-.byte 44
-.align 4,0
+.byte 43
+.byte 71
+.align 2
 .align 4
-L3388:
+L3353:
 .byte 4
-.byte 37
-.byte 101
+.byte 40
+.byte 115
+.byte 50
+.byte 41
+.align 2
+.align 4
+L3352:
+.byte 2
 .byte 97
-.byte 120
-.align 4,0
+.byte 48
+.align 2
 .align 4
-L3387:
+L3351:
+.byte 2
+.byte 97
+.byte 49
+.align 2
+.align 4
+L3350:
 .byte 4
-.byte 37
-.byte 101
-.byte 99
-.byte 120
-.align 4,0
-.align 4
-L3386:
-.byte 3
-.byte 44
-.byte 52
-.byte 41
-.align 4,0
-.align 4
-L3385:
-.byte 6
 .byte 40
-.byte 37
-.byte 101
-.byte 98
-.byte 112
+.byte 115
+.byte 50
 .byte 41
-.align 4,0
+.align 2
 .align 4
-L3384:
-.byte 6
+L3349:
+.byte 4
 .byte 40
-.byte 37
-.byte 101
-.byte 100
-.byte 105
+.byte 115
+.byte 48
 .byte 41
-.align 4,0
+.align 2
 .align 4
-L3383:
+L3348:
 .byte 14
 .byte 115
 .byte 116
@@ -6166,9 +10144,9 @@ L3383:
 .byte 41
 .byte 58
 .byte 32
-.align 4,0
+.align 2
 .align 4
-L3382:
+L3347:
 .byte 12
 .byte 120
 .byte 103
@@ -6182,507 +10160,507 @@ L3382:
 .byte 37
 .byte 78
 .byte 10
-.align 4,0
+.align 2
 .global G
-.align 4
+.align 2
 G:
-.long 0 # 0
-.long L3001 # 1
-.long 0 # 2
-.long 0 # 3
-.long 0 # 4
-.long 0 # 5
-.long 0 # 6
-.long 0 # 7
-.long 0 # 8
-.long 0 # 9
-.long 0 # 10
-.long L2011 # 11
-.long L2012 # 12
-.long L2013 # 13
-.long L2014 # 14
-.long L2015 # 15
-.long L2016 # 16
-.long L2017 # 17
-.long 0 # 18
-.long 0 # 19
-.long 0 # 20
-.long 0 # 21
-.long 0 # 22
-.long 0 # 23
-.long 0 # 24
-.long 0 # 25
-.long 0 # 26
-.long 0 # 27
-.long 0 # 28
-.long 0 # 29
-.long L2030 # 30
-.long L2031 # 31
-.long L2032 # 32
-.long 0 # 33
-.long 0 # 34
-.long L2035 # 35
-.long 0 # 36
-.long 0 # 37
-.long 0 # 38
-.long 0 # 39
-.long L2040 # 40
-.long L2041 # 41
-.long L2042 # 42
-.long 0 # 43
-.long 0 # 44
-.long 0 # 45
-.long L2046 # 46
-.long L2047 # 47
-.long 0 # 48
-.long 0 # 49
-.long 0 # 50
-.long 0 # 51
-.long 0 # 52
-.long 0 # 53
-.long 0 # 54
-.long 0 # 55
-.long 0 # 56
-.long 0 # 57
-.long 0 # 58
-.long 0 # 59
-.long L2501 # 60
-.long 0 # 61
-.long L2505 # 62
-.long L2506 # 63
-.long L2507 # 64
-.long 0 # 65
-.long L2503 # 66
-.long L2502 # 67
-.long L2504 # 68
-.long 0 # 69
-.long L2508 # 70
-.long 0 # 71
-.long 0 # 72
-.long 0 # 73
-.long 0 # 74
-.long L2510 # 75
-.long L2511 # 76
-.long L2509 # 77
-.long L2512 # 78
-.long 0 # 79
-.long 0 # 80
-.long 0 # 81
-.long 0 # 82
-.long 0 # 83
-.long 0 # 84
-.long L2085 # 85
-.long L2086 # 86
-.long 0 # 87
-.long 0 # 88
-.long 0 # 89
-.long 0 # 90
-.long 0 # 91
-.long 0 # 92
-.long 0 # 93
-.long 0 # 94
-.long 0 # 95
-.long 0 # 96
-.long 0 # 97
-.long 0 # 98
-.long 0 # 99
-.long 0 # 100
-.long 0 # 101
-.long 0 # 102
-.long 0 # 103
-.long 0 # 104
-.long 0 # 105
-.long 0 # 106
-.long 0 # 107
-.long 0 # 108
-.long 0 # 109
-.long 0 # 110
-.long 0 # 111
-.long 0 # 112
-.long 0 # 113
-.long 0 # 114
-.long 0 # 115
-.long 0 # 116
-.long 0 # 117
-.long 0 # 118
-.long 0 # 119
-.long 0 # 120
-.long 0 # 121
-.long 0 # 122
-.long 0 # 123
-.long 0 # 124
-.long 0 # 125
-.long 0 # 126
-.long 0 # 127
-.long 0 # 128
-.long 0 # 129
-.long 0 # 130
-.long 0 # 131
-.long 0 # 132
-.long 0 # 133
-.long 0 # 134
-.long 0 # 135
-.long 0 # 136
-.long 0 # 137
-.long 0 # 138
-.long 0 # 139
-.long 0 # 140
-.long 0 # 141
-.long 0 # 142
-.long 0 # 143
-.long 0 # 144
-.long 0 # 145
-.long 0 # 146
-.long 0 # 147
-.long 0 # 148
-.long 0 # 149
-.long 0 # 150
-.long 0 # 151
-.long 0 # 152
-.long 0 # 153
-.long 0 # 154
-.long 0 # 155
-.long 0 # 156
-.long 0 # 157
-.long 0 # 158
-.long 0 # 159
-.long 0 # 160
-.long 0 # 161
-.long 0 # 162
-.long 0 # 163
-.long 0 # 164
-.long 0 # 165
-.long 0 # 166
-.long 0 # 167
-.long 0 # 168
-.long 0 # 169
-.long 0 # 170
-.long 0 # 171
-.long 0 # 172
-.long 0 # 173
-.long 0 # 174
-.long 0 # 175
-.long 0 # 176
-.long 0 # 177
-.long 0 # 178
-.long 0 # 179
-.long 0 # 180
-.long 0 # 181
-.long 0 # 182
-.long 0 # 183
-.long 0 # 184
-.long 0 # 185
-.long 0 # 186
-.long 0 # 187
-.long 0 # 188
-.long 0 # 189
-.long 0 # 190
-.long 0 # 191
-.long 0 # 192
-.long 0 # 193
-.long 0 # 194
-.long 0 # 195
-.long 0 # 196
-.long 0 # 197
-.long 0 # 198
-.long 0 # 199
-.long 0 # 200
-.long 0 # 201
-.long 0 # 202
-.long 0 # 203
-.long 0 # 204
-.long 0 # 205
-.long 0 # 206
-.long 0 # 207
-.long 0 # 208
-.long 0 # 209
-.long 0 # 210
-.long 0 # 211
-.long 0 # 212
-.long 0 # 213
-.long 0 # 214
-.long 0 # 215
-.long 0 # 216
-.long 0 # 217
-.long 0 # 218
-.long 0 # 219
-.long 0 # 220
-.long 0 # 221
-.long 0 # 222
-.long 0 # 223
-.long 0 # 224
-.long 0 # 225
-.long 0 # 226
-.long 0 # 227
-.long 0 # 228
-.long 0 # 229
-.long 0 # 230
-.long 0 # 231
-.long 0 # 232
-.long 0 # 233
-.long 0 # 234
-.long 0 # 235
-.long 0 # 236
-.long 0 # 237
-.long 0 # 238
-.long 0 # 239
-.long 0 # 240
-.long 0 # 241
-.long 0 # 242
-.long 0 # 243
-.long 0 # 244
-.long 0 # 245
-.long 0 # 246
-.long 0 # 247
-.long 0 # 248
-.long 0 # 249
-.long 0 # 250
-.long 0 # 251
-.long 0 # 252
-.long 0 # 253
-.long 0 # 254
-.long 0 # 255
-.long 0 # 256
-.long 0 # 257
-.long 0 # 258
-.long 0 # 259
-.long 0 # 260
-.long 0 # 261
-.long 0 # 262
-.long 0 # 263
-.long 0 # 264
-.long 0 # 265
-.long 0 # 266
-.long 0 # 267
-.long 0 # 268
-.long 0 # 269
-.long 0 # 270
-.long 0 # 271
-.long 0 # 272
-.long 0 # 273
-.long 0 # 274
-.long 0 # 275
-.long 0 # 276
-.long 0 # 277
-.long 0 # 278
-.long 0 # 279
-.long 0 # 280
-.long 0 # 281
-.long 0 # 282
-.long 0 # 283
-.long 0 # 284
-.long 0 # 285
-.long 0 # 286
-.long 0 # 287
-.long 0 # 288
-.long 0 # 289
-.long 0 # 290
-.long 0 # 291
-.long 0 # 292
-.long 0 # 293
-.long 0 # 294
-.long 0 # 295
-.long 0 # 296
-.long 0 # 297
-.long 0 # 298
-.long 0 # 299
-.long 0 # 300
-.long 0 # 301
-.long 0 # 302
-.long 0 # 303
-.long 0 # 304
-.long 0 # 305
-.long 0 # 306
-.long 0 # 307
-.long 0 # 308
-.long 0 # 309
-.long 0 # 310
-.long 0 # 311
-.long 0 # 312
-.long 0 # 313
-.long 0 # 314
-.long 0 # 315
-.long 0 # 316
-.long 0 # 317
-.long 0 # 318
-.long 0 # 319
-.long 0 # 320
-.long 0 # 321
-.long 0 # 322
-.long 0 # 323
-.long 0 # 324
-.long 0 # 325
-.long 0 # 326
-.long 0 # 327
-.long 0 # 328
-.long 0 # 329
-.long 0 # 330
-.long 0 # 331
-.long 0 # 332
-.long 0 # 333
-.long 0 # 334
-.long 0 # 335
-.long 0 # 336
-.long 0 # 337
-.long 0 # 338
-.long 0 # 339
-.long 0 # 340
-.long 0 # 341
-.long 0 # 342
-.long 0 # 343
-.long 0 # 344
-.long 0 # 345
-.long 0 # 346
-.long 0 # 347
-.long 0 # 348
-.long 0 # 349
-.long 0 # 350
-.long 0 # 351
-.long 0 # 352
-.long 0 # 353
-.long 0 # 354
-.long 0 # 355
-.long 0 # 356
-.long 0 # 357
-.long 0 # 358
-.long 0 # 359
-.long 0 # 360
-.long 0 # 361
-.long 0 # 362
-.long 0 # 363
-.long 0 # 364
-.long 0 # 365
-.long 0 # 366
-.long 0 # 367
-.long 0 # 368
-.long 0 # 369
-.long 0 # 370
-.long 0 # 371
-.long 0 # 372
-.long 0 # 373
-.long 0 # 374
-.long 0 # 375
-.long 0 # 376
-.long 0 # 377
-.long 0 # 378
-.long 0 # 379
-.long 0 # 380
-.long 0 # 381
-.long 0 # 382
-.long 0 # 383
-.long 0 # 384
-.long 0 # 385
-.long 0 # 386
-.long 0 # 387
-.long 0 # 388
-.long 0 # 389
-.long 0 # 390
-.long 0 # 391
-.long 0 # 392
-.long 0 # 393
-.long 0 # 394
-.long 0 # 395
-.long 0 # 396
-.long 0 # 397
-.long 0 # 398
-.long 0 # 399
-.long 0 # 400
-.long 0 # 401
-.long 0 # 402
-.long 0 # 403
-.long 0 # 404
-.long 0 # 405
-.long 0 # 406
-.long 0 # 407
-.long 0 # 408
-.long 0 # 409
-.long 0 # 410
-.long 0 # 411
-.long 0 # 412
-.long 0 # 413
-.long 0 # 414
-.long 0 # 415
-.long 0 # 416
-.long 0 # 417
-.long 0 # 418
-.long 0 # 419
-.long 0 # 420
-.long 0 # 421
-.long 0 # 422
-.long 0 # 423
-.long 0 # 424
-.long 0 # 425
-.long 0 # 426
-.long 0 # 427
-.long 0 # 428
-.long 0 # 429
-.long 0 # 430
-.long 0 # 431
-.long 0 # 432
-.long 0 # 433
-.long 0 # 434
-.long 0 # 435
-.long 0 # 436
-.long 0 # 437
-.long 0 # 438
-.long 0 # 439
-.long 0 # 440
-.long 0 # 441
-.long 0 # 442
-.long 0 # 443
-.long 0 # 444
-.long 0 # 445
-.long 0 # 446
-.long 0 # 447
-.long 0 # 448
-.long 0 # 449
-.long 0 # 450
-.long 0 # 451
-.long 0 # 452
-.long 0 # 453
-.long 0 # 454
-.long 0 # 455
-.long 0 # 456
-.long 0 # 457
-.long 0 # 458
-.long 0 # 459
-.long 0 # 460
-.long 0 # 461
-.long 0 # 462
-.long 0 # 463
-.long 0 # 464
-.long 0 # 465
-.long 0 # 466
-.long 0 # 467
-.long 0 # 468
-.long 0 # 469
-.long 0 # 470
-.long 0 # 471
-.long 0 # 472
-.long 0 # 473
-.long 0 # 474
-.long 0 # 475
-.long 0 # 476
-.long 0 # 477
-.long 0 # 478
-.long 0 # 479
-.long 0 # 480
-.long 0 # 481
-.long 0 # 482
-.long 0 # 483
-.long 0 # 484
-.long 0 # 485
-.long 0 # 486
-.long 0 # 487
-.long 0 # 488
-.long 0 # 489
-.long 0 # 490
-.long 0 # 491
-.long 0 # 492
-.long 0 # 493
-.long 0 # 494
-.long 0 # 495
-.long 0 # 496
-.long 0 # 497
-.long 0 # 498
-.long 0 # 499
+.word 0 # 0
+.word L3001 # 1
+.word 0 # 2
+.word 0 # 3
+.word 0 # 4
+.word 0 # 5
+.word 0 # 6
+.word 0 # 7
+.word 0 # 8
+.word 0 # 9
+.word 0 # 10
+.word L2011 # 11
+.word L2012 # 12
+.word L2013 # 13
+.word L2014 # 14
+.word L2015 # 15
+.word L2016 # 16
+.word L2017 # 17
+.word 0 # 18
+.word 0 # 19
+.word 0 # 20
+.word 0 # 21
+.word 0 # 22
+.word 0 # 23
+.word 0 # 24
+.word 0 # 25
+.word 0 # 26
+.word 0 # 27
+.word 0 # 28
+.word 0 # 29
+.word L2030 # 30
+.word L2031 # 31
+.word L2032 # 32
+.word 0 # 33
+.word 0 # 34
+.word L2035 # 35
+.word 0 # 36
+.word 0 # 37
+.word 0 # 38
+.word 0 # 39
+.word L2040 # 40
+.word L2041 # 41
+.word L2042 # 42
+.word 0 # 43
+.word 0 # 44
+.word 0 # 45
+.word L2046 # 46
+.word L2047 # 47
+.word 0 # 48
+.word 0 # 49
+.word 0 # 50
+.word 0 # 51
+.word 0 # 52
+.word 0 # 53
+.word 0 # 54
+.word 0 # 55
+.word 0 # 56
+.word 0 # 57
+.word 0 # 58
+.word 0 # 59
+.word L2501 # 60
+.word 0 # 61
+.word L2505 # 62
+.word L2506 # 63
+.word L2507 # 64
+.word 0 # 65
+.word L2503 # 66
+.word L2502 # 67
+.word L2504 # 68
+.word 0 # 69
+.word L2508 # 70
+.word 0 # 71
+.word 0 # 72
+.word 0 # 73
+.word 0 # 74
+.word L2510 # 75
+.word L2511 # 76
+.word L2509 # 77
+.word L2512 # 78
+.word 0 # 79
+.word 0 # 80
+.word 0 # 81
+.word 0 # 82
+.word 0 # 83
+.word 0 # 84
+.word L2085 # 85
+.word L2086 # 86
+.word 0 # 87
+.word 0 # 88
+.word 0 # 89
+.word 0 # 90
+.word 0 # 91
+.word 0 # 92
+.word 0 # 93
+.word 0 # 94
+.word 0 # 95
+.word 0 # 96
+.word 0 # 97
+.word 0 # 98
+.word 0 # 99
+.word 0 # 100
+.word 0 # 101
+.word 0 # 102
+.word 0 # 103
+.word 0 # 104
+.word 0 # 105
+.word 0 # 106
+.word 0 # 107
+.word 0 # 108
+.word 0 # 109
+.word 0 # 110
+.word 0 # 111
+.word 0 # 112
+.word 0 # 113
+.word 0 # 114
+.word 0 # 115
+.word 0 # 116
+.word 0 # 117
+.word 0 # 118
+.word 0 # 119
+.word 0 # 120
+.word 0 # 121
+.word 0 # 122
+.word 0 # 123
+.word 0 # 124
+.word 0 # 125
+.word 0 # 126
+.word 0 # 127
+.word 0 # 128
+.word 0 # 129
+.word 0 # 130
+.word 0 # 131
+.word 0 # 132
+.word 0 # 133
+.word 0 # 134
+.word 0 # 135
+.word 0 # 136
+.word 0 # 137
+.word 0 # 138
+.word 0 # 139
+.word 0 # 140
+.word 0 # 141
+.word 0 # 142
+.word 0 # 143
+.word 0 # 144
+.word 0 # 145
+.word 0 # 146
+.word 0 # 147
+.word 0 # 148
+.word 0 # 149
+.word 0 # 150
+.word 0 # 151
+.word 0 # 152
+.word 0 # 153
+.word 0 # 154
+.word 0 # 155
+.word 0 # 156
+.word 0 # 157
+.word 0 # 158
+.word 0 # 159
+.word 0 # 160
+.word 0 # 161
+.word 0 # 162
+.word 0 # 163
+.word 0 # 164
+.word 0 # 165
+.word 0 # 166
+.word 0 # 167
+.word 0 # 168
+.word 0 # 169
+.word 0 # 170
+.word 0 # 171
+.word 0 # 172
+.word 0 # 173
+.word 0 # 174
+.word 0 # 175
+.word 0 # 176
+.word 0 # 177
+.word 0 # 178
+.word 0 # 179
+.word 0 # 180
+.word 0 # 181
+.word 0 # 182
+.word 0 # 183
+.word 0 # 184
+.word 0 # 185
+.word 0 # 186
+.word 0 # 187
+.word 0 # 188
+.word 0 # 189
+.word 0 # 190
+.word 0 # 191
+.word 0 # 192
+.word 0 # 193
+.word 0 # 194
+.word 0 # 195
+.word 0 # 196
+.word 0 # 197
+.word 0 # 198
+.word 0 # 199
+.word 0 # 200
+.word 0 # 201
+.word 0 # 202
+.word 0 # 203
+.word 0 # 204
+.word 0 # 205
+.word 0 # 206
+.word 0 # 207
+.word 0 # 208
+.word 0 # 209
+.word 0 # 210
+.word 0 # 211
+.word 0 # 212
+.word 0 # 213
+.word 0 # 214
+.word 0 # 215
+.word 0 # 216
+.word 0 # 217
+.word 0 # 218
+.word 0 # 219
+.word 0 # 220
+.word 0 # 221
+.word 0 # 222
+.word 0 # 223
+.word 0 # 224
+.word 0 # 225
+.word 0 # 226
+.word 0 # 227
+.word 0 # 228
+.word 0 # 229
+.word 0 # 230
+.word 0 # 231
+.word 0 # 232
+.word 0 # 233
+.word 0 # 234
+.word 0 # 235
+.word 0 # 236
+.word 0 # 237
+.word 0 # 238
+.word 0 # 239
+.word 0 # 240
+.word 0 # 241
+.word 0 # 242
+.word 0 # 243
+.word 0 # 244
+.word 0 # 245
+.word 0 # 246
+.word 0 # 247
+.word 0 # 248
+.word 0 # 249
+.word 0 # 250
+.word 0 # 251
+.word 0 # 252
+.word 0 # 253
+.word 0 # 254
+.word 0 # 255
+.word 0 # 256
+.word 0 # 257
+.word 0 # 258
+.word 0 # 259
+.word 0 # 260
+.word 0 # 261
+.word 0 # 262
+.word 0 # 263
+.word 0 # 264
+.word 0 # 265
+.word 0 # 266
+.word 0 # 267
+.word 0 # 268
+.word 0 # 269
+.word 0 # 270
+.word 0 # 271
+.word 0 # 272
+.word 0 # 273
+.word 0 # 274
+.word 0 # 275
+.word 0 # 276
+.word 0 # 277
+.word 0 # 278
+.word 0 # 279
+.word 0 # 280
+.word 0 # 281
+.word 0 # 282
+.word 0 # 283
+.word 0 # 284
+.word 0 # 285
+.word 0 # 286
+.word 0 # 287
+.word 0 # 288
+.word 0 # 289
+.word 0 # 290
+.word 0 # 291
+.word 0 # 292
+.word 0 # 293
+.word 0 # 294
+.word 0 # 295
+.word 0 # 296
+.word 0 # 297
+.word 0 # 298
+.word 0 # 299
+.word 0 # 300
+.word 0 # 301
+.word 0 # 302
+.word 0 # 303
+.word 0 # 304
+.word 0 # 305
+.word 0 # 306
+.word 0 # 307
+.word 0 # 308
+.word 0 # 309
+.word 0 # 310
+.word 0 # 311
+.word 0 # 312
+.word 0 # 313
+.word 0 # 314
+.word 0 # 315
+.word 0 # 316
+.word 0 # 317
+.word 0 # 318
+.word 0 # 319
+.word 0 # 320
+.word 0 # 321
+.word 0 # 322
+.word 0 # 323
+.word 0 # 324
+.word 0 # 325
+.word 0 # 326
+.word 0 # 327
+.word 0 # 328
+.word 0 # 329
+.word 0 # 330
+.word 0 # 331
+.word 0 # 332
+.word 0 # 333
+.word 0 # 334
+.word 0 # 335
+.word 0 # 336
+.word 0 # 337
+.word 0 # 338
+.word 0 # 339
+.word 0 # 340
+.word 0 # 341
+.word 0 # 342
+.word 0 # 343
+.word 0 # 344
+.word 0 # 345
+.word 0 # 346
+.word 0 # 347
+.word 0 # 348
+.word 0 # 349
+.word 0 # 350
+.word 0 # 351
+.word 0 # 352
+.word 0 # 353
+.word 0 # 354
+.word 0 # 355
+.word 0 # 356
+.word 0 # 357
+.word 0 # 358
+.word 0 # 359
+.word 0 # 360
+.word 0 # 361
+.word 0 # 362
+.word 0 # 363
+.word 0 # 364
+.word 0 # 365
+.word 0 # 366
+.word 0 # 367
+.word 0 # 368
+.word 0 # 369
+.word 0 # 370
+.word 0 # 371
+.word 0 # 372
+.word 0 # 373
+.word 0 # 374
+.word 0 # 375
+.word 0 # 376
+.word 0 # 377
+.word 0 # 378
+.word 0 # 379
+.word 0 # 380
+.word 0 # 381
+.word 0 # 382
+.word 0 # 383
+.word 0 # 384
+.word 0 # 385
+.word 0 # 386
+.word 0 # 387
+.word 0 # 388
+.word 0 # 389
+.word 0 # 390
+.word 0 # 391
+.word 0 # 392
+.word 0 # 393
+.word 0 # 394
+.word 0 # 395
+.word 0 # 396
+.word 0 # 397
+.word 0 # 398
+.word 0 # 399
+.word 0 # 400
+.word 0 # 401
+.word 0 # 402
+.word 0 # 403
+.word 0 # 404
+.word 0 # 405
+.word 0 # 406
+.word 0 # 407
+.word 0 # 408
+.word 0 # 409
+.word 0 # 410
+.word 0 # 411
+.word 0 # 412
+.word 0 # 413
+.word 0 # 414
+.word 0 # 415
+.word 0 # 416
+.word 0 # 417
+.word 0 # 418
+.word 0 # 419
+.word 0 # 420
+.word 0 # 421
+.word 0 # 422
+.word 0 # 423
+.word 0 # 424
+.word 0 # 425
+.word 0 # 426
+.word 0 # 427
+.word 0 # 428
+.word 0 # 429
+.word 0 # 430
+.word 0 # 431
+.word 0 # 432
+.word 0 # 433
+.word 0 # 434
+.word 0 # 435
+.word 0 # 436
+.word 0 # 437
+.word 0 # 438
+.word 0 # 439
+.word 0 # 440
+.word 0 # 441
+.word 0 # 442
+.word 0 # 443
+.word 0 # 444
+.word 0 # 445
+.word 0 # 446
+.word 0 # 447
+.word 0 # 448
+.word 0 # 449
+.word 0 # 450
+.word 0 # 451
+.word 0 # 452
+.word 0 # 453
+.word 0 # 454
+.word 0 # 455
+.word 0 # 456
+.word 0 # 457
+.word 0 # 458
+.word 0 # 459
+.word 0 # 460
+.word 0 # 461
+.word 0 # 462
+.word 0 # 463
+.word 0 # 464
+.word 0 # 465
+.word 0 # 466
+.word 0 # 467
+.word 0 # 468
+.word 0 # 469
+.word 0 # 470
+.word 0 # 471
+.word 0 # 472
+.word 0 # 473
+.word 0 # 474
+.word 0 # 475
+.word 0 # 476
+.word 0 # 477
+.word 0 # 478
+.word 0 # 479
+.word 0 # 480
+.word 0 # 481
+.word 0 # 482
+.word 0 # 483
+.word 0 # 484
+.word 0 # 485
+.word 0 # 486
+.word 0 # 487
+.word 0 # 488
+.word 0 # 489
+.word 0 # 490
+.word 0 # 491
+.word 0 # 492
+.word 0 # 493
+.word 0 # 494
+.word 0 # 495
+.word 0 # 496
+.word 0 # 497
+.word 0 # 498
+.word 0 # 499

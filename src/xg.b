@@ -141,9 +141,9 @@ $(  STATIC $(
 	      ELSE
 		$(
 		WRITEF("#BIGOFF*N");
-                CODE1(A.LI, A, T, R)
-                CODE1(A.ADD, A, T, R)
-                CODE1(A.LW, A, T, R)
+                CODE1(A.LI, A<<2, T, R)
+	        EMIT("add a0, a0, s2", A, T, 0, FALSE)
+	        EMIT("lw @R,(a0)", A, T, 0, FALSE)
 		$)
 	      $)
 	    ELSE $(
@@ -172,7 +172,7 @@ $(  STATIC $(
 		CASE T.G: WRITEF("#A.LG T.G*N"); CODE1(A.LG, A, T, R); EMIT("lw a0,0(a0)"); ENDCASE
 		CASE T.L: WRITEF("#A.LA T.L*N"); CODE1(A.LA, A, T, R); ENDCASE
 		CASE T.IR: WRITEF("#A.LA T.IR*N"); CODE1(A.LA, A, T, R); ENDCASE
-		CASE T.IG: ERROR(70); ENDCASE
+		CASE T.IG: WRITEF("#A.LG T.IG*N"); CODE1(A.LG, A, T, R); EMIT("lw a0,0(a0)"); ENDCASE
 		CASE T.IL: ERROR(69); ENDCASE
 		DEFAULT: ERROR(68); ENDCASE
 		$)

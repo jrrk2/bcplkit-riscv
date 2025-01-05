@@ -8,7 +8,7 @@
 
 #define FTSZ 20
 
-extern int *M;
+register int *M asm("s3");
 
 static FILE *ft[FTSZ];
 static int fi, fo;
