@@ -284,20 +284,20 @@ $(
         EMIT("#EXTENDED @I", A); 
         SWITCHON A INTO $(
         DEFAULT: ERROR(8)
-        CASE 1:
+        CASE 1: // indirection
         EMIT("sext.w a5,s6")
         EMIT("slli a5,a5,2")
         EMIT("add a5,s3,a5")
         EMIT("lw s6,0(a5)")
             ENDCASE
-        CASE 2:
+        CASE 2: // negation
             EMIT("negw s6,s6")
             ENDCASE
-        CASE 3:
+        CASE 3: // not
             EMIT("sext.w s6,s6")
             EMIT("not s6,s6")
             ENDCASE
-        CASE 4:
+        CASE 4: // subroutine return
             EMIT("sext.w s5,s5")
             EMIT("addi a5,s5,1")
             EMIT("slli a5,a5,2")
@@ -309,19 +309,19 @@ $(
 	    EMIT("slli a5,a5,2")
 	    EMIT("jalr a5")
             ENDCASE
-        CASE 5:
+        CASE 5: // multiply
             EMIT("mulw s6,s6,s7")
             ENDCASE
-        CASE 6:
+        CASE 6: // divide
             EMIT("divw s6,s7,s6")
             ENDCASE
-        CASE 7:
+        CASE 7: // modulo
             EMIT("remw s6,s7,s6")
             ENDCASE
-        CASE 8:
+        CASE 8: // addition
             EMIT("addw s6,s6,s7")
             ENDCASE
-        CASE 9:
+        CASE 9: // subtraction
             EMIT("subw s6,s7,s6")
             ENDCASE
         CASE 10: /* A := B = A */
@@ -368,24 +368,24 @@ $(
         CASE 17: /* A := B RSHIFT A */
             EMIT("sraw s6,s7,s6")
             ENDCASE
-        CASE 18:
+        CASE 18: // logical AND
             EMIT("and s6,s6,s7")
             ENDCASE
-        CASE 19:
+        CASE 19: // Logical OR
             EMIT("or s6,s6,s7")
             ENDCASE
-        CASE 20:
+        CASE 20: // Logical XOR
             EMIT("xor s6,s6,s7")
             ENDCASE
-        CASE 21:
+        CASE 21: // Logical EQV
             EMIT("xor s6,s7,s6")
             EMIT("sext.w s6,s6")
             EMIT("not s6,s6")
             ENDCASE
-        CASE 22:
+        CASE 22: // Finish
             EMIT("j finish")
             ENDCASE
-        CASE 23:
+        CASE 23: // Switch
             EMIT("sext.w a5,s8")
             EMIT("addi a4,a5,1")
             EMIT("slli a4,a4,2")
@@ -411,58 +411,58 @@ $(
             EMIT("jalr s9")
             XLBL := XLBL + 2
             ENDCASE
-        CASE 24:
+        CASE 24: // select input
             EMIT("sext.w a0,s6")
             EMIT("call selectinput")
             ENDCASE
-        CASE 25:
+        CASE 25: // select output
             EMIT("sext.w a0,s6")
             EMIT("call selectoutput")
             ENDCASE
-        CASE 26:
+        CASE 26: // read character
             EMIT("call rdch")
             EMIT("mv s6,a0")
             ENDCASE
-        CASE 27:
+        CASE 27: // write character
             EMIT("sext.w a0,s6")
             EMIT("call wrch")
             ENDCASE
-        CASE 28:
+        CASE 28: // find input
             EMIT("sext.w a0,s6")
             EMIT("call findinput")
             EMIT("mv s6,a0")
             ENDCASE
-        CASE 29:
+        CASE 29: // find output
             EMIT("sext.w a0,s6")
             EMIT("call findoutput")
             EMIT("mv s6,a0")
             ENDCASE
-        CASE 30:
+        CASE 30: // stop
             EMIT("sext.w a0,s6")
             EMIT("j stop")
             ENDCASE
-        CASE 31:
+        CASE 31: // for level
             EMIT("sext.w a5,s5")
             EMIT("slli a5,a5,2")
             EMIT("add a5,s3,a5")
             EMIT("lw s6,0(a5)")
             ENDCASE
-        CASE 32:
+        CASE 32: // for long jump
             EMIT("mv s5,s6")
 	    EMIT("slli s7,s7,2")
             EMIT("jalr s7")
             ENDCASE
-        CASE 33:
+        CASE 33: // end read
             EMIT("sext.w a0,s6")
             EMIT("call endread")
             EMIT("mv s6,a0")
             ENDCASE
-        CASE 34:
+        CASE 34: // end write
             EMIT("sext.w a0,s6")
             EMIT("call endwrite")
             EMIT("mv s6,a0")
             ENDCASE
-        CASE 35:
+        CASE 35: // for aptovec
             EMIT("sext.w a3,s5")
             EMIT("slli a5,a3,2")
             EMIT("add a5,s3,a5")
@@ -498,7 +498,7 @@ $(
             EMIT("lb a0,0(t1)")
             EMIT("andi a0,a0,0xff")
             ENDCASE
-        CASE 37:
+        CASE 37: /* PUTBYTE */
             EMIT("sext.w a5,s5")
             EMIT("addi a5,a5,4")
             EMIT("slli a5,a5,2")
@@ -510,22 +510,22 @@ $(
             EMIT("add t1,a1,t1")
             EMIT("sb a0,0(t1)")
             ENDCASE
-        CASE 38:
+        CASE 38: // input
             EMIT("sext.w a0,s6")
             EMIT("call input")
             EMIT("mv s6,a0")
             ENDCASE
-        CASE 39:
+        CASE 39: // output
             EMIT("sext.w a0,s6")
             EMIT("call output")
             EMIT("mv s6,a0")
             ENDCASE
-        CASE 40:
+        CASE 40: // undo read character
             EMIT("sext.w a0,s6")
             EMIT("call unrdch")
             EMIT("mv s6,a0")
             ENDCASE
-        CASE 41:
+        CASE 41: // rewind
             EMIT("sext.w a0,s6")
             EMIT("call rewind")
             EMIT("mv s6,a0")
