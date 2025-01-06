@@ -14,15 +14,6 @@ T.R=4;  T.P=5;  T.G=6;   T.L=7
 T.IR=8; T.IP=9; T.IG=10; T.IL=11
 $)
 
-// RISC-V instruction patterns
-MANIFEST $(
-A.BEQ=0;  A.BNE=1;  A.BLT=2;   A.BGE=3;  A.BGT=4;   A.BLE=5;  A.J=6
-A.MUL=7;  A.DIV=8;  A.MV=9;    A.ADD=10; A.SUB=11;  A.SLT=12; A.SLL=13
-A.SRL=14; A.AND=15; A.OR=16;   A.XOR=17; A.SW=18;   A.LW=19;  A.ADDI=20
-A.SLLI=21; A.SRLI=22; A.JALR=23; A.JAL=24; A.LI=25; A.LA=26; A.LG=27;
-A.LP=28; A.SA=29; A.SG=30; A.REM=31
-$)
-
 GLOBAL $(
 G:150           // Definitions vector for globals
 L:151           // Definitions vector for labels
@@ -48,12 +39,14 @@ $(  LET GVEC = VEC GSZ
     ERR := OUTPUT()
     ASM := FINDOUTPUT("ASM")
     SELECTOUTPUT(ASM)
+/*
     WRITEF("#register int A asm(*"s6*") Accumulator *N");
     WRITEF("#register int B asm(*"s7*") Auxiliary *N");
     WRITEF("#register int D asm(*"s9*") Address register *N");
     WRITEF("#register int G asm(*"s4*") Global vector *N");
     WRITEF("#register int *M asm(*"s3*") Base adress for working memory*N");
     WRITEF("#register int P asm(*"s5*") Local and function arguments *N");
+*/    
     ASSEM()
     EPILOG()
     ENDWRITE()
@@ -138,45 +131,46 @@ AND GENER(F, A, T) BE
 $(
     LET X = ?
     STATIC $( XLBL=10000 $)
-    WRITEF("#F=%C, A=%I, T=%S *N", F, A, TYP(T))
+    IF F \= 'B' & F \= 'C' & F \= 'D' WRITEF("#F=%C, A=%I, T=%S *N", F, A, TYP(T))
     SWITCHON T INTO $(
 	   CASE T.LP:
-	   WRITEF("#LP: P%I *N", A)
-	   WRITEF("li s9, %I *N", A)
+	   EMIT("#LP: P@I", A)
+	   EMIT("li s9, @I", A)
 	   ENDCASE
 	   CASE T.LG:
-	   WRITEF("#LG: G%I *N", A)
-	   WRITEF("li s9, %I *N", A)
+	   EMIT("#LG: G@I", A)
+	   EMIT("li s9, @I", A)
 	   ENDCASE
 	   CASE T.N:
-	   WRITEF("#N: %I *N", A)
-	   WRITEF("li s9, %I *N", A)
+	   IF F='B' | F='C' | F='D' ENDCASE
+	   EMIT("#N: @I", A)
+	   EMIT("li s9, @I", A)
 	   ENDCASE
 	   CASE T.LL:
-	   WRITEF("#LL: L%I *N", A)
-	   WRITEF("la s9, L%I *N", A)
+	   EMIT("#LL: L@I", A)
+	   EMIT("la s9, L@I", A)
 	   ENDCASE
 	   CASE T.R:
 	   CASE T.IR:
-	   WRITEF("#R/IR: R%I *N", A)
-	   WRITEF("li s9, %I *N", A)
+	   EMIT("#R/IR: R@I", A)
+	   EMIT("li s9, @I", A)
 	   ENDCASE
 	   CASE T.P:
 	   CASE T.IP:
-	   WRITEF("#P/IP: P%I *N", A)
-	   WRITEF("li s9,%I *N", A)
+	   EMIT("#P/IP: P@I", A)
+	   EMIT("li s9,@I", A)
            EMIT("addw s9,s5,s9")
            ENDCASE
 	   CASE T.G:
 	   CASE T.IG:
-	   WRITEF("#G/IG: G%I *N", A)
-	   WRITEF("li s9, %I *N", A)
+	   EMIT("#G/IG: G@I", A)
+	   EMIT("li s9, @I", A)
            EMIT("addw s9,s4,s9")
 	   ENDCASE
 	   CASE T.L:
 	   CASE T.IL:
-	   WRITEF("#L/IL: L%I *N", A)
-	   WRITEF("li s9, %I *N", A)
+	   EMIT("#L/IL: L@I", A)
+	   EMIT("li s9, @I", A)
 	   ENDCASE
 	   DEFAULT:
 	   ENDCASE
@@ -186,19 +180,19 @@ $(
 	   CASE T.IP:
 	   CASE T.IG:
 	   CASE T.IL:
-	   WRITEF("#DOUBLE I: *N")
+	   EMIT("#DOUBLE I:")
 	   ENDCASE
 	   CASE T.P:
 	   IF F='S' ENDCASE
 	   CASE T.R:
 	   CASE T.G:
 	   CASE T.L:
-	   WRITEF("#IND: *N")
+	   EMIT("#IND:")
 	   EMIT("sext.w a5,s9")
 	   EMIT("slli a5,a5,2")
 	   EMIT("add a5,s3,a5")
 	   EMIT("lw s9,0(a5)")
-	   WRITEF("#ILW: *N")
+	   EMIT("#ILW:")
 	   ENDCASE
 	   DEFAULT:
 	   ENDCASE
@@ -225,38 +219,38 @@ $(
         SECT := 0
         ENDCASE
     CASE 'L':
-        WRITEF("#LOAD: *N")
+        EMIT("#LOAD:")
         EMIT("mv s7,s6")
         EMIT("mv s6,s9")
         ENDCASE
     CASE 'A':
-        WRITEF("#ADD: *N")
+        EMIT("#ADD:")
         EMIT("addw s6,s9,s6")
         ENDCASE
     CASE 'S':
-        WRITEF("#SAVE: *N")
+        EMIT("#SAVE:")
         EMIT("sext.w a5,s9")
         EMIT("slli a5,a5,2")
         EMIT("add a5,s3,a5")
         EMIT("sw s6,0(a5)")    
         ENDCASE
     CASE 'J':
-        WRITEF("#JUMP: *N")
+        EMIT("#JUMP:")
         EMIT("jalr s9")
         ENDCASE
     CASE 'T':
-        WRITEF("#TRUE: *N")
+        EMIT("#TRUE:")
         EMIT("sext.w s6,s6")
         EMIT("seqz s6,s6")
     CASE 'F':
-        WRITEF("#FALSE: *N")
+        EMIT("#FALSE:")
         EMIT("sext.w a5,s6")
         EMIT("bne a5,zero,1f")
         EMIT("jalr s9")
         EMIT("1:")
         ENDCASE
     CASE 'K':
-        WRITEF("#CALL: *N")
+        EMIT("#CALL:")
         EMIT("addw a5,s5,s9")
         EMIT("slli a3,a5,2")
         EMIT("addi a4,a5,1")
@@ -264,13 +258,16 @@ $(
         EMIT("slli a4,a4,2")
         EMIT("sw s5,0(a3)")
         EMIT("add a4,s3,a4")
-        EMIT("sw s8,0(a4)")
+        EMIT("la t0,@L", XLBL)
+        EMIT("sw t0,0(a4)")
         EMIT("mv s9,a5")
         EMIT("mv s5,a5")
         EMIT("jalr s6")
+        LABEL(XLBL)
+	XLBL := XLBL+1
         ENDCASE
     CASE 'X':
-        WRITEF("#EXTENDED %I *N", A); 
+        EMIT("#EXTENDED @I", A); 
         SWITCHON A INTO $(
         DEFAULT: ERROR(8)
         CASE 1:
@@ -293,8 +290,9 @@ $(
             EMIT("slli s5,s5,2")
             EMIT("add a5,s3,a5")
             EMIT("add a4,s3,s5")
-            EMIT("lw s8,0(a5)")
+            EMIT("lw a5,0(a5)")
             EMIT("lw s5,0(a4)")
+	    EMIT("jalr a5")
             ENDCASE
         CASE 5:
             EMIT("mulw s6,s6,s7")
@@ -383,17 +381,17 @@ $(
             EMIT("lw s7,0(a5)")
             EMIT("mv a3,s3")
             EMIT("sext.w a2,s6")
-            WRITEF("j L%I *N", XLBL)
-            WRITEF("L%I :*N", XLBL+1)
+            EMIT("j @L", XLBL)
+	    LABEL(XLBL+1)
             EMIT("addiw s8,s8,2")
             EMIT("slli a5,s8,2")
             EMIT("add a5,a3,a5")
             EMIT("lw a1,0(a5)")
             EMIT("addiw s7,a4,-1")
-            WRITEF("beq a1,a2,L%I *N", XLBL)
-            WRITEF("L%I :*N", XLBL)
+            EMIT("beq a1,a2,@L", XLBL)
+	    LABEL(XLBL)
             EMIT("sext.w a4,s7")
-            WRITEF("bne a4,zero,L%I *N", XLBL+1)
+            EMIT("bne a4,zero,@L", XLBL+1)
             EMIT("jalr s9")
             XLBL := XLBL + 2
             ENDCASE
@@ -528,6 +526,8 @@ $(  SECT := 1
 $)
 
 AND DATA(S, A, T) BE EMIT(S, A, T, 0, TRUE)
+
+AND LABEL(LAB) BE $( L!LN := LAB; LN := LN+1; EMIT("") $)
 
 AND EMIT(S, A, T, X, J) BE
 $(  STATIC $( PSECT=0 $)
