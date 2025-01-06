@@ -93,7 +93,7 @@ $(  LET F, A, T, I = 0, 0, 0, 0
         A := RDN()
         IF T=T.LL A := A + LOFF
         T := I << 2 | T
-	IF I > 0 WRITEF("#DBG %S=%I *N", TYP(T), T)
+//	IF I > 0 WRITEF("#DBG %S=%I *N", TYP(T), T)
         ENDCASE
     CASE 'C':
         RCH()
@@ -107,7 +107,7 @@ $(  LET F, A, T, I = 0, 0, 0, 0
     $)
     GENER(F, A, T)
 $) REPEAT
-
+/*
 AND TYP(T) = VALOF
 $(
 SWITCHON T INTO $(
@@ -126,12 +126,12 @@ SWITCHON T INTO $(
        DEFAULT: ERROR(88); ENDCASE
        $)
 $)
-
+*/
 AND GENER(F, A, T) BE
 $(
     LET X = ?
     STATIC $( XLBL=10000 $)
-    IF F \= 'B' & F \= 'C' & F \= 'D' WRITEF("#F=%C, A=%I, T=%S *N", F, A, TYP(T))
+//    IF F \= 'B' & F \= 'C' & F \= 'D' WRITEF("#F=%C, A=%I, T=%S *N", F, A, TYP(T))
     SWITCHON T INTO $(
 	   CASE T.LP:
 	   EMIT("#LP: P@I", A)
@@ -149,6 +149,7 @@ $(
 	   CASE T.LL:
 	   EMIT("#LL: L@I", A)
 	   EMIT("la s9, L@I", A)
+           EMIT("srli s9,s9,2")
 	   ENDCASE
 	   CASE T.R:
 	   CASE T.IR:
@@ -170,7 +171,8 @@ $(
 	   CASE T.L:
 	   CASE T.IL:
 	   EMIT("#L/IL: L@I", A)
-	   EMIT("li s9, @I", A)
+	   EMIT("la s9, @L", A)
+           EMIT("srli s9,s9,2")
 	   ENDCASE
 	   DEFAULT:
 	   ENDCASE
@@ -182,12 +184,20 @@ $(
 	   CASE T.IL:
 	   EMIT("#DOUBLE I:")
 	   ENDCASE
+	   CASE T.G:
+	   EMIT("#IND G:")
+	   EMIT("sext.w a5,s9")
+	   EMIT("slli a5,a5,2")
+	   EMIT("add a5,s3,a5")
+	   EMIT("lw s9,0(a5)")
+           EMIT("srli s9,s9,2")
+	   EMIT("#ILW:")
+	   ENDCASE
 	   CASE T.P:
 	   IF F='S' ENDCASE
 	   CASE T.R:
-	   CASE T.G:
 	   CASE T.L:
-	   EMIT("#IND:")
+	   EMIT("#IND R/L:")
 	   EMIT("sext.w a5,s9")
 	   EMIT("slli a5,a5,2")
 	   EMIT("add a5,s3,a5")
@@ -236,6 +246,7 @@ $(
         ENDCASE
     CASE 'J':
         EMIT("#JUMP:")
+        EMIT("slli s9,s9,2")
         EMIT("jalr s9")
         ENDCASE
     CASE 'T':
@@ -246,6 +257,7 @@ $(
         EMIT("#FALSE:")
         EMIT("sext.w a5,s6")
         EMIT("bne a5,zero,1f")
+        EMIT("slli s9,s9,2")
         EMIT("jalr s9")
         EMIT("1:")
         ENDCASE
@@ -259,9 +271,11 @@ $(
         EMIT("sw s5,0(a3)")
         EMIT("add a4,s3,a4")
         EMIT("la t0,@L", XLBL)
+        EMIT("srli t0,t0,2")
         EMIT("sw t0,0(a4)")
         EMIT("mv s9,a5")
         EMIT("mv s5,a5")
+        EMIT("slli s6,s6,2")
         EMIT("jalr s6")
         LABEL(XLBL)
 	XLBL := XLBL+1
@@ -292,6 +306,7 @@ $(
             EMIT("add a4,s3,s5")
             EMIT("lw a5,0(a5)")
             EMIT("lw s5,0(a4)")
+	    EMIT("slli a5,a5,2")
 	    EMIT("jalr a5")
             ENDCASE
         CASE 5:
@@ -392,6 +407,7 @@ $(
 	    LABEL(XLBL)
             EMIT("sext.w a4,s7")
             EMIT("bne a4,zero,@L", XLBL+1)
+	    EMIT("slli s9,s9,2")
             EMIT("jalr s9")
             XLBL := XLBL + 2
             ENDCASE
@@ -433,6 +449,7 @@ $(
             ENDCASE
         CASE 32:
             EMIT("mv s5,s6")
+	    EMIT("slli s7,s7,2")
             EMIT("jalr s7")
             ENDCASE
         CASE 33:
@@ -472,6 +489,7 @@ $(
             EMIT("add a5,s3,a4")
             EMIT("sw s7,0(a5)")
             EMIT("mv s9,s5")
+	    EMIT("slli s6,s6,2")
             EMIT("jalr s6")
             ENDCASE
         CASE 36: /* GETBYTE */
