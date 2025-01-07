@@ -147,6 +147,7 @@ $(
 	   EMIT("li s9, @I", A)
 	   ENDCASE
 	   CASE T.LL:
+	   IF F='B' | F='C' | F='D' ENDCASE
 	   EMIT("#LL: L@I", A)
 	   EMIT("la s9, L@I", A)
            EMIT("srli s9,s9,2")
@@ -196,13 +197,21 @@ $(
 	   CASE T.P:
 	   IF F='S' ENDCASE
 	   CASE T.R:
-	   CASE T.L:
-	   EMIT("#IND R/L:")
+	   EMIT("#IND R:")
 	   EMIT("sext.w a5,s9")
 	   EMIT("slli a5,a5,2")
 //	   EMIT("add a5,s3,a5")
 	   EMIT("lw s9,0(a5)")
-	   EMIT("#ILW:")
+	   EMIT("#IR:")
+	   ENDCASE
+	   CASE T.L:
+	   EMIT("#IND L:")
+	   EMIT("sext.w a5,s9")
+	   EMIT("slli a5,a5,2")
+//	   EMIT("add a5,s3,a5")
+	   EMIT("lw s9,0(a5)")
+           EMIT("srli s9,s9,2")
+	   EMIT("#IL:")
 	   ENDCASE
 	   DEFAULT:
 	   ENDCASE
@@ -266,7 +275,7 @@ $(
         EMIT("addw a5,s5,s9")
         EMIT("slli a3,a5,2")
         EMIT("sw s5,0(a3)")
-        EMIT("la t1,@L", XLBL)
+//        EMIT("la t1,@L", XLBL)
         EMIT("auipc t0,0")
         EMIT("addi t0,t0, 22") // needs adjusting if sequence changes
         EMIT("srli t0,t0,2")
@@ -275,8 +284,8 @@ $(
         EMIT("mv s5,a5")
         EMIT("slli s6,s6,2")
         EMIT("jalr s6")
-        LABEL(XLBL)
-	XLBL := XLBL+1
+//        LABEL(XLBL)
+//	XLBL := XLBL+1
         ENDCASE
     CASE 'X':
         EMIT("#EXTENDED @I", A); 
