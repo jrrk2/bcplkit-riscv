@@ -1,0 +1,11 @@
+*.s
+*.o
+*.int
+*.i
+*~
+*.dis
+ASM
+OCODE
+INTCODE
+mapfile
+*.old
