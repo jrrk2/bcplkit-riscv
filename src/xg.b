@@ -47,6 +47,27 @@ $(  LET GVEC = VEC GSZ
     WRITEF("#register int *M asm(*"s3*") Base adress for working memory*N");
     WRITEF("#register int P asm(*"s5*") Local and function arguments *N");
 */    
+    EMIT(".data")
+    EMIT(".align 2")
+    EMIT("stack_bcpl:")
+    EMIT(".text")
+    EMIT(".align 2")
+    EMIT(".global main")
+    EMIT("main:")
+    EMIT("call initio")
+    EMIT("la s5, stack_bcpl")
+    EMIT("srli s5,s5,2")
+    EMIT("la s4,G")
+    EMIT("lw a0,4(s4)")
+    EMIT("srli s4,s4,2")
+    EMIT("jalr a0")
+    EMIT(".global finish")
+    EMIT("finish:")
+    EMIT(".global stop")
+    EMIT("stop:")
+    EMIT(".global unimplemented_40")
+    EMIT("unimplemented_40:")
+    EMIT("j _exit")
     ASSEM()
     EPILOG()
     ENDWRITE()
@@ -286,7 +307,6 @@ $(
     CASE 'X':
         EMIT("#EXTENDED @I", A); 
         SWITCHON A INTO $(
-        DEFAULT: ERROR(8)
         CASE 1: // indirection
         EMIT("sext.w a5,s6")
         EMIT("slli a5,a5,2")
@@ -523,9 +543,10 @@ $(
             EMIT("call output")
             EMIT("mv s6,a0")
             ENDCASE
+        DEFAULT:
         CASE 40: // undo read character
             EMIT("sext.w a0,s6")
-            EMIT("call unrdch")
+            EMIT("call unimplemented_@I", X)
             EMIT("mv s6,a0")
             ENDCASE
         CASE 41: // rewind
