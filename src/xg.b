@@ -275,17 +275,13 @@ $(
         EMIT("addw a5,s5,s9")
         EMIT("slli a3,a5,2")
         EMIT("sw s5,0(a3)")
-//        EMIT("la t1,@L", XLBL)
-        EMIT("auipc t0,0")
-        EMIT("addi t0,t0, 22") // needs adjusting if sequence changes
-        EMIT("srli t0,t0,2")
+        EMIT("auipc t0, 0")
+        EMIT("addi t0,t0, 18", XLBL) // might need adjusting if sequence changes
         EMIT("sw t0,4(a3)")
         EMIT("mv s9,a5")
         EMIT("mv s5,a5")
         EMIT("slli s6,s6,2")
         EMIT("jalr s6")
-//        LABEL(XLBL)
-//	XLBL := XLBL+1
         ENDCASE
     CASE 'X':
         EMIT("#EXTENDED @I", A); 
@@ -313,7 +309,7 @@ $(
 //            EMIT("add a4,s3,s5")
             EMIT("lw a5,4(s5)")
             EMIT("lw s5,0(s5)")
-	    EMIT("slli a5,a5,2")
+//	    EMIT("slli a5,a5,2")
 	    EMIT("jalr a5")
             ENDCASE
         CASE 5: // multiply
