@@ -9,3 +9,7 @@ OCODE
 INTCODE
 mapfile
 *.old
+examples/cmpltest
+examples/getbyte
+examples/msg
+examples/vect

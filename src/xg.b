@@ -498,8 +498,8 @@ $(
         CASE 36: /* GETBYTE */
             EMIT("slli t1,s6,2")
             EMIT("add t1,s7,t1")
-            EMIT("lb a0,0(t1)")
-            EMIT("andi a0,a0,0xff")
+            EMIT("lb s6,0(t1)")
+            EMIT("andi s6,s6,0xff")
             ENDCASE
         CASE 37: /* PUTBYTE */
             EMIT("sext.w a5,s5")
