@@ -266,7 +266,9 @@ $(
         EMIT("addw a5,s5,s9")
         EMIT("slli a3,a5,2")
         EMIT("sw s5,0(a3)")
-        EMIT("la t0,@L", XLBL)
+        EMIT("la t1,@L", XLBL)
+        EMIT("auipc t0,0")
+        EMIT("addi t0,t0, 22") // needs adjusting if sequence changes
         EMIT("srli t0,t0,2")
         EMIT("sw t0,4(a3)")
         EMIT("mv s9,a5")
@@ -549,7 +551,7 @@ $(  STATIC $( PSECT=0 $)
         WRITES(SECT=0 -> ".text", ".data"); WRCH('*N')
         PSECT := SECT $)
     IF LN $(
-        WRITES(".align 4*N")
+        WRITES(".align 2*N")
         FOR I = 0 TO LN - 1 $( WRCH('L'); WRN(L!I); WRITES(":*N") $)
         LN := 0 $)
     FOR I = 1 TO GETBYTE(S, 0) $(
