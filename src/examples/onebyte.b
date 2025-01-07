@@ -1,0 +1,8 @@
+GET "LIBHDR"
+
+LET START() = VALOF
+$(
+    WRCH(GETBYTE("START", 1))
+    FINISH
+$)
+

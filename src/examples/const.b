@@ -1,0 +1,7 @@
+GET "LIBHDR"
+
+LET START() = VALOF
+$(  
+    RESULTIS 42
+$)
+

@@ -156,8 +156,8 @@ AND RDL() = VALOF
 GET "CGHDR"
 
 LET START(PARM) BE
-    $(1 LET V = VEC 4000
-        DATAV, DATAT := V, 4000
+    $(1 LET V = VEC 8000
+        DATAV, DATAT := V, 8000
      $( LET V = VEC 50
         WORDV := V
 

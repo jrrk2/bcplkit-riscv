@@ -5,8 +5,8 @@
 	.attribute stack_align, 16
 	.text
 	.align	1
-	.type	Load, @function
-Load:
+	.type	Fetch1, @function
+Fetch1:
 .LFB29:
 	.cfi_startproc
 	lla	a4,.LANCHOR0
@@ -16,17 +16,25 @@ Load:
 	ret
 	.cfi_endproc
 .LFE29:
-	.size	Load, .-Load
-	.set	Call,Load
-	.set	JumpFalse,Load
-	.set	JumpTrue,Load
-	.set	Jump,Load
-	.set	Add,Load
-	.set	Store,Load
+	.size	Fetch1, .-Fetch1
+	.set	Call,Fetch1
+	.set	JumpFalse,Fetch1
+	.set	JumpTrue,Fetch1
+	.set	Jump,Fetch1
+	.set	Add,Fetch1
+	.set	Store,Fetch1
+	.set	Load,Fetch1
+	.set	IFetch2,Fetch1
+	.set	IFetch1,Fetch1
+	.set	FetchP2,Fetch1
+	.set	FetchP1,Fetch1
+	.set	FetchG2,Fetch1
+	.set	FetchG1,Fetch1
+	.set	Fetch2,Fetch1
 	.align	1
 	.type	Execute, @function
 Execute:
-.LFB36:
+.LFB44:
 	.cfi_startproc
 	lla	a4,.LANCHOR0
 	lw	a5,0(a4)
@@ -34,7 +42,7 @@ Execute:
 	sw	a5,0(a4)
 	ret
 	.cfi_endproc
-.LFE36:
+.LFE44:
 	.size	Execute, .-Execute
 	.align	1
 	.type	rdn, @function
@@ -214,7 +222,7 @@ rdn:
 	.globl	main
 	.type	main, @function
 main:
-.LFB38:
+.LFB46:
 	.cfi_startproc
 	addi	sp,sp,-48
 	.cfi_def_cfa_offset 48
@@ -943,36 +951,38 @@ main:
 	li	s8,402
 	li	s2,0
 .L53:
+	addiw	s2,s2,1
+	sw	s2,28(s0)
+	call	Fetch1
 	sext.w	a5,s8
 	slli	a5,a5,2
 	add	a5,s3,a5
 	lw	a5,0(a5)
-	addiw	s2,s2,1
-	addiw	a3,s8,1
-	sw	s2,28(s0)
-	andi	a4,a5,512
+	addiw	a4,s8,1
+	mv	s8,a4
+	andi	a3,a5,512
 	mv	s10,a5
-	mv	s8,a3
-	bne	a4,zero,.L124
-	andi	a4,a5,511
+	andi	a5,a5,511
+	beq	a3,zero,.L125
+	slli	a5,a4,2
+	add	a5,s3,a5
+	lw	a5,0(a5)
+	addiw	s8,a4,1
 .L125:
-	and	a3,a5,s11
-	mv	s9,a4
-	beq	a3,zero,.L126
-	addw	s9,s5,a4
-.L126:
-	andi	a4,a5,1024
-	beq	a4,zero,.L127
-	addw	s9,s4,s9
+	mv	s9,a5
+	call	Fetch2
+	sext.w	a5,s10
+	and	a5,a5,s11
+	bne	a5,zero,.L249
+	andi	a5,s10,1024
+	bne	a5,zero,.L250
 .L127:
+	sext.w	a5,s10
 	li	a4,4096
-	and	a4,a5,a4
-	beq	a4,zero,.L128
-	sext.w	a4,s9
-	slli	a4,a4,2
-	add	a4,s3,a4
-	lw	s9,0(a4)
+	and	a5,a5,a4
+	bne	a5,zero,.L251
 .L128:
+	sext.w	a5,s10
 	sraiw	a5,a5,13
 	li	a4,7
 	bgtu	a5,a4,.L129
@@ -996,12 +1006,28 @@ main:
 	.word	.L132-.L131
 	.word	.L130-.L131
 	.section	.text.startup
-.L124:
-	slli	a4,a3,2
-	add	a4,s3,a4
-	lw	a4,0(a4)
-	addiw	s8,a3,1
-	j	.L125
+.L249:
+	call	FetchP1
+	addw	s9,s5,s9
+	call	FetchP2
+	andi	a5,s10,1024
+	beq	a5,zero,.L127
+.L250:
+	call	FetchG1
+	addw	s9,s4,s9
+	call	FetchG2
+	sext.w	a5,s10
+	li	a4,4096
+	and	a5,a5,a4
+	beq	a5,zero,.L128
+.L251:
+	call	IFetch1
+	sext.w	a5,s9
+	slli	a5,a5,2
+	add	a5,s3,a5
+	lw	s9,0(a5)
+	call	IFetch2
+	j	.L128
 .L132:
 	addw	a5,s5,s9
 	slli	a3,a5,2
@@ -1113,10 +1139,10 @@ main:
 	mv	s6,s1
 	call	printf@plt
 	slli	a5,s6,32
-	blt	a5,zero,.L249
+	blt	a5,zero,.L252
 	sext.w	a0,s6
 	j	.L230
-.L249:
+.L252:
 	call	mapstore@plt
 	sext.w	a0,s6
 	j	.L230
@@ -1298,7 +1324,7 @@ main:
 	add	a5,a3,a5
 	lw	a1,0(a5)
 	addiw	s7,a4,-1
-	beq	a1,a2,.L250
+	beq	a1,a2,.L253
 .L182:
 	sext.w	a4,s7
 	bne	a4,zero,.L184
@@ -1311,7 +1337,7 @@ main:
 	call	selectinput@plt
 	lw	s2,.LANCHOR0+28
 	j	.L53
-.L250:
+.L253:
 	lw	s9,4(a5)
 	mv	s8,s9
 	j	.L53
@@ -1444,7 +1470,7 @@ main:
 	lw	s2,.LANCHOR0+28
 	j	.L53
 	.cfi_endproc
-.LFE38:
+.LFE46:
 	.size	main, .-main
 	.globl	fp
 	.bss

@@ -188,6 +188,14 @@ labref(int n, int a)
 }
 
 static int cnt = 0;
+__attribute__((noinline)) static void Fetch1(void) { cnt++; }
+__attribute__((noinline)) static void Fetch2(void) { cnt++; }
+__attribute__((noinline)) static void FetchG1(void) { cnt++; }
+__attribute__((noinline)) static void FetchG2(void) { cnt++; }
+__attribute__((noinline)) static void FetchP1(void) { cnt++; }
+__attribute__((noinline)) static void FetchP2(void) { cnt++; }
+__attribute__((noinline)) static void IFetch1(void) { cnt++; }
+__attribute__((noinline)) static void IFetch2(void) { cnt++; }
 __attribute__((noinline)) static void Load(void) { cnt++; }
 __attribute__((noinline)) static void Store(void) { cnt++; }
 __attribute__((noinline)) static void Add(void) { cnt++; }
@@ -202,16 +210,32 @@ interpret(void)
 {
 fetch:
     Cyclecount++;
+    Fetch1();
     W = M[C++];
     if ((W & DBIT) == 0)
         D = W & ABITS;
     else
         D = M[C++];
+    Fetch2();
 
-    if ((W & PBIT) != 0) D += P;
-    if ((W & GBIT) != 0) D += G;
-    if ((W & IBIT) != 0) D = M[D];
-
+    if ((W & PBIT) != 0)
+	{
+	FetchP1();
+	D += P;
+	FetchP2();
+	}
+    if ((W & GBIT) != 0)
+	{
+	FetchG1();
+	D += G;
+	FetchG2();
+	}
+    if ((W & IBIT) != 0)
+	{
+	IFetch1();
+	D = M[D];
+	IFetch2();
+	}
     switch (W >> FSHIFT) {
     error: default: printf("\nINTCODE ERROR AT C = %d\n", C - 1);
         return -1;

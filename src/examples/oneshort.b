@@ -1,0 +1,10 @@
+GET "LIBHDR"
+
+LET START() = VALOF
+$(
+    LET MSG = "START"
+    WRCH(GETBYTE(MSG, 1))
+    WRCH(GETBYTE(MSG, 2))
+    FINISH
+$)
+
