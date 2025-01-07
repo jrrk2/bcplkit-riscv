@@ -71,7 +71,8 @@ gcc -g -o $1 -nostdlib -static /usr/lib/riscv64-linux-gnu/crt1.o $1.s
 objdump -d $1 > $1.dis
 ./$1
 
-which compiles and runs the given test program.
+which compiles and runs the given test program. If you don't have a RISCV unix machine
+available then QEMU might suit.
 
 Assembly language templates are based on extractions from the cintcode
 compiled assembly language and therefore are not optimised at all.
