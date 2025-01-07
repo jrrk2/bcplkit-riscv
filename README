@@ -1,6 +1,6 @@
 BCPLKIT README
 
-This is an x86 (IA-32) port of an old BCPL compiler kit (around 1980)
+This is a RISCV port of an old BCPL compiler kit (around 1980)
 from the Tripos Research Group at Cambridge University.
 
 BCPL was a very popular systems programming language during the 1960s
@@ -13,7 +13,73 @@ _BCPL -- the language and its compiler_ by Martin Richards and Colin
 Whitby-Stevens (Cambridge: Cambridge University Press, 1979).
 
 The present port includes both an INTCODE interpreter and an INTCODE
-to x86 native code generator.  A few features have been added to the
+to RISCV native code generator.
+
+The present author adapted the code from an x86 port due to Philip Nordier.
+While at Cambridge he also ported a very similar kit to 6809. An attempt was made 
+to install this on the mill board of the Apple II but this ran out of juice.
+
+The present effort is very much alpha quality and not optimised. It will be
+improved as enthusiasm permits. It is not self-compiling yet, but can compile the following code:
+
+GET "LIBHDR"
+
+LET START() BE
+$(  
+    WRN(0)
+    WRCH('*N')
+    WRN(42)
+    WRCH('*N')
+    WRN(345)
+    WRCH('*N')
+    WRN(-12345)
+    WRCH('*N')
+    FINISH
+$)
+
+AND WRN(X) BE 
+$( 
+    IF X < 0 THEN 
+        $( 
+            WRCH('-')
+            X := -X 
+        $) 
+    WRU(X) 
+$)
+
+AND WRU(X) BE 
+$( 
+    IF X > 9 THEN 
+        WRU(X / 10); 
+    WRCH('0' + (X REM 10)) 
+$)
+
+While self-compilation awaits a temporary script is available trial.sh
+
+./icint st0.int <xg.b
+./icint cg1.int < OCODE
+mv INTCODE xg.i
+cat iclib.i blib.i xg.i >xg0.int
+./icint st0.int < $1.b
+#cat OCODE 
+./icint cg1.int < OCODE
+cat iclib.i blib.i INTCODE >$1.int
+mv INTCODE $1.i
+./icint xg0.int < $1.int
+cat su.s ASM rt.s sys.s > $1.s
+gcc -g -o $1 -nostdlib -static /usr/lib/riscv64-linux-gnu/crt1.o $1.s
+objdump -d $1 > $1.dis
+./$1
+
+which compiles and runs the given test program.
+
+Assembly language templates are based on extractions from the cintcode
+compiled assembly language and therefore are not optimised at all.
+This lead to bloated executables especially as RISCV lacks a word level addressing mode.
+
+
+
+A few features have been added to the
 compiler to make it easier to use -- it looks for header files in a
 standard location, for instance -- and additional language feature
 support allows programs to handle I/O operations to named files, to
