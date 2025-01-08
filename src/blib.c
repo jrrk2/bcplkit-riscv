@@ -3,12 +3,20 @@
 /* $Id: blib.c,v 1.5 2004/12/11 11:55:14 rn Exp $ */
 
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include "blib.h"
 
 #define FTSZ 20
 
 register int *M asm("s3");
+register int G asm("s4");
+register int P asm("s5");
+register int A asm("s6");
+register int B asm("s7");
+register int C asm("s8");
+register int D asm("s9");
+register int W asm("s10");
 
 static FILE *ft[FTSZ];
 static int fi, fo;
@@ -62,6 +70,12 @@ ftslot(void)
         if (ft[i] == NULL)
             return i;
     return -1;
+}
+
+void initmem(void)
+{
+    M = 0;
+    P = (int *)sbrk(0x10000) - M;
 }
 
 void

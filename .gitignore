@@ -9,6 +9,8 @@ OCODE
 INTCODE
 mapfile
 *.old
+*.asm
+*.log
 xg
 src/examples/cmpltest
 src/examples/getbyte
@@ -17,3 +19,6 @@ src/examples/vect
 src/examples/hello
 src/examples/pretty
 src/examples/recurse
+src/examples/byteSieve
+src/examples/relation
+src/examples/vect2

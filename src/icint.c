@@ -4,6 +4,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
 #include "blib.h"
 
 #define VSIZE 32000
@@ -187,96 +189,127 @@ labref(int n, int a)
     M[a] += k;
 }
 
-static int cnt = 0;
-__attribute__((noinline)) static void Fetch1(void) { cnt++; }
-__attribute__((noinline)) static void Fetch2(void) { cnt++; }
-__attribute__((noinline)) static void FetchG1(void) { cnt++; }
-__attribute__((noinline)) static void FetchG2(void) { cnt++; }
-__attribute__((noinline)) static void FetchP1(void) { cnt++; }
-__attribute__((noinline)) static void FetchP2(void) { cnt++; }
-__attribute__((noinline)) static void IFetch1(void) { cnt++; }
-__attribute__((noinline)) static void IFetch2(void) { cnt++; }
-__attribute__((noinline)) static void Load(void) { cnt++; }
-__attribute__((noinline)) static void Store(void) { cnt++; }
-__attribute__((noinline)) static void Add(void) { cnt++; }
-__attribute__((noinline)) static void Jump(void) { cnt++; }
-__attribute__((noinline)) static void JumpTrue(void) { cnt++; }
-__attribute__((noinline)) static void JumpFalse(void) { cnt++; }
-__attribute__((noinline)) static void Call(void) { cnt++; }
-__attribute__((noinline)) static void Execute(int option) { cnt += option; }
+static int enlog = 0;
+static int enlogging = 0;
+
+static void logging(const char *msg)
+{
+  static FILE *logfile;
+  if (!logfile) logfile = fopen("icint.log", "w");
+  
+  if (enlog) while (*msg)
+    {
+      putc(*msg, logfile);
+      if (*msg == ';') putc('\n', logfile);
+      ++msg;
+    }
+}
+
+#define VA char tmp[99]; va_list ap; va_start(ap, msg); vsprintf(tmp, msg, ap)
+__attribute__((noinline)) static void Fetch1(const char *msg) { logging(msg); }
+__attribute__((noinline)) static void Fetch2(const char *msg, ...) { VA; logging(tmp); }
+__attribute__((noinline)) static void FetchG1(const char *msg) { logging(msg); }
+__attribute__((noinline)) static void FetchG2(const char *msg, ...) { VA; logging(tmp); }
+__attribute__((noinline)) static void FetchP1(const char *msg) { logging(msg); }
+__attribute__((noinline)) static void FetchP2(const char *msg, ...) { VA; logging(tmp); }
+__attribute__((noinline)) static void IFetch1(const char *msg) { logging(msg); }
+__attribute__((noinline)) static void IFetch2(const char *msg, ...) { VA; logging(tmp); }
+__attribute__((noinline)) static void Load(const char *msg) { logging(msg); }
+__attribute__((noinline)) static void Store(const char *msg) { logging(msg); }
+__attribute__((noinline)) static void Add(const char *msg) { logging(msg); }
+__attribute__((noinline)) static void Jump(const char *msg) { logging(msg); }
+__attribute__((noinline)) static void JumpTrue(const char *msg) { logging(msg); }
+__attribute__((noinline)) static void JumpFalse(const char *msg) { logging(msg); }
+__attribute__((noinline)) static void Call(const char *msg) { logging(msg); enlog = enlogging; }
+__attribute__((noinline)) static void Execute(const char *msg) { logging(msg); }
 
 static int
 interpret(void)
 {
 fetch:
     Cyclecount++;
-    Fetch1();
+    Fetch1("\n");
     W = M[C++];
     if ((W & DBIT) == 0)
+      {
+	Fetch1("");
         D = W & ABITS;
+      }
     else
+      {
+	Fetch1("");
         D = M[C++];
-    Fetch2();
+      }
+    Fetch2("D:0x%X\n", D);
 
     if ((W & PBIT) != 0)
 	{
-	FetchP1();
+	FetchP1("D += P;");
 	D += P;
-	FetchP2();
+	FetchP2("D(+P):0x%X\n", D);
 	}
     if ((W & GBIT) != 0)
 	{
-	FetchG1();
+	FetchG1("D += G;");
 	D += G;
-	FetchG2();
+	FetchG2("D(+G):0x%X\n", D);
 	}
     if ((W & IBIT) != 0)
 	{
-	IFetch1();
+	IFetch1("D = M[D];");
 	D = M[D];
-	IFetch2();
+	IFetch2("D(M):0x%X\n", D);
 	}
     switch (W >> FSHIFT) {
     error: default: printf("\nINTCODE ERROR AT C = %d\n", C - 1);
         return -1;
-    case 0: B = A; A = D; Load(); goto fetch;
-    case 1: M[D] = A; Store(); goto fetch;
-    case 2: A = A + D; Add(); goto fetch;
-    case 3: C = D; Jump(); goto fetch;
-    case 4: A = !A; JumpTrue();
-    case 5: if (!A) C = D; JumpFalse(); goto fetch;
+    case 0: B = A; A = D; Load("B = A;A = D;"); goto fetch;
+    case 1: M[D] = A; Store("M[D] = A;"); goto fetch;
+    case 2: A = A + D; Add("A = A + D"); goto fetch;
+    case 3: C = D; Jump("C = D;"); goto fetch;
+    case 4: A = !A; JumpTrue("A = !A;");
+    case 5: if (!A) C = D; JumpFalse("if (!A) C = D;"); goto fetch;
     case 6: D += P;
         M[D] = P; M[D + 1] = C;
         P = D; C = A;
-	Call();
+	Call("D += P;"
+        "M[D] = P;M[D + 1] = C;"
+        "P = D;C = A;");
         goto fetch;
-    case 7: switch (D) {
+    case 7: Fetch2("X:0x%X\n", D); switch (D) {
         default: goto error;
-        case 1: Execute(1); A = M[A]; goto fetch;
-        case 2: Execute(2); A = -A; goto fetch;
-        case 3: Execute(3); A = ~A; goto fetch;
-        case 4: Execute(4); C = M[P + 1];
+        case 1: Execute("A = M[A];"); A = M[A]; goto fetch;
+        case 2: Execute("A = -A;"); A = -A; goto fetch;
+        case 3: Execute("A = ~A;"); A = ~A; goto fetch;
+        case 4: Execute("C = M[P + 1];"
+            "P = M[P];"); C = M[P + 1];
             P = M[P];
             goto fetch;
-        case 5: Execute(5); A = B * A; goto fetch;
-        case 6: Execute(6); A = B / A; goto fetch;
-        case 7: Execute(7); A = B % A; goto fetch;
-        case 8: Execute(8); A = B + A; goto fetch;
-        case 9: Execute(9); A = B - A; goto fetch;
-        case 10: Execute(10); A = B == A ? ~0 : 0; goto fetch;
-        case 11: Execute(11); A = B != A ? ~0 : 0; goto fetch;
-        case 12: Execute(12); A = B < A  ? ~0 : 0; goto fetch;
-        case 13: Execute(13); A = B >= A ? ~0 : 0; goto fetch;
-        case 14: Execute(14); A = B > A ? ~0 : 0; goto fetch;
-        case 15: Execute(15); A = B <= A ? ~0 : 0; goto fetch;
-        case 16: Execute(16); A = B << A; goto fetch;
-        case 17: Execute(17); A = B >> A; goto fetch;
-        case 18: Execute(18); A = B & A; goto fetch;
-        case 19: Execute(19); A = B | A; goto fetch;
-        case 20: Execute(20); A = B ^ A; goto fetch;
-        case 21: Execute(21); A = B ^ ~A; goto fetch;
-        case 22: Execute(22); return 0;
-        case 23: Execute(23); B = M[C]; D = M[C + 1];
+        case 5: Execute("A = B * A;"); A = B * A; goto fetch;
+        case 6: Execute("A = B / A;"); A = B / A; goto fetch;
+        case 7: Execute("A = B % A;"); A = B % A; goto fetch;
+        case 8: Execute("A = B + A;"); A = B + A; goto fetch;
+        case 9: Execute("A = B - A;"); A = B - A; goto fetch;
+        case 10: Execute("A = B == A ? ~0 : 0;"); A = B == A ? ~0 : 0; goto fetch;
+        case 11: Execute("A = B != A ? ~0 : 0;"); A = B != A ? ~0 : 0; goto fetch;
+        case 12: Execute("A = B < A  ? ~0 : 0;"); A = B < A  ? ~0 : 0; goto fetch;
+        case 13: Execute("A = B >= A ? ~0 : 0;"); A = B >= A ? ~0 : 0; goto fetch;
+        case 14: Execute("A = B > A ? ~0 : 0;"); A = B > A ? ~0 : 0; goto fetch;
+        case 15: Execute("A = B <= A ? ~0 : 0;"); A = B <= A ? ~0 : 0; goto fetch;
+        case 16: Execute("A = B << A;"); A = B << A; goto fetch;
+        case 17: Execute("A = B >> A;"); A = B >> A; goto fetch;
+        case 18: Execute("A = B & A;"); A = B & A; goto fetch;
+        case 19: Execute("A = B | A;"); A = B | A; goto fetch;
+        case 20: Execute("A = B ^ A;"); A = B ^ A; goto fetch;
+        case 21: Execute("A = B ^ ~A;"); A = B ^ ~A; goto fetch;
+        case 22: Execute("finish()"); return 0;
+        case 23: Execute("B = M[C];"
+			 "D = M[C + 1];"
+            "while (B != 0) {"
+                "B--; C += 2;"
+                "if (A == M[C]) { D = M[C + 1]; break; }"
+            "}"
+            "C = D;"); B = M[C]; D = M[C + 1];
             while (B != 0) {
                 B--; C += 2;
                 if (A == M[C]) { D = M[C + 1]; break; }
@@ -284,18 +317,24 @@ fetch:
             C = D;
             goto fetch;
 
-        case 24: Execute(24); selectinput(A); goto fetch;
-        case 25: Execute(25); selectoutput(A); goto fetch;
-        case 26: Execute(26); A = rdch(); goto fetch;
-        case 27: Execute(27); wrch(A); goto fetch;
-        case 28: Execute(28); A = findinput(A); goto fetch;
-        case 29: Execute(29); A = findoutput(A); goto fetch;
-        case 30: Execute(30); return A;
-        case 31: Execute(31); A = M[P]; goto fetch;
-        case 32: Execute(32); P = A; C = B; goto fetch;
-        case 33: Execute(33); endread(); goto fetch;
-        case 34: Execute(34); endwrite(); goto fetch;
-        case 35: Execute(35); D = P + B + 1;
+        case 24: Execute("selectinput(A);"); selectinput(A); goto fetch;
+        case 25: Execute("selectoutput(A);"); selectoutput(A); goto fetch;
+        case 26: Execute("A = rdch();"); A = rdch(); goto fetch;
+        case 27: Execute("wrch(A);"); wrch(A); goto fetch;
+        case 28: Execute("A = findinput(A);"); A = findinput(A); goto fetch;
+        case 29: Execute("A = findoutput(A);"); A = findoutput(A); goto fetch;
+        case 30: Execute("return A;"); return A;
+        case 31: Execute("A = M[P];"); A = M[P]; goto fetch;
+        case 32: Execute("P = A;"); P = A; C = B; goto fetch;
+        case 33: Execute("endread();"); endread(); goto fetch;
+        case 34: Execute("endwrite();"); endwrite(); goto fetch;
+        case 35: Execute("D = P + B + 1;"
+                 "M[D] = M[P];"
+                 "M[D + 1] = M[P + 1];"
+                 "M[D + 2] = P;"
+                 "M[D + 3] = B;"
+                 "P = D;"
+                 "C = A;"); D = P + B + 1;
                  M[D] = M[P];
                  M[D + 1] = M[P + 1];
                  M[D + 2] = P;
@@ -303,10 +342,10 @@ fetch:
                  P = D;
                  C = A;
                  goto fetch;
-        case 36: Execute(36); A = getbyte(A, B); goto fetch;
-        case 37: Execute(37); putbyte(A, B, M[P + 4]); goto fetch;
-        case 38: Execute(38); A = input(); goto fetch;
-        case 39: Execute(39); A = output(); goto fetch;
+        case 36: Execute("A = getbyte(A, B);"); A = getbyte(A, B); goto fetch;
+        case 37: Execute("putbyte(A, B, M[P + 4]);"); putbyte(A, B, M[P + 4]); goto fetch;
+        case 38: Execute("A = input();"); A = input(); goto fetch;
+        case 39: Execute("A = output();"); A = output(); goto fetch;
         }
     }
 }
@@ -314,6 +353,13 @@ fetch:
 int main(int argc, char *argv[])
 {
     int pgvec[VSIZE];
+
+    if (argc > 2) {
+      if (!strcmp(argv[1], "-l"))
+	enlogging = 1;
+      ++argv;
+      --argc;
+    }
 
     if (argc != 2) {
         fprintf(stderr, "usage: icint file\n");

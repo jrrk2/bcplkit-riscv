@@ -47,16 +47,12 @@ $(  LET GVEC = VEC GSZ
     WRITEF("#register int *M asm(*"s3*") Base adress for working memory*N");
     WRITEF("#register int P asm(*"s5*") Local and function arguments *N");
 */    
-    EMIT(".data")
-    EMIT(".align 2")
-    EMIT("stack_bcpl:")
     EMIT(".text")
     EMIT(".align 2")
     EMIT(".global main")
     EMIT("main:")
     EMIT("call initio")
-    EMIT("la s5, stack_bcpl")
-    EMIT("srli s5,s5,2")
+    EMIT("call initmem")
     EMIT("la s4,G")
     EMIT("lw a0,4(s4)")
     EMIT("srli s4,s4,2")
@@ -157,10 +153,12 @@ $(
 	   CASE T.LP:
 	   EMIT("#LP: P@I", A)
 	   EMIT("li s9, @I", A)
+           EMIT("addw s9,s5,s9")
 	   ENDCASE
 	   CASE T.LG:
 	   EMIT("#LG: G@I", A)
 	   EMIT("li s9, @I", A)
+           EMIT("addw s9,s4,s9")
 	   ENDCASE
 	   CASE T.N:
 	   IF F='B' | F='C' | F='D' ENDCASE
