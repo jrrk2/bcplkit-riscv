@@ -1,0 +1,13 @@
+GET "LIBHDR"
+
+LET START() BE
+$(
+    LET X, Y = 1,2
+    SWITCHON X INTO
+    $( DEFAULT: WRITES("Default*N")
+    ENDCASE
+    CASE 1: WRITES("ONE*N")
+    ENDCASE
+    $)
+FINISH
+$)
