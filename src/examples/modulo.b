@@ -1,11 +1,10 @@
 GET "LIBHDR"
 
 LET START() BE
-$(  
-    LET V = VEC 10
-    LET X,Y = 1, ?
-    V!X := 42
-    WRN(V!X)
+$(
+    LET N, D = -316, 10
+    LET I = N REM D
+    WRN(I)
     FINISH
 $)
 

@@ -199,10 +199,20 @@ $(
 	   $)
     SWITCHON T INTO $(
 	   CASE T.IR:
+	   EMIT("#DOUBLE IR:")
+	   ENDCASE
 	   CASE T.IP:
+	   EMIT("#DOUBLE IP:")
+	   EMIT("sext.w a5,s9")
+	   EMIT("slli a5,a5,2")
+	   EMIT("lw s9,0(a5)")
+//           EMIT("srli s9,s9,2")	   
+	   ENDCASE
 	   CASE T.IG:
+	   EMIT("#DOUBLE IG:")
+	   ENDCASE
 	   CASE T.IL:
-	   EMIT("#DOUBLE I:")
+	   EMIT("#DOUBLE IL:")
 	   ENDCASE
 	   CASE T.G:
 	   EMIT("#IND G:")
@@ -219,7 +229,6 @@ $(
 	   EMIT("#IND R:")
 	   EMIT("sext.w a5,s9")
 	   EMIT("slli a5,a5,2")
-//	   EMIT("add a5,s3,a5")
 	   EMIT("lw s9,0(a5)")
 	   EMIT("#IR:")
 	   ENDCASE
@@ -227,7 +236,6 @@ $(
 	   EMIT("#IND L:")
 	   EMIT("sext.w a5,s9")
 	   EMIT("slli a5,a5,2")
-//	   EMIT("add a5,s3,a5")
 	   EMIT("lw s9,0(a5)")
            EMIT("srli s9,s9,2")
 	   EMIT("#IL:")
@@ -416,7 +424,7 @@ $(
             EMIT("lw a1,4(a5)")
             EMIT("beq s6,a0,@L", XLBL+2)
             EMIT("addiw s7,s7,-1")
-            EMIT("bne s7,s7,@L", XLBL+1)
+            EMIT("bnez s7,@L", XLBL+1)
             EMIT("jalr s9")
 	    LABEL(XLBL+2)
             EMIT("jalr a1")
