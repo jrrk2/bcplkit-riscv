@@ -306,9 +306,8 @@ $(
         EMIT("slli a3,a5,2")
         EMIT("sw s5,0(a3)")
         EMIT("auipc t0, 0")
-        EMIT("addi t0,t0, 18", XLBL) // might need adjusting if sequence changes
+        EMIT("addi t0,t0, 16") // might need adjusting if sequence changes
         EMIT("sw t0,4(a3)")
-        EMIT("mv s9,a5")
         EMIT("mv s5,a5")
         EMIT("slli s6,s6,2")
         EMIT("jalr s6")
@@ -330,15 +329,9 @@ $(
             EMIT("not s6,s6")
             ENDCASE
         CASE 4: // subroutine return
-//            EMIT("sext.w s5,s5")
-//            EMIT("addi a5,s5,1")
-//            EMIT("slli a5,a5,2")
             EMIT("slli s5,s5,2")
-//            EMIT("add a5,s3,a5")
-//            EMIT("add a4,s3,s5")
             EMIT("lw a5,4(s5)")
             EMIT("lw s5,0(s5)")
-//	    EMIT("slli a5,a5,2")
 	    EMIT("jalr a5")
             ENDCASE
         CASE 5: // multiply
