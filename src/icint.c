@@ -309,7 +309,11 @@ fetch:
                 "B--; C += 2;"
                 "if (A == M[C]) { D = M[C + 1]; break; }"
             "}"
-            "C = D;"); B = M[C]; D = M[C + 1];
+            "C = D;");
+	    B = M[C];
+	    Fetch2("switch B:0x%X\n", B);
+	    D = M[C + 1];
+	    Fetch2("switch D:0x%X\n", D);
             while (B != 0) {
                 B--; C += 2;
                 if (A == M[C]) { D = M[C + 1]; break; }
