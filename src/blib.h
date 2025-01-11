@@ -20,4 +20,21 @@ void endread(void);
 void endwrite(void);
 void mapstore(void);
 
+#ifdef __riscv
+#define ASM(x) asm(x)
+#define REGISTER register
+#else
+#define ASM(x)
+#define REGISTER extern
+#endif
+
+REGISTER int *M ASM("s3");
+REGISTER int G ASM("s4");
+REGISTER int P ASM("s5");
+REGISTER int A ASM("s6");
+REGISTER int B ASM("s7");
+REGISTER int C ASM("s8");
+REGISTER int D ASM("s9");
+REGISTER int W ASM("s10");
+
 #endif

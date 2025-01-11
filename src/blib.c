@@ -9,15 +9,6 @@
 
 #define FTSZ 20
 
-register int *M asm("s3");
-register int G asm("s4");
-register int P asm("s5");
-register int A asm("s6");
-register int B asm("s7");
-register int C asm("s8");
-register int D asm("s9");
-register int W asm("s10");
-
 static FILE *ft[FTSZ];
 static int fi, fo;
 

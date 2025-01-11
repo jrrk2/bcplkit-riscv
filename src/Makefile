@@ -3,6 +3,7 @@
 PREFIX?=/usr/local
 
 AFLAGS=
+CFLAGS=-g
 LDFLAGS=
 
 all: st cg xg

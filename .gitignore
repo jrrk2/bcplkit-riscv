@@ -1,3 +1,14 @@
+cg
+cg0
+cg1
+msg
+st
+st0
+st1
+xg0
+xg1
+xg_riscv
+*.rvg
 *.s
 *.o
 *.int

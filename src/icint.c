@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
+#define extern
 #include "blib.h"
 
 #define VSIZE 32000
@@ -28,20 +29,12 @@
 #define K2 0140002
 #define X22 0160026
 
-register int *M asm("s3");
 FILE *fp;
 
-register int G asm("s4");
-register int P asm("s5");
 static int Ch;
 static int Cyclecount;
 static int *Labv;
 static int Cp;
-register int A asm("s6");
-register int B asm("s7");
-register int C asm("s8");
-register int D asm("s9");
-register int W asm("s10");
 
 static void assemble(void);
 static void stw(int);
@@ -201,11 +194,12 @@ static void logging(const char *msg)
     {
       putc(*msg, logfile);
       if (*msg == ';') putc('\n', logfile);
+      if (*msg == '\n') fflush(logfile);
       ++msg;
     }
 }
 
-#define VA char tmp[99]; va_list ap; va_start(ap, msg); vsprintf(tmp, msg, ap)
+#define VA char tmp[999]; va_list ap; va_start(ap, msg); vsprintf(tmp, msg, ap)
 __attribute__((noinline)) static void Fetch1(const char *msg) { logging(msg); }
 __attribute__((noinline)) static void Fetch2(const char *msg, ...) { VA; logging(tmp); }
 __attribute__((noinline)) static void FetchG1(const char *msg) { logging(msg); }
@@ -217,11 +211,11 @@ __attribute__((noinline)) static void IFetch2(const char *msg, ...) { VA; loggin
 __attribute__((noinline)) static void Load(const char *msg) { logging(msg); }
 __attribute__((noinline)) static void Store(const char *msg) { logging(msg); }
 __attribute__((noinline)) static void Add(const char *msg) { logging(msg); }
-__attribute__((noinline)) static void Jump(const char *msg) { logging(msg); }
-__attribute__((noinline)) static void JumpTrue(const char *msg) { logging(msg); }
-__attribute__((noinline)) static void JumpFalse(const char *msg) { logging(msg); }
-__attribute__((noinline)) static void Call(const char *msg) { logging(msg); enlog = enlogging; }
-__attribute__((noinline)) static void Execute(const char *msg) { logging(msg); }
+__attribute__((noinline)) static void Jump(const char *msg, ...) { VA; logging(tmp); }
+__attribute__((noinline)) static void JumpTrue(const char *msg, ...) { VA; logging(tmp); }
+__attribute__((noinline)) static void JumpFalse(const char *msg, ...) { VA; logging(tmp); }
+__attribute__((noinline)) static void Call(const char *msg, ...) { VA; logging(tmp); enlog = enlogging; }
+__attribute__((noinline)) static void Execute(const char *msg, ...) { VA; logging(tmp); }
 
 static int
 interpret(void)
@@ -261,28 +255,27 @@ fetch:
 	IFetch2("D(M):0x%X\n", D);
 	}
     switch (W >> FSHIFT) {
-    error: default: printf("\nINTCODE ERROR AT C = %d\n", C - 1);
+    error: default: printf("\nINTCODE ERROR AT C = 0x%X\n", C - 1);
         return -1;
     case 0: B = A; A = D; Load("B = A;A = D;"); goto fetch;
     case 1: M[D] = A; Store("M[D] = A;"); goto fetch;
     case 2: A = A + D; Add("A = A + D"); goto fetch;
-    case 3: C = D; Jump("C = D;"); goto fetch;
+    case 3: C = D; Jump("C = 0x%X;", D); goto fetch;
     case 4: A = !A; JumpTrue("A = !A;");
-    case 5: if (!A) C = D; JumpFalse("if (!A) C = D;"); goto fetch;
+    case 5: if (!A) C = D; JumpFalse("if (!A) C = 0x%X;", D); goto fetch;
     case 6: D += P;
         M[D] = P; M[D + 1] = C;
         P = D; C = A;
 	Call("D += P;"
         "M[D] = P;M[D + 1] = C;"
-        "P = D;C = A;");
+        "P = D;C = 0x%X;", A);
         goto fetch;
     case 7: Fetch2("X:0x%X\n", D); switch (D) {
         default: goto error;
         case 1: Execute("A = M[A];"); A = M[A]; goto fetch;
         case 2: Execute("A = -A;"); A = -A; goto fetch;
         case 3: Execute("A = ~A;"); A = ~A; goto fetch;
-        case 4: Execute("C = M[P + 1];"
-            "P = M[P];"); C = M[P + 1];
+        case 4: Execute("C = 0x%X;P = M[P];", M[P+1]); C = M[P + 1];
             P = M[P];
             goto fetch;
         case 5: Execute("A = B * A;"); A = B * A; goto fetch;
@@ -309,7 +302,7 @@ fetch:
                 "B--; C += 2;"
                 "if (A == M[C]) { D = M[C + 1]; break; }"
             "}"
-            "C = D;");
+            "C = 0x%X;", D);
 	    B = M[C];
 	    Fetch2("switch B:0x%X\n", B);
 	    D = M[C + 1];
@@ -321,7 +314,7 @@ fetch:
             C = D;
             goto fetch;
 
-        case 24: Execute("selectinput(A);"); selectinput(A); goto fetch;
+        case 24: Execute("selectinput(0x%X);", A); selectinput(A); goto fetch;
         case 25: Execute("selectoutput(A);"); selectoutput(A); goto fetch;
         case 26: Execute("A = rdch();"); A = rdch(); goto fetch;
         case 27: Execute("wrch(A);"); wrch(A); goto fetch;
@@ -329,7 +322,7 @@ fetch:
         case 29: Execute("A = findoutput(A);"); A = findoutput(A); goto fetch;
         case 30: Execute("return A;"); return A;
         case 31: Execute("A = M[P];"); A = M[P]; goto fetch;
-        case 32: Execute("P = A;"); P = A; C = B; goto fetch;
+        case 32: Execute("P = A;C = 0x%X", B); P = A; C = B; goto fetch;
         case 33: Execute("endread();"); endread(); goto fetch;
         case 34: Execute("endwrite();"); endwrite(); goto fetch;
         case 35: Execute("D = P + B + 1;"
@@ -338,7 +331,7 @@ fetch:
                  "M[D + 2] = P;"
                  "M[D + 3] = B;"
                  "P = D;"
-                 "C = A;"); D = P + B + 1;
+                 "C = 0x%X;", A); D = P + B + 1;
                  M[D] = M[P];
                  M[D + 1] = M[P + 1];
                  M[D + 2] = P;
